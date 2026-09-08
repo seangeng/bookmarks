@@ -63,6 +63,11 @@ jobs:
           if git diff --cached --quiet; then
             echo "No crawl or index changes."
           else
-            git commit -m "chore: refresh crawl artifacts and search index"
+            # [skip ci]: this job already validated the seed and regenerated
+            # these artifacts deterministically, and the code was verified by
+            # CI on the commit that triggered it. Without the skip, every sync
+            # queues another CI run that needs manual approval, which leaves
+            # the PR permanently UNSTABLE.
+            git commit -m "chore: refresh crawl artifacts and search index [skip ci]"
             git push
           fi
