@@ -170,17 +170,25 @@ Every attempt is recorded with a status — `ok`, `empty`, `unsupported_type`, `
 of disappearing. Text extraction strips page chrome, picks the densest plausible content
 container, and keeps up to 5k characters of block-level text.
 
-The committed sample crawl covers 49 links: 43 archived, 2 PDFs skipped as non-HTML, 1 host
-returning 403, 1 dead domain, 1 page with no extractable text. That mix is deliberate — it
-exercises the failure paths.
+The committed crawl covers the library's 69 outbound links: 63 archived, 2 GitHub `/tree/` paths
+disallowed by `robots.txt`, 2 JavaScript-only pages with no extractable text, 1 dead domain, and
+1 returning 404. The last two are the dead URLs [`data/prune-stats.json`](data/prune-stats.json)
+already flagged, and they stay in the index with their status rather than disappearing.
 
 ### Unexpanded t.co links
 
 Whether the crawler has anything to work with depends entirely on the export including expanded
 URLs. Many X posts are "look at this" plus a link, and when the export leaves that link as a bare
 `t.co` shortener there is no destination to crawl, nothing to classify beyond a few words of
-text, and nothing to search. On a sample of the real export, only a third of posts carried an
-expanded URL while most of the rest carried an unexpanded `t.co`.
+text, and nothing to search. In this library that is the common case, not the exception:
+**123 of 196 bookmarks (63%) carry only an unexpanded `t.co`**, and 96% of posts contain at least
+one shortener somewhere in their text. It shows up in the output — every one of the 50
+`misc`-only bookmarks is one with no crawled link, so the classifier is not the limiting factor.
+
+Shorteners are also stripped from displayed post text, since an unexpanded `t.co` is unreadable
+and leads nowhere useful. Where that leaves a post with no text at all, the card falls back to
+the crawled page's summary, or says "Link-only post" outright. The raw text is untouched in the
+seed and the index; only rendering changes.
 
 Those shortener URLs are preserved on each bookmark as `short_urls`, kept out of
 `external_urls` because a shortener is a redirect rather than content. `npm run check:seed`
