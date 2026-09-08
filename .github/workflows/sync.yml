@@ -26,7 +26,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      # Two commits deep so the job can tell whether this push touched the seed.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - uses: actions/setup-node@v4
         with:
@@ -39,21 +42,47 @@ jobs:
       # every part has landed and matches the manifest; until then this is a
       # no-op that leaves the existing seed in place.
       - name: Assemble seed from parts
-        run: npm run seed:assemble -- --if-complete
+        id: assemble
+        run: |
+          npm run seed:assemble -- --if-complete
+          if git diff --quiet -- data/bookmarks-seed.json; then
+            echo "assembled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "assembled=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A chunked export lands one part per push, and re-crawling on each of
+      # those would commit a timestamp-only artifact refresh every time. Only
+      # continue when the seed actually changed — either assembled just now, or
+      # pushed directly in this commit.
+      - name: Decide whether to rebuild
+        id: decide
+        run: |
+          if [ "${{ steps.assemble.outputs.assembled }}" = "true" ] \
+            || [ "${{ github.event_name }}" = "workflow_dispatch" ] \
+            || ! git diff --quiet HEAD~1 HEAD -- data/bookmarks-seed.json 2>/dev/null; then
+            echo "rebuild=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "rebuild=false" >> "$GITHUB_OUTPUT"
+            echo "Seed unchanged — waiting for the remaining export parts."
+          fi
 
       # Stop before crawling if the export upload produced a placeholder or
       # otherwise unusable file, so the committed artifacts are never rebuilt
       # from a broken seed.
       - name: Validate seed
+        if: steps.decide.outputs.rebuild == 'true'
         run: npm run check:seed
 
       - name: Crawl external links
+        if: steps.decide.outputs.rebuild == 'true'
         run: npm run crawl -- --max-age=30 --retry-failed ${{ inputs.force_recrawl && '--force' || '' }}
         env:
           CRAWL_CONCURRENCY: "5"
           CRAWL_TIMEOUT_MS: "10000"
 
       - name: Rebuild search index
+        if: steps.decide.outputs.rebuild == 'true'
         run: npm run index
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -63,6 +92,7 @@ jobs:
           UPSTASH_VECTOR_REST_TOKEN: ${{ secrets.UPSTASH_VECTOR_REST_TOKEN }}
 
       - name: Commit artifacts
+        if: steps.decide.outputs.rebuild == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
