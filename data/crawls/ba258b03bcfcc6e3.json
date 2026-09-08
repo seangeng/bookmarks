@@ -1,0 +1,10 @@
+{
+  "key": "ba258b03bcfcc6e3",
+  "url": "https://namethatui.com/",
+  "fetched_at": "2026-09-08T03:50:22.762Z",
+  "http_status": 403,
+  "content_type": "text/html; charset=UTF-8",
+  "status": "http_error",
+  "error": "HTTP 403 Forbidden",
+  "duration_ms": 143
+}

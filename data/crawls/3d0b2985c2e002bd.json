@@ -1,0 +1,15 @@
+{
+  "key": "3d0b2985c2e002bd",
+  "url": "http://image.jakubantalik.com/",
+  "fetched_at": "2026-09-08T03:50:07.333Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "Image loader moved to a new home",
+  "description": "Image loader has moved to a new home: libraries.dev/image, accessible from one place together with the other libraries. The npm package is unchanged: img-fx.",
+  "site_name": "Image loader",
+  "byline": "Jakub Antalik",
+  "text": "Image loader moved to a new home\n\nImage loader has moved to a new home: libraries.dev to be accessible from one place together with other libraries.",
+  "word_count": 26,
+  "duration_ms": 5698
+}

@@ -1,0 +1,15 @@
+{
+  "key": "8118ee3e9db4a512",
+  "url": "https://github.com/superloglabs/superlog",
+  "fetched_at": "2026-09-08T03:50:18.199Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "GitHub - superloglabs/superlog: Open-source observability tool that uses AI agents to self-heal your software",
+  "description": "Open-source observability tool that uses AI agents to self-heal your software - superloglabs/superlog",
+  "site_name": "GitHub",
+  "byline": "superloglabs",
+  "text": "Website · Code · Skills · Helpers · Discord\n\nSuperlog is an open-source agentic telemetry system. It ingests traces, logs, and metrics, groups noisy signals into incidents, and watches your infra while you sleep.\n\nYou can install Superlog in your project by using our skills in your favourite coding agent:\n\nRun npx skills add superloglabs/skills --all and use the skills to install Superlog in this project\n\nSuperlog is an open-core observability workspace for OpenTelemetry data. It ingests traces, logs, and metrics, groups noisy signals into incidents, and gives teams a local-first product surface for debugging production systems.\n\nThis repository contains the fully open-source, free community edition:\n\nWorker processes for incident grouping and background jobs\n\nPostgres schema and ClickHouse-backed telemetry queries\n\nAgent runner interfaces for pluggable investigation runtimes\n\nA default community agent runner that records a local incident summary\n\nWe also provide a hosted Superlog Cloud edition with a free tier, a pay-to-go plan and monthly credit packs.\n\ndocker compose up -d pnpm --filter @superlog/db db:migrate pnpm dev\n\nThe default local services are:\n\nWeb: http://localhost:5173\n\nAPI: http://localhost:4100\n\nOTLP intake: http://localhost:4101\n\napps/web - Vite/React frontend\n\napps/proxy - OTLP intake proxy\n\napps/worker - background workers and agent orchestration\n\npackages/db - Drizzle schema and migrations\n\npackages/fingerprint - telemetry fingerprinting helpers\n\nSuperlog is licensed under the Apache License 2.0.",
+  "word_count": 214,
+  "duration_ms": 3816
+}

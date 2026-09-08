@@ -1,0 +1,14 @@
+{
+  "key": "f74f982bfc55c936",
+  "url": "https://cells2pixels.github.io/",
+  "fetched_at": "2026-09-08T03:50:09.826Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "Neural Cellular Automata: From Cells to Pixels",
+  "description": "Explore interactive demos of a self-organizing pattern formation model that combines Neural Cellular Automata with Neural Fields.",
+  "site_name": "cells2pixels.github.io",
+  "text": "Neural Cellular Automata (NCAs) are bio-inspired dynamical systems in which identical cells iteratively apply a learned local update rule to self-organize into complex patterns, exhibiting regeneration, robustness, and spontaneous dynamics. Despite their success in texture synthesis and morphogenesis, NCAs remain largely confined to low-resolution outputs. This limitation stems from (1) training time and memory requirements that grow quadratically with grid size, (2) the strictly local propagation of information that impedes long-range cell communication, and (3) the heavy compute demands of real-time inference at high resolution. In this work, we overcome this limitation by pairing an NCA that evolves on a coarse grid with a lightweight implicit decoder that maps cell states and local coordinates to appearance attributes, enabling the same model to render outputs at arbitrary resolution. Moreover, because both the decoder and NCA updates are local, inference remains highly parallelizable. To supervise high-resolution outputs efficiently, we introduce task-specific losses for morphogenesis (growth from a seed) and texture synthesis with minimal additional memory and computation overhead. Our experiments across 2D/3D grids and mesh domains demonstrate that our hybrid models produce high-resolution outputs in real-time, and preserve the characteristic self-organizing behavior of NCAs.",
+  "word_count": 192,
+  "duration_ms": 3277
+}

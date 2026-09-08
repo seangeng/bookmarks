@@ -1,0 +1,14 @@
+{
+  "key": "6f4c704e00589e21",
+  "url": "https://herdr.dev/",
+  "fetched_at": "2026-09-08T03:50:20.959Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "Herdr: the runtime coding agents run on",
+  "description": "Run them anywhere. Leave them running. Herdr holds real terminals open so your agents keep working when you close the laptop, and gets you back in from any tty.",
+  "site_name": "Herdr",
+  "text": "Three workspaces, four agents, two of them mid-task. Nobody is attached to any of it right now.\n\nHerdr isn't an app you keep open. It's a server running in the background, and the terminals live inside it. Close the lid or drop the network and the agents keep working; restart the machine and Herdr brings the layout back and resumes their sessions.\n\nYou never hunt for the stuck one. →\n\nHerdr reads every pane and marks each agent working, blocked or idle. When one stops and needs an answer it says so, so you don't go pane by pane looking for whoever is waiting on you.\n\nThe CLI and the socket API are the same surface agents drive. They split panes, start each other, prompt each other, and wait until another agent is genuinely blocked instead of firing keystrokes and hoping.\n\nRuns what you already run. →\n\nClaude Code, Codex, Cursor, opencode, Grok and the rest. Herdr doesn't wrap them or replace them, it just owns their terminals — one binary for macOS, Linux, and Windows.\n\nAll your machines. One Herdr. →\n\nYour laptop, the desktop upstairs, a server you rent. Add them over SSH and their workspaces and agents sit alongside your local ones. Switch machines without opening another client. Disconnect and they keep working.\n\nSame machines. No SSH setup.\n\nConnect your own machines to Herdr without configuring SSH. We're building it next.\n\nGive them somewhere to live.\n\nOne command, and nothing else about your setup changes — the agent CLIs you already run keep working exactly as they did, except now they don't stop when you do.",
+  "word_count": 269,
+  "duration_ms": 196
+}

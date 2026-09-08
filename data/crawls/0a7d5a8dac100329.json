@@ -1,0 +1,14 @@
+{
+  "key": "0a7d5a8dac100329",
+  "url": "https://terminal-code.com/",
+  "fetched_at": "2026-09-08T03:50:23.791Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "terminal-code",
+  "description": "VS Code inside your terminal.",
+  "site_name": "terminal-code.com",
+  "text": "VS Code inside your terminal\n\nterminal-code combines code-server (VS Code in the browser) and terminal-browser (a browser in the terminal) to bring VS Code to the terminal. You should look into these projects for more details!\n\nterminal-code is also open source if you want to learn more.",
+  "word_count": 47,
+  "duration_ms": 270
+}

@@ -1,0 +1,16 @@
+{
+  "key": "8f061baee69de5cd",
+  "url": "https://rareui.com/",
+  "fetched_at": "2026-09-08T03:50:23.450Z",
+  "final_url": "https://www.rareui.com/",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "Rare UI — Rare Animated React Components",
+  "description": "Rare UI (RareUI) is a free, open-source registry of rare animated React components. Built with Tailwind CSS, Motion and the shadcn CLI — copy, paste, and own the code.",
+  "site_name": "Rare UI",
+  "byline": "Swami Malode",
+  "text": "Tasteful Components, Made to Stand Out.\n\nRare UI is a free, open-source collection of rare animated React components. Browse them in action below and install any component with the shadcn CLI.\n\nRare UI is backed and supported by the finest",
+  "word_count": 40,
+  "duration_ms": 465
+}

@@ -1,0 +1,15 @@
+{
+  "key": "60872f7499e5bc82",
+  "url": "https://github.com/browser-use/browser-harness",
+  "fetched_at": "2026-09-08T03:50:15.220Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "GitHub - browser-use/browser-harness: Browser Harness | Self-healing harness that enables LLMs to complete any task.",
+  "description": "Browser Harness | Self-healing harness that enables LLMs to complete any task. - browser-use/browser-harness",
+  "site_name": "GitHub",
+  "byline": "browser-use",
+  "text": "Connect an LLM directly to your real browser through one editable CDP websocket. The agent writes missing helpers as it works, so the harness improves with every task.\n\nTry browser-harness in Browser Use Cloud or paste the setup prompt into your coding agent.\n\n● agent: wants to upload a file │ ● agent-workspace/agent_helpers.py → helper missing │ ● agent writes it agent_helpers.py │ + custom helper ✓ file uploaded\n\nYou will never use the browser again.\n\nTask: \"Open my X profile, find my latest 20 video posts, and download them.\"\n\nPaste into Claude Code or Codex:\n\nInstall or upgrade browser-harness to the latest stable version with uv using Python 3.12, register the skill from `browser-harness skill`, and connect it to my browser. Ask whether I want local browser recordings enabled; default to no and preserve my existing preference on upgrades. Follow https://github.com/browser-use/browser-harness/blob/main/install.md if setup or connection fails.\n\nThe agent will open chrome://inspect/#remote-debugging. On first setup, tick the checkbox so the agent can connect to your browser:\n\ninstall.md connects the agent to your browser.\n\nSKILL.md teaches it the browser workflow.\n\nsrc/browser_harness/ stays protected while the agent writes reusable helpers in its local workspace.\n\nScale with Browser Use Cloud\n\nUse your local browser for logged-in, personal work. When you want many browsers in parallel—with live previews, proxies, stealth, CAPTCHA solving, and more—scale with Browser Use Cloud.\n\nbrowser-harness-mcp exposes the browser control helpers as MCP tools over stdio, so any MCP client (Claude Code, Devin, Cursor, etc.) can drive the browser without writing a second CDP layer. See docs/MCP.md for setup and client configuration.\n\nBug fixes, documentation improvements, and agent-generated domain skills are welcome. See CONTRIBUTING.md.\n\nThe Bitter Lesson of Agent Harnesses · Web Agents That Actually Learn",
+  "word_count": 285,
+  "duration_ms": 2306
+}

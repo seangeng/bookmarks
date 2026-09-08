@@ -1,0 +1,13 @@
+{
+  "key": "845da6df4d516e58",
+  "url": "https://tools.simonwillison.net/llm-cliche-highlighter",
+  "fetched_at": "2026-09-08T03:50:23.856Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "LLM cliché highlighter",
+  "site_name": "tools.simonwillison.net",
+  "text": "Paste text below — or load it from a URL — and it highlights sentences that match known LLM clichés, including the tells catalogued in Wikipedia’s Signs of AI writing guide. Chain patterns like “no X, no Y” get a badge counting their items; tap or hover a highlight to see which cliché it hit.\n\nPaste some text above — analysis runs as you type.",
+  "word_count": 65,
+  "duration_ms": 292
+}

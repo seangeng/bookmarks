@@ -1,0 +1,15 @@
+{
+  "key": "2693ce7b25024f14",
+  "url": "https://danny.md/",
+  "fetched_at": "2026-09-08T03:50:13.031Z",
+  "final_url": "https://www.danny.md/",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "danny.md — files for agents",
+  "description": "Free markdown for agents. Prompts, skills, and files I use.",
+  "site_name": "danny.md",
+  "text": "Free markdown for agents.\n\nPrompts, skills, and files I use. Take what you want.\n\nskill explore-design — Generate a single self-contained HTML file showing 3–6 distinct visual directions for a UI section …\n\nskill screenshot — Captures a screenshot of any rendered web page by loading it in headless Chrome — the whole page, a …\n\nI'm Danny Postma. I build AI products like HeadshotPro. This is where I share the markdown my agents run on.\n\nlicensed cc by-nc 4.0 — use it, remix it, don't sell it",
+  "word_count": 88,
+  "duration_ms": 971
+}

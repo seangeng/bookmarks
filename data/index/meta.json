@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-08T03:47:38.831Z",
-  "bookmark_count": 50,
-  "crawled_link_count": 43,
+  "generated_at": "2026-09-08T03:50:26.213Z",
+  "bookmark_count": 196,
+  "crawled_link_count": 62,
   "embedding": {
     "provider": "local",
     "model": "hashed-ngram-v1",
@@ -12,31 +12,31 @@
   "topics": [
     {
       "slug": "ai-ml",
-      "count": 14
+      "count": 78
     },
     {
       "slug": "ui-design",
-      "count": 8
+      "count": 67
     },
     {
       "slug": "devtools",
-      "count": 8
+      "count": 33
     },
     {
       "slug": "infra",
-      "count": 8
+      "count": 19
     },
     {
       "slug": "crypto",
-      "count": 5
-    },
-    {
-      "slug": "reading",
       "count": 7
     },
     {
+      "slug": "reading",
+      "count": 13
+    },
+    {
       "slug": "misc",
-      "count": 4
+      "count": 50
     }
   ]
 }
