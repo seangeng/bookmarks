@@ -3,7 +3,7 @@ import "server-only";
 import vectorsJson from "../../data/index/vectors.json";
 import { resolveEmbeddingProvider } from "./embeddings";
 import { bookmarks, indexMeta } from "./library";
-import { snippetFor, terms } from "./text";
+import { snippetFor, stripShortenerUrls, terms } from "./text";
 import type { IndexedBookmark, StoredVectors } from "./types";
 import {
   createLocalVectorStore,
@@ -282,14 +282,16 @@ function bestSnippet(bookmark: IndexedBookmark, query: string): {
   matchedIn: SearchResult["matchedIn"];
 } {
   const queryTerms = new Set(terms(query));
+  // Snippets are display text, so unexpanded shorteners are stripped the same
+  // way they are in cards — otherwise a result reads as a wall of t.co URLs.
   const candidates: { text: string; source: SearchResult["matchedIn"] }[] = [
-    { text: bookmark.text, source: "post" },
+    { text: stripShortenerUrls(bookmark.text), source: "post" },
   ];
   for (const link of bookmark.links) {
     const crawl = link.crawl;
     if (!crawl) continue;
     const text = [crawl.title, crawl.description, crawl.excerpt].filter(Boolean).join(" — ");
-    if (text) candidates.push({ text, source: "link" });
+    if (text) candidates.push({ text: stripShortenerUrls(text), source: "link" });
   }
 
   let best = { snippet: bookmark.summary, matchedIn: "semantic" as SearchResult["matchedIn"] };
@@ -306,7 +308,7 @@ function bestSnippet(bookmark: IndexedBookmark, query: string): {
       queryTerms.has(topic.replace(/-/g, " ").split(" ")[0]),
     );
     return {
-      snippet: snippetFor(bookmark.text || bookmark.summary, query),
+      snippet: snippetFor(stripShortenerUrls(bookmark.text) || bookmark.summary, query),
       matchedIn: topicHit ? "topic" : "semantic",
     };
   }
