@@ -1,4 +1,4 @@
-# bookmarks
+# Bookmarks
 
 Searchable personal library of Sean Geng's X bookmarks — crawled, topic-grouped, vector-indexed.
 Live at **[bookmarks.seangeng.com](https://bookmarks.seangeng.com)**.
@@ -77,7 +77,12 @@ call for the search query itself — and with the local provider even that is in
 
 ## Data model
 
-A bookmark, as stored in `data/bookmarks-seed.json` ([`src/lib/types.ts`](src/lib/types.ts)):
+The seed is [`data/bookmarks-seed.json`](data/bookmarks-seed.json) — the real bookmarks of
+[@seangeng](https://x.com/seangeng). [`data/prune-stats.json`](data/prune-stats.json) is the
+upstream link-prune report that produced it: which outbound links were probed, which were kept,
+and which were already dead before this repo ever crawled them.
+
+A bookmark, as stored in the seed ([`src/lib/types.ts`](src/lib/types.ts)):
 
 | Field | Type | Notes |
 | --- | --- | --- |
@@ -333,6 +338,7 @@ controls the `seangeng.com` zone.
 ```
 data/
   bookmarks-seed.json     source of truth — replace with a fresh X export
+  prune-stats.json        upstream link-prune report for the current seed
   crawls/                 one JSON artifact per unique URL + index.json rollup
   index/                  generated read model: bookmarks.json, vectors.json, meta.json
 scripts/

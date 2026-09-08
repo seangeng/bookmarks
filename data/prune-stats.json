@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-09-06T17:51:26.921965Z",
+  "probed": 72,
+  "keep": 69,
+  "dead": 3,
+  "prune_irrelevant": 0,
+  "new_externals_from_threads": 0,
+  "x_spend_estimate_usd": 0.61,
+  "dead_urls": [
+    "https://3pxgrid.com/",
+    "https://www.figma.com/design/1RjQY50dy7t9SucZtAIb1p/Super-Visuals--Backgrounds-Library",
+    "https://www.jckhlry.com/logo-prompt"
+  ]
+}
