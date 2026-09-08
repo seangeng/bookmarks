@@ -44,6 +44,24 @@ test("normalizeBookmark reads X API v2 field names", () => {
   assert.equal(result.url, "https://x.com/ada/status/1799", "post URL derived when absent");
 });
 
+test("normalizeBookmark reads the flat export field names", () => {
+  const result = normalizeBookmark({
+    id: "42",
+    text: "flat shape",
+    author_username: "seangeng",
+    author_name: "Sean Geng",
+    post_url: "https://x.com/seangeng/status/42",
+    created_at: "2026-03-04T05:06:07Z",
+    external_urls: ["https://example.com/a"],
+  });
+
+  assert.ok(result);
+  assert.equal(result.author.handle, "seangeng");
+  assert.equal(result.author.name, "Sean Geng");
+  assert.equal(result.url, "https://x.com/seangeng/status/42");
+  assert.deepEqual(result.external_urls, ["https://example.com/a"]);
+});
+
 test("normalizeExport de-duplicates, sorts newest first, and counts junk", () => {
   const make = (id: string, created: string) => ({
     id,

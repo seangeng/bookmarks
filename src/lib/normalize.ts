@@ -44,15 +44,23 @@ function extractAuthor(record: Loose): { name: string; handle: string; avatar_ur
   const nested = (record.author ?? record.user ?? record.core ?? {}) as Loose;
   const handle =
     pick(nested, "handle", "screen_name", "username", "screenName") ??
-    pick(record, "author_handle", "username", "screen_name") ??
+    pick(
+      record,
+      "author_username",
+      "author_handle",
+      "author_screen_name",
+      "handle",
+      "username",
+      "screen_name",
+    ) ??
     "unknown";
   const name =
     pick(nested, "name", "display_name", "displayName") ??
-    pick(record, "author_name", "name") ??
+    pick(record, "author_name", "author_display_name", "name") ??
     handle;
   const avatar =
     pick(nested, "avatar_url", "profile_image_url", "profile_image_url_https") ??
-    pick(record, "avatar_url");
+    pick(record, "author_avatar_url", "avatar_url", "profile_image_url");
   return {
     name,
     handle: handle.replace(/^@/, ""),
