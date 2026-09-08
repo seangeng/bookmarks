@@ -25,8 +25,14 @@ export const BookmarkSchema = z.object({
   created_at: z.string(),
   /** ISO 8601 timestamp of when it was bookmarked, when the export provides it. */
   bookmarked_at: z.string().optional(),
-  /** Outbound links found in the post (already unwrapped from t.co when possible). */
+  /** Outbound links found in the post, already expanded by the export. */
   external_urls: z.array(z.string()).default([]),
+  /**
+   * Link-shortener URLs (t.co, bit.ly, …) the export did not expand. Kept
+   * separate because a shortener is not itself crawlable content, and t.co's
+   * robots.txt disallows everyone but Twitterbot — resolving these is opt-in.
+   */
+  short_urls: z.array(z.string()).default([]),
   /** Topics from the export. The index script treats these as authoritative hints. */
   topics: z.array(z.string()).default([]),
   media: z
@@ -85,6 +91,8 @@ export type CrawlRecord = z.infer<typeof CrawlRecordSchema>;
 export type BookmarkLink = {
   url: string;
   domain: string;
+  /** The shortener this link was resolved from, when it came via one. */
+  via?: string;
   crawl?: {
     status: CrawlStatus;
     http_status?: number;

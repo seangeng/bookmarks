@@ -12,6 +12,7 @@
     "external_urls": [
       "https://arxiv.org/abs/1706.03762"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -59,6 +60,7 @@
     "external_urls": [
       "https://lilianweng.github.io/posts/2023-06-23-agent"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -108,6 +110,7 @@
     "external_urls": [
       "https://karpathy.github.io/2015/05/21/rnn-effectiveness"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -157,6 +160,7 @@
     "external_urls": [
       "https://jalammar.github.io/illustrated-transformer"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -206,6 +210,7 @@
     "external_urls": [
       "https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -254,6 +259,7 @@
     "external_urls": [
       "https://distill.pub/2016/misread-tsne"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -301,6 +307,7 @@
     "external_urls": [
       "https://simonwillison.net/2023/Aug/27/wordcamp-llms"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml",
       "reading"
@@ -350,6 +357,7 @@
     "external_urls": [
       "https://huggingface.co/blog/evaluating-mmlu-leaderboard"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -397,6 +405,7 @@
     "external_urls": [
       "https://pytorch.org/blog"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -445,6 +454,7 @@
     "url": "https://x.com/seangeng/status/1953004411440000010",
     "created_at": "2026-08-02T04:44:00.000Z",
     "external_urls": [],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -477,6 +487,7 @@
     "external_urls": [
       "https://platform.openai.com/docs/guides/embeddings"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],
@@ -489,7 +500,7 @@
     "links": [
       {
         "url": "https://platform.openai.com/docs/guides/embeddings",
-        "domain": "platform.openai.com",
+        "domain": "developers.openai.com",
         "crawl": {
           "status": "ok",
           "http_status": 200,
@@ -503,7 +514,7 @@
       }
     ],
     "summary": "Cosine vs dot product for embeddings, and when normalization actually changes your rankings. Bookmarking because I re-derive this every six months.",
-    "search_text": "Cosine vs dot product for embeddings, and when normalization actually changes your rankings. Bookmarking because I re-derive this every six months.\n@vectorpilled Ivy Chaudhry\nplatform.openai.com\nVector embeddings | OpenAI API\nLearn how to turn text into numbers, unlocking use cases like search, clustering, and more with OpenAI API embeddings.\nOpenAI’s text embeddings measure the relatedness of text strings. Embeddings are commonly used for:\n\nSearch (where results are ranked by relevance to a query string)\n\nClustering (where text strings are grouped by similarity)\n\nRecommendations (where items with related text strings are recommended)\n\nAnomaly detection (where outliers with little relatedness are identified)\n\nDiversity measurement (where similarity distributions are analyzed)\n\nClassification (where text strings are classified by their most similar label)\n\nAn embedding is a vector (list) of floating point numbers. The distance between two vectors measures their relatedness. Small distances suggest high relatedness and large distances suggest low relatedness.\n\nVisit our pricing page to learn about embeddings pricing. Requests are billed based on the number of tokens in the input.\n\nTo get an embedding, send your text string to the embeddings API endpoint along with the embedding model name (e.g., text-embedding-3-small):\n\nimport OpenAI from \"openai\"; const openai = new OpenAI(); const embedding = await openai.embeddings.create({ model: \"text-embedding-3-small\", input: \"Your text string goes here\", encoding_format: \"float\", }); console.log(embedding);\n\nfrom openai import OpenAI client = OpenAI() response = client.embeddings.create( input=\"Your text string goes here\", model=\"text-embedding-3-small\" ) print(response.data[0].embedding)\n\npackage main import ( \"context\" \"fmt\" \"github.com/openai/openai-go/v3\" ) func main() { client := openai.NewClient() embedding, err := client.Embeddings.New(context.Background(), openai.EmbeddingNewParams{ Model: openai.EmbeddingModelTextEmbedding3Small, Input: openai.EmbeddingNewParamsInputUnion{ OfString: openai.String(\"Your text string goes here.\"), }, }) if err != nil { panic(err) } fmt.Println(len(embedding.Data[0].Embedding)) }\n\nimport com.openai.client.OpenAIClient; import com.openai.client.okhttp.OpenAIOkHttpClient; import com.openai.models.embeddings.EmbeddingCreateParams; var embedding = client .embeddings() .create( EmbeddingCreateParams.builder() .model(\"text-embedding-3-small\") .input(\"The food was delicious and the waiter...\") .build()); System.out.println(embedding.data().get(0).embedding());\n\nusing OpenAI.Embeddings; string key = Environment.GetEnvironmentVariable(\"OPENAI_API_KEY\")!; string model = \"text-embedding-3-small\"; EmbeddingClient client = new(model, key); OpenAIEmbedding embedding = await client.GenerateEmbeddingAsync( \"The food was delicious and the waiter was friendly.\" ); Console.WriteLine($\"Dimensions: {embedding.ToFloats().Length}\");\n\nrequire \"openai\" client = OpenAI::Client.new response = client.embeddings.create( model: \"text-embedding-3-small\", input: \"The food was delicious and the waiter...\" ) puts(response.data.fetch(0).embedding)\n\ncurl https://api.openai.com/v1/embeddings \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer $OPENAI_API_KEY\" \\ -d '{ \"input\": \"Your text string goes here\", \"model\": \"text-embedding-3-small\" }'\n\nThe response contains the embedding vector (list of floating point numbers) along with some additional metadata. You can extract the embedding vector, save it in a vector database, and use for many different use cases.\n\n{ \"object\": \"list\", \"data\": [ { \"object\": \"embedding\", \"index\": 0, \"embedding\": [ -0.006929283495992422, -0.005336422007530928, -4.547132266452536e-5, -0.024047505110502243 ] } ], \"model\": \"text-embedding-3-small\", \"usage\": { \"prompt_tokens\": 5, \"total_tokens\": 5 } }\n\nBy default, the length of the embedding vector is 1536 for text-embedding-3-small or 3072 for text-embedding-3-large. To reduce the embedding’s dimensions without losing its concept-representing properties, pass in the dimensions parameter. Find more detail on embedding dimensions in the embedding use case section.\n\nOpenAI offers two powerful third-generation embedding model (denoted by -3 in the model ID). Read the embedding v3 announcement blog post for more details.\n\nUsage is priced per input token. Below is an example of pricing pages of text per US dollar (assuming ~800 tokens per page):\n\nHere we show some representative use cases, using the Amazon fine-food reviews dataset.\n\nObtaining the embeddings\n\nThe dataset contains a total of 568,454 food reviews left by Amazon users up to October 2012. We use a subset of the 1000 most recent reviews for illustration purposes. The reviews are in English and tend to be positive or negative. Each review has a ProductId, UserId, Score, review title (Summary) and review body (Text). For example:\n\nI have bought several of the Vitality canned…\n\nProduct arrived labeled as Jumbo Salted Peanut…\n\nBelow, we combine the review summary and review text into a single combined text. The model encodes this combined text and output a single vector embedding.\n\nimport { mkdir, writeFile } from \"node:fs/promises\"; import OpenAI from \"openai\"; const client = new OpenAI(); const reviews = [\"A rich cup of coffee.\", \"A bright herbal tea.\"]; const resp\nai ml",
+    "search_text": "Cosine vs dot product for embeddings, and when normalization actually changes your rankings. Bookmarking because I re-derive this every six months.\n@vectorpilled Ivy Chaudhry\ndevelopers.openai.com\nVector embeddings | OpenAI API\nLearn how to turn text into numbers, unlocking use cases like search, clustering, and more with OpenAI API embeddings.\nOpenAI’s text embeddings measure the relatedness of text strings. Embeddings are commonly used for:\n\nSearch (where results are ranked by relevance to a query string)\n\nClustering (where text strings are grouped by similarity)\n\nRecommendations (where items with related text strings are recommended)\n\nAnomaly detection (where outliers with little relatedness are identified)\n\nDiversity measurement (where similarity distributions are analyzed)\n\nClassification (where text strings are classified by their most similar label)\n\nAn embedding is a vector (list) of floating point numbers. The distance between two vectors measures their relatedness. Small distances suggest high relatedness and large distances suggest low relatedness.\n\nVisit our pricing page to learn about embeddings pricing. Requests are billed based on the number of tokens in the input.\n\nTo get an embedding, send your text string to the embeddings API endpoint along with the embedding model name (e.g., text-embedding-3-small):\n\nimport OpenAI from \"openai\"; const openai = new OpenAI(); const embedding = await openai.embeddings.create({ model: \"text-embedding-3-small\", input: \"Your text string goes here\", encoding_format: \"float\", }); console.log(embedding);\n\nfrom openai import OpenAI client = OpenAI() response = client.embeddings.create( input=\"Your text string goes here\", model=\"text-embedding-3-small\" ) print(response.data[0].embedding)\n\npackage main import ( \"context\" \"fmt\" \"github.com/openai/openai-go/v3\" ) func main() { client := openai.NewClient() embedding, err := client.Embeddings.New(context.Background(), openai.EmbeddingNewParams{ Model: openai.EmbeddingModelTextEmbedding3Small, Input: openai.EmbeddingNewParamsInputUnion{ OfString: openai.String(\"Your text string goes here.\"), }, }) if err != nil { panic(err) } fmt.Println(len(embedding.Data[0].Embedding)) }\n\nimport com.openai.client.OpenAIClient; import com.openai.client.okhttp.OpenAIOkHttpClient; import com.openai.models.embeddings.EmbeddingCreateParams; var embedding = client .embeddings() .create( EmbeddingCreateParams.builder() .model(\"text-embedding-3-small\") .input(\"The food was delicious and the waiter...\") .build()); System.out.println(embedding.data().get(0).embedding());\n\nusing OpenAI.Embeddings; string key = Environment.GetEnvironmentVariable(\"OPENAI_API_KEY\")!; string model = \"text-embedding-3-small\"; EmbeddingClient client = new(model, key); OpenAIEmbedding embedding = await client.GenerateEmbeddingAsync( \"The food was delicious and the waiter was friendly.\" ); Console.WriteLine($\"Dimensions: {embedding.ToFloats().Length}\");\n\nrequire \"openai\" client = OpenAI::Client.new response = client.embeddings.create( model: \"text-embedding-3-small\", input: \"The food was delicious and the waiter...\" ) puts(response.data.fetch(0).embedding)\n\ncurl https://api.openai.com/v1/embeddings \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer $OPENAI_API_KEY\" \\ -d '{ \"input\": \"Your text string goes here\", \"model\": \"text-embedding-3-small\" }'\n\nThe response contains the embedding vector (list of floating point numbers) along with some additional metadata. You can extract the embedding vector, save it in a vector database, and use for many different use cases.\n\n{ \"object\": \"list\", \"data\": [ { \"object\": \"embedding\", \"index\": 0, \"embedding\": [ -0.006929283495992422, -0.005336422007530928, -4.547132266452536e-5, -0.024047505110502243 ] } ], \"model\": \"text-embedding-3-small\", \"usage\": { \"prompt_tokens\": 5, \"total_tokens\": 5 } }\n\nBy default, the length of the embedding vector is 1536 for text-embedding-3-small or 3072 for text-embedding-3-large. To reduce the embedding’s dimensions without losing its concept-representing properties, pass in the dimensions parameter. Find more detail on embedding dimensions in the embedding use case section.\n\nOpenAI offers two powerful third-generation embedding model (denoted by -3 in the model ID). Read the embedding v3 announcement blog post for more details.\n\nUsage is priced per input token. Below is an example of pricing pages of text per US dollar (assuming ~800 tokens per page):\n\nHere we show some representative use cases, using the Amazon fine-food reviews dataset.\n\nObtaining the embeddings\n\nThe dataset contains a total of 568,454 food reviews left by Amazon users up to October 2012. We use a subset of the 1000 most recent reviews for illustration purposes. The reviews are in English and tend to be positive or negative. Each review has a ProductId, UserId, Score, review title (Summary) and review body (Text). For example:\n\nI have bought several of the Vitality canned…\n\nProduct arrived labeled as Jumbo Salted Peanut…\n\nBelow, we combine the review summary and review text into a single combined text. The model encodes this combined text and output a single vector embedding.\n\nimport { mkdir, writeFile } from \"node:fs/promises\"; import OpenAI from \"openai\"; const client = new OpenAI(); const reviews = [\"A rich cup of coffee.\", \"A bright herbal tea.\"]; const resp\nai ml",
     "related": [
       "1909004466880000050",
       "1950118833770000013",
@@ -526,6 +537,7 @@
     "external_urls": [
       "https://nngroup.com/articles/ten-usability-heuristics"
     ],
+    "short_urls": [],
     "topics": [
       "ui-design"
     ],
@@ -556,10 +568,10 @@
     "related": [
       "1961205511220000002",
       "1949005566880000014",
+      "1945661188220000017",
       "1934551022330000027",
       "1937882200990000024",
-      "1950118833770000013",
-      "1909004466880000050"
+      "1950118833770000013"
     ],
     "crawled_words": 759
   },
@@ -575,6 +587,7 @@
     "external_urls": [
       "https://tailwindcss.com/docs/styling-with-utility-classes"
     ],
+    "short_urls": [],
     "topics": [
       "ui-design"
     ],
@@ -601,8 +614,8 @@
     "summary": "The utility-first mental model finally clicked for me reading this page rather than any of the hot takes about it.",
     "search_text": "The utility-first mental model finally clicked for me reading this page rather than any of the hot takes about it.\n@utilityfirst Rafa Okonkwo\ntailwindcss.com\nStyling with utility classes - Core concepts\nBuilding complex components from a constrained set of primitive utilities.\nYou style things with Tailwind by combining many single-purpose presentational classes (utility classes) directly in your markup:\n\n<div class=\"mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10\"> <img class=\"size-12 shrink-0\" src=\"/img/logo.svg\" alt=\"ChitChat Logo\" /> <div> <div class=\"text-xl font-medium text-black dark:text-white\">ChitChat</div> <p class=\"text-gray-500 dark:text-gray-400\">You have a new message!</p> </div></div>\n\nFor example, in the UI above we've used:\n\nThe display and padding utilities (flex, shrink-0, and p-6) to control the overall layout\n\nThe max-width and margin utilities (max-w-sm and mx-auto) to constrain the card width and center it horizontally\n\nThe background-color, border-radius, and box-shadow utilities (bg-white, rounded-xl, and shadow-lg) to style the card's appearance\n\nThe width and height utilities (size-12) to set the width and height of the logo image\n\nThe gap utilities (gap-x-4) to handle the spacing between the logo and the text\n\nThe font-size, color, and font-weight utilities (text-xl, text-black, font-medium, etc.) to style the card text\n\nStyling things this way contradicts a lot of traditional best practices, but once you try it you'll quickly notice some really important benefits:\n\nYou get things done faster — you don't spend any time coming up with class names, making decisions about selectors, or switching between HTML and CSS files, so your designs come together very fast.\n\nMaking changes feels safer — adding or removing a utility class to an element only ever affects that element, so you never have to worry about accidentally breaking something another page that's using the same CSS.\n\nMaintaining old projects is easier — changing something just means finding that element in your project and changing the classes, not trying to remember how all of that custom CSS works that you haven't touched in six months.\n\nYour code is more portable — since both the structure and styling live in the same place, you can easily copy and paste entire chunks of UI around, even between different projects.\n\nYour CSS stops growing — since utility classes are so reusable, your CSS doesn't continue to grow linearly with every new feature you add to a project.\n\nThese benefits make a big difference on small projects, but they are even more valuable for teams working on long-running projects at scale.\n\nWhy not just use inline styles?\n\nA common reaction to this approach is wondering, “isn’t this just inline styles?” and in some ways it is — you’re applying styles directly to elements instead of assigning them a class name and then styling that class.\n\nBut using utility classes has many important advantages over inline styles, for example:\n\nDesigning with constraints — using inline styles, every value is a magic number. With utilities, you’re choosing styles from a predefined design system, which makes it much easier to build visually consistent UIs.\n\nHover, focus, and other states — inline styles can’t target states like hover or focus, but Tailwind’s state variants make it easy to style those states with utility classes.\n\nMedia queries — you can’t use media queries in inline styles, but you can use Tailwind’s responsive variants to build fully responsive interfaces easily.\n\nThis component is fully responsive and includes a button with hover and active styles, and is built entirely with utility classes:\n\n<div class=\"flex flex-col gap-2 p-8 sm:flex-row sm:items-center sm:gap-6 sm:py-4 ...\"> <img class=\"mx-auto block h-24 rounded-full sm:mx-0 sm:shrink-0\" src=\"/img/erin-lindford.jpg\" alt=\"\" /> <div class=\"space-y-2 text-center sm:text-left\"> <div class=\"space-y-0.5\"> <p class=\"text-lg font-semibold text-black\">Erin Lindford</p> <p class=\"font-medium text-gray-500\">Product Engineer</p> </div> <button class=\"border-purple-200 text-purple-600 hover:border-transparent hover:bg-purple-600 hover:text-white active:bg-purple-700 ...\"> Message </button> </div></div>\n\nThinking in utility classes\n\nStyling hover and focus states\n\nTo style an element on states like hover or focus, prefix any utility with the state you want to target, for example hover:bg-sky-700:\n\nHover over this button to see the background color change\n\n<button class=\"bg-sky-500 hover:bg-sky-700 ...\">Save changes</button>\n\nThese prefixes are called variants in Tailwind, and they only apply the styles from a utility class when the condition for that variant matches.\n\nHere's what the generated CSS looks like for the hover:bg-sky-700 class:\n\n.hover\\:bg-sky-700 { &:hover { background-color: var(--color-sky-700); }}\n\nNotice how this class does nothing unless the element is hovered? Its only job is to provide hover styles — nothing else.\n\nThis is different from how you'd write traditional CSS, where a single class would usually provide the styles for many states:\n\n<button class=\"btn\">Save changes</button><style>\nui design",
     "related": [
-      "1912331100550000047",
       "1952661177550000011",
+      "1912331100550000047",
       "1951220099660000012",
       "1947881122990000015",
       "1915662088220000044",
@@ -622,6 +635,7 @@
     "external_urls": [
       "https://ui.shadcn.com/docs"
     ],
+    "short_urls": [],
     "topics": [
       "ui-design"
     ],
@@ -671,6 +685,7 @@
     "external_urls": [
       "https://css-tricks.com/snippets/css/a-guide-to-flexbox"
     ],
+    "short_urls": [],
     "topics": [
       "ui-design"
     ],
@@ -720,6 +735,7 @@
     "external_urls": [
       "https://inclusive-components.design/"
     ],
+    "short_urls": [],
     "topics": [
       "ui-design"
     ],
@@ -768,6 +784,7 @@
     "external_urls": [
       "https://type-scale.com/"
     ],
+    "short_urls": [],
     "topics": [
       "ui-design"
     ],
@@ -779,7 +796,7 @@
     "links": [
       {
         "url": "https://type-scale.com/",
-        "domain": "type-scale.com",
+        "domain": "typescale.com",
         "crawl": {
           "status": "empty",
           "http_status": 200,
@@ -793,14 +810,14 @@
       }
     ],
     "summary": "Pick a type scale before you pick a color palette. This tool makes the tradeoff obvious in about ten seconds.",
-    "search_text": "Pick a type scale before you pick a color palette. This tool makes the tradeoff obvious in about ten seconds.\n@typeandspace Ana Beltrán\ntype-scale.com\nTypescale - Create stunning typography, generate CSS, and find inspiration.\nTypescale Login Typescale New Board My Boards Bookmarks Likes Explore Login Support Terms Privacy © Typescale\nui design",
+    "search_text": "Pick a type scale before you pick a color palette. This tool makes the tradeoff obvious in about ten seconds.\n@typeandspace Ana Beltrán\ntypescale.com\nTypescale - Create stunning typography, generate CSS, and find inspiration.\nTypescale Login Typescale New Board My Boards Bookmarks Likes Explore Login Support Terms Privacy © Typescale\nui design",
     "related": [
-      "1937882200990000024",
       "1951220099660000012",
-      "1934551022330000027",
-      "1929004466880000032",
+      "1937882200990000024",
       "1933440066440000028",
-      "1940118822770000022"
+      "1940118822770000022",
+      "1957889001660000006",
+      "1956544778990000007"
     ],
     "crawled_words": 16
   },
@@ -816,6 +833,7 @@
     "external_urls": [
       "https://rauno.me/craft"
     ],
+    "short_urls": [],
     "topics": [
       "ui-design"
     ],
@@ -847,7 +865,7 @@
       "1920118822770000040",
       "1951220099660000012",
       "1947881122990000015",
-      "1922331100550000038"
+      "1962011044880000001"
     ],
     "crawled_words": 198
   },
@@ -863,6 +881,7 @@
     "external_urls": [
       "https://web.dev/articles/optimize-lcp"
     ],
+    "short_urls": [],
     "topics": [
       "ui-design"
     ],
@@ -910,6 +929,7 @@
     "external_urls": [
       "https://nextjs.org/docs"
     ],
+    "short_urls": [],
     "topics": [
       "devtools"
     ],
@@ -958,6 +978,7 @@
     "external_urls": [
       "https://vite.dev/guide"
     ],
+    "short_urls": [],
     "topics": [
       "devtools"
     ],
@@ -1007,6 +1028,7 @@
       "https://esbuild.github.io/",
       "https://tsx.is/"
     ],
+    "short_urls": [],
     "topics": [
       "devtools"
     ],
@@ -1064,6 +1086,7 @@
     "external_urls": [
       "https://biomejs.dev/"
     ],
+    "short_urls": [],
     "topics": [
       "devtools"
     ],
@@ -1113,6 +1136,7 @@
     "external_urls": [
       "https://bun.sh/docs"
     ],
+    "short_urls": [],
     "topics": [
       "devtools"
     ],
@@ -1144,8 +1168,8 @@
     "related": [
       "1940118822770000022",
       "1951220099660000012",
-      "1927882200990000033",
       "1945661188220000017",
+      "1927882200990000033",
       "1959402277440000004",
       "1960118822330000003"
     ],
@@ -1163,6 +1187,7 @@
     "external_urls": [
       "https://git-scm.com/docs/git-rebase"
     ],
+    "short_urls": [],
     "topics": [
       "devtools"
     ],
@@ -1210,6 +1235,7 @@
     "external_urls": [
       "https://docs.astro.build/en/getting-started"
     ],
+    "short_urls": [],
     "topics": [
       "devtools"
     ],
@@ -1259,6 +1285,7 @@
     "external_urls": [
       "https://upstash.com/docs/vector/overall/getstarted"
     ],
+    "short_urls": [],
     "topics": [
       "infra"
     ],
@@ -1307,6 +1334,7 @@
     "external_urls": [
       "https://kubernetes.io/docs/concepts/overview"
     ],
+    "short_urls": [],
     "topics": [
       "infra"
     ],
@@ -1355,6 +1383,7 @@
     "external_urls": [
       "https://docs.docker.com/get-started"
     ],
+    "short_urls": [],
     "topics": [
       "infra"
     ],
@@ -1403,6 +1432,7 @@
     "external_urls": [
       "https://sre.google/sre-book/table-of-contents"
     ],
+    "short_urls": [],
     "topics": [
       "infra"
     ],
@@ -1451,6 +1481,7 @@
     "external_urls": [
       "https://cloudflare.com/learning/cdn/what-is-a-cdn"
     ],
+    "short_urls": [],
     "topics": [
       "infra"
     ],
@@ -1494,6 +1525,7 @@
     "external_urls": [
       "https://vercel.com/docs"
     ],
+    "short_urls": [],
     "topics": [
       "infra",
       "ai-ml",
@@ -1545,6 +1577,7 @@
     "external_urls": [
       "https://neon.com/docs/introduction"
     ],
+    "short_urls": [],
     "topics": [
       "infra",
       "ai-ml"
@@ -1595,6 +1628,7 @@
     "external_urls": [
       "https://fly.io/docs"
     ],
+    "short_urls": [],
     "topics": [
       "infra"
     ],
@@ -1643,6 +1677,7 @@
     "external_urls": [
       "https://bitcoin.org/bitcoin.pdf"
     ],
+    "short_urls": [],
     "topics": [
       "crypto"
     ],
@@ -1688,6 +1723,7 @@
     "external_urls": [
       "https://ethereum.org/en/developers/docs"
     ],
+    "short_urls": [],
     "topics": [
       "crypto"
     ],
@@ -1738,6 +1774,7 @@
     "external_urls": [
       "https://vitalik.eth.limo/general/2021/01/05/rollup.html"
     ],
+    "short_urls": [],
     "topics": [
       "crypto"
     ],
@@ -1786,6 +1823,7 @@
     "external_urls": [
       "https://uniswap.org/whitepaper-v3.pdf"
     ],
+    "short_urls": [],
     "topics": [
       "crypto"
     ],
@@ -1796,7 +1834,7 @@
     "links": [
       {
         "url": "https://uniswap.org/whitepaper-v3.pdf",
-        "domain": "uniswap.org",
+        "domain": "app.uniswap.org",
         "crawl": {
           "status": "unsupported_type",
           "http_status": 200,
@@ -1808,14 +1846,14 @@
       }
     ],
     "summary": "Concentrated liquidity explained by the people who shipped it. The math notation is worth the effort exactly once.",
-    "search_text": "Concentrated liquidity explained by the people who shipped it. The math notation is worth the effort exactly once.\n@ammreader Paulo Ferrari\nuniswap.org\nwhitepaper-v3.pdf\ncrypto",
+    "search_text": "Concentrated liquidity explained by the people who shipped it. The math notation is worth the effort exactly once.\n@ammreader Paulo Ferrari\napp.uniswap.org\nwhitepaper-v3.pdf\ncrypto",
     "related": [
-      "1924551022330000036",
       "1955330112220000008",
-      "1934551022330000027",
       "1959402277440000004",
-      "1923440066440000037",
-      "1921220044660000039"
+      "1934551022330000027",
+      "1924551022330000036",
+      "1916771144110000043",
+      "1910118822770000049"
     ],
     "crawled_words": 0
   },
@@ -1831,6 +1869,7 @@
     "external_urls": [
       "https://l2beat.com/scaling/summary"
     ],
+    "short_urls": [],
     "topics": [
       "crypto"
     ],
@@ -1878,6 +1917,7 @@
     "external_urls": [
       "https://paulgraham.com/greatwork.html"
     ],
+    "short_urls": [],
     "topics": [
       "reading"
     ],
@@ -1924,6 +1964,7 @@
     "external_urls": [
       "https://waitbutwhy.com/2013/10/why-procrastinators-procrastinate.html"
     ],
+    "short_urls": [],
     "topics": [
       "reading"
     ],
@@ -1972,6 +2013,7 @@
     "external_urls": [
       "https://fs.blog/mental-models"
     ],
+    "short_urls": [],
     "topics": [
       "reading"
     ],
@@ -2019,6 +2061,7 @@
     "external_urls": [
       "https://danluu.com/programmer-moneyball"
     ],
+    "short_urls": [],
     "topics": [
       "reading"
     ],
@@ -2066,6 +2109,7 @@
     "external_urls": [
       "https://blog.samaltman.com/how-to-be-successful"
     ],
+    "short_urls": [],
     "topics": [
       "reading"
     ],
@@ -2113,6 +2157,7 @@
     "external_urls": [
       "https://notes.andymatuschak.org/Evergreen_notes"
     ],
+    "short_urls": [],
     "topics": [
       "reading"
     ],
@@ -2159,6 +2204,7 @@
     "external_urls": [
       "https://xkcd.com/1205"
     ],
+    "short_urls": [],
     "topics": [
       "misc"
     ],
@@ -2203,6 +2249,7 @@
     "external_urls": [
       "https://en.wikipedia.org/wiki/Bloom_filter"
     ],
+    "short_urls": [],
     "topics": [
       "misc"
     ],
@@ -2247,6 +2294,7 @@
     "external_urls": [
       "https://blog.this-domain-is-gone-9182734.dev/archive-your-reading-list"
     ],
+    "short_urls": [],
     "topics": [
       "misc"
     ],
@@ -2285,6 +2333,7 @@
     "url": "https://x.com/seangeng/status/1910118822770000049",
     "created_at": "2026-04-07T19:26:00.000Z",
     "external_urls": [],
+    "short_urls": [],
     "topics": [
       "misc"
     ],
@@ -2315,6 +2364,7 @@
     "external_urls": [
       "https://pinecone.io/learn/hybrid-search-intro"
     ],
+    "short_urls": [],
     "topics": [
       "ai-ml"
     ],

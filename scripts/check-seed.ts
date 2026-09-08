@@ -24,6 +24,10 @@ async function main(): Promise<void> {
 
   const { bookmarks, skipped } = seed;
   const links = new Set(bookmarks.flatMap((bookmark) => bookmark.external_urls));
+  const shortened = new Set(bookmarks.flatMap((bookmark) => bookmark.short_urls));
+  const linkless = bookmarks.filter(
+    (bookmark) => bookmark.external_urls.length === 0 && bookmark.short_urls.length > 0,
+  ).length;
   const authors = new Set(bookmarks.map((bookmark) => bookmark.author.handle.toLowerCase()));
   const domains = new Set([...links].map(domainOf).filter(Boolean));
   const undated = bookmarks.filter(
@@ -50,6 +54,16 @@ async function main(): Promise<void> {
   warn(unknownAuthors, "have no resolvable author handle");
   warn(undated, "have no usable created_at");
   warn(empty, "have empty text");
+  warn(
+    linkless,
+    "carry only an unexpanded shortener, so there is nothing to crawl for them " +
+      "(fix upstream by including entities.urls[].expanded_url, or see " +
+      "`--expand-short-links` in the README)",
+  );
+
+  if (shortened.size > 0) {
+    console.log(`      ${shortened.size} shortened link(s) referenced by the seed`);
+  }
 
   if (bookmarks.length < minimum) {
     console.error(`FAIL  expected at least ${minimum} bookmarks, found ${bookmarks.length}`);

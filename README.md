@@ -129,6 +129,7 @@ npm run crawl -- --force              # re-crawl everything
 npm run crawl -- --max-age=7          # re-crawl artifacts older than 7 days
 npm run crawl -- --retry-failed       # retry timeouts / 5xx / empty extractions
 npm run crawl -- --limit=20 --concurrency=3 --timeout=15000
+npm run crawl -- --expand-short-links # resolve t.co/bit.ly links (see below)
 npm run crawl -- --ignore-robots      # local debugging only
 
 npm run index -- --provider=local     # force local embeddings even with a key set
@@ -172,6 +173,33 @@ container, and keeps up to 5k characters of block-level text.
 The committed sample crawl covers 49 links: 43 archived, 2 PDFs skipped as non-HTML, 1 host
 returning 403, 1 dead domain, 1 page with no extractable text. That mix is deliberate — it
 exercises the failure paths.
+
+### Unexpanded t.co links
+
+Whether the crawler has anything to work with depends entirely on the export including expanded
+URLs. Many X posts are "look at this" plus a link, and when the export leaves that link as a bare
+`t.co` shortener there is no destination to crawl, nothing to classify beyond a few words of
+text, and nothing to search. On a sample of the real export, only a third of posts carried an
+expanded URL while most of the rest carried an unexpanded `t.co`.
+
+Those shortener URLs are preserved on each bookmark as `short_urls`, kept out of
+`external_urls` because a shortener is a redirect rather than content. `npm run check:seed`
+reports how many bookmarks are affected.
+
+**The right fix is upstream:** have the export include `entities.urls[].expanded_url`, which the
+X API already returns. Then every link is a real URL and none of the following applies.
+
+Failing that, `npm run crawl -- --expand-short-links` resolves them: it requests only the
+redirect (never the shortener's body), follows up to four hops, caches every outcome in
+`data/crawls/short-links.json`, and then crawls each destination through the normal path with its
+own `robots.txt` check. Resolved links are labelled with the shortener they came from (`via
+t.co/…`) on the bookmark page, and are attributed to the destination's domain rather than to the
+shortener.
+
+It is **off by default and deliberately opt-in**, because `t.co/robots.txt` disallows every agent
+except Twitterbot. Dereferencing your own saved bookmarks is a defensible thing to do, but it is
+the repo owner's call to make, not a default this crawler should quietly assume — everything else
+here honours `robots.txt`, and that guarantee is worth keeping unambiguous.
 
 ---
 

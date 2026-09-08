@@ -68,6 +68,24 @@ function extractAuthor(record: Loose): { name: string; handle: string; avatar_ur
   };
 }
 
+/** Shorteners whose URLs carry no content of their own, only a redirect. */
+const SHORTENER_HOSTS = new Set([
+  "t.co", "bit.ly", "buff.ly", "lnkd.in", "ow.ly", "tinyurl.com", "dlvr.it",
+  "trib.al", "goo.gl", "ift.tt", "j.mp", "rebrand.ly", "shorturl.at",
+]);
+
+function isShortener(url: string): boolean {
+  try {
+    return SHORTENER_HOSTS.has(new URL(url).hostname.replace(/^www\./, ""));
+  } catch {
+    return false;
+  }
+}
+
+function isSelfLink(url: string): boolean {
+  return /^https?:\/\/(x|twitter)\.com\//.test(url);
+}
+
 function extractUrls(record: Loose, text: string): string[] {
   const found = new Set<string>();
 
@@ -91,11 +109,24 @@ function extractUrls(record: Loose, text: string): string[] {
     if (normalized) found.add(normalized);
   }
 
-  // t.co shorteners carry no content; drop them unless nothing else survived.
-  const expanded = [...found].filter((url) => !url.includes("t.co/"));
-  const selfLinks = (url: string) => /(^|\/\/)(x|twitter)\.com\//.test(url);
-  const external = expanded.filter((url) => !selfLinks(url));
-  return external.length > 0 ? external : expanded.filter((url) => !selfLinks(url));
+  return [...found].filter((url) => !isShortener(url) && !isSelfLink(url));
+}
+
+/** Shortener links found in the post, for the opt-in resolver in the crawler. */
+function extractShortUrls(record: Loose, text: string): string[] {
+  const found = new Set<string>();
+
+  for (const match of text.matchAll(/https?:\/\/[^\s<>"')]+/g)) {
+    const normalized = normalizeUrl(match[0]);
+    if (normalized && isShortener(normalized)) found.add(normalized);
+  }
+  for (const value of asArray((record.entities as Loose)?.urls)) {
+    const url = str((value as Loose).url);
+    const normalized = url ? normalizeUrl(url) : null;
+    if (normalized && isShortener(normalized)) found.add(normalized);
+  }
+
+  return [...found];
 }
 
 export function normalizeBookmark(input: unknown): Bookmark | null {
@@ -135,6 +166,7 @@ export function normalizeBookmark(input: unknown): Bookmark | null {
     created_at: createdAt,
     bookmarked_at: toIso(record.bookmarked_at ?? record.saved_at),
     external_urls: extractUrls(record, text),
+    short_urls: extractShortUrls(record, text),
     topics,
     media: asArray(record.media)
       .map((value) => {

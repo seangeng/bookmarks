@@ -26,6 +26,7 @@ import {
   writeJson,
 } from "./lib/fs-data";
 import { readSeedOrExit } from "./lib/seed";
+import { loadShortLinks } from "./lib/shortlinks";
 import { classifyWithLlm } from "./lib/classify";
 import { cosineSimilarity, resolveEmbeddingProvider } from "../src/lib/embeddings";
 import { domainOf, truncate } from "../src/lib/text";
@@ -50,10 +51,13 @@ const EXCERPT_CHARS = 700;
 const EMBED_CRAWL_CHARS = 1200;
 const RELATED_COUNT = 6;
 
-function toLink(url: string, crawl?: CrawlRecord): BookmarkLink {
+function toLink(url: string, crawl?: CrawlRecord, via?: string): BookmarkLink {
   return {
     url,
-    domain: domainOf(url),
+    // A redirect chain should be labelled by where it landed, not by the
+    // shortener or tracker it passed through.
+    domain: domainOf(crawl?.final_url ?? url),
+    ...(via ? { via } : {}),
     ...(crawl
       ? {
           crawl: {
@@ -125,9 +129,29 @@ async function main(): Promise<void> {
     Boolean(process.env.OPENAI_API_KEY) &&
     (args.values.get("classifier") ?? "auto") !== "heuristic";
 
+  const shortLinks = await loadShortLinks();
+
   const prepared = bookmarks.map((bookmark) => {
-    const linkCrawls = bookmark.external_urls.map((url) => crawls.get(urlKey(url)));
-    const links = bookmark.external_urls.map((url, position) => toLink(url, linkCrawls[position]));
+    // Direct links first, then anything recovered from a shortener.
+    const sources: { url: string; via?: string }[] = [
+      ...bookmark.external_urls.map((url) => ({ url })),
+      ...bookmark.short_urls.flatMap((shortUrl) => {
+        const destination = shortLinks[shortUrl]?.url;
+        return destination ? [{ url: destination, via: shortUrl }] : [];
+      }),
+    ];
+
+    const seenUrls = new Set<string>();
+    const unique = sources.filter((source) => {
+      if (seenUrls.has(source.url)) return false;
+      seenUrls.add(source.url);
+      return true;
+    });
+
+    const linkCrawls = unique.map((source) => crawls.get(urlKey(source.url)));
+    const links = unique.map((source, position) =>
+      toLink(source.url, linkCrawls[position], source.via),
+    );
     const classifierText = [
       bookmark.text,
       ...links.map((link) => link.domain),

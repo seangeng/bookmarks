@@ -91,6 +91,36 @@ test("normalizeExport de-duplicates, sorts newest first, and counts junk", () =>
   assert.equal(skipped, 2);
 });
 
+test("shortener links are kept separately, not as crawlable externals", () => {
+  const result = normalizeBookmark({
+    id: "7",
+    text: "This is crazyyy https://t.co/3pbQ9Le18j and https://bit.ly/abc123",
+    author_username: "someone",
+    created_at: "2026-01-01T00:00:00Z",
+    external_urls: [],
+  });
+
+  assert.ok(result);
+  assert.deepEqual(result.external_urls, [], "a shortener is not crawlable content");
+  assert.deepEqual(result.short_urls.sort(), [
+    "https://bit.ly/abc123",
+    "https://t.co/3pbQ9Le18j",
+  ]);
+});
+
+test("an expanded url wins and the shortener is still recorded", () => {
+  const result = normalizeBookmark({
+    id: "8",
+    text: "great tool https://t.co/xyz",
+    author_username: "someone",
+    created_at: "2026-01-01T00:00:00Z",
+    external_urls: ["https://example.com/tool"],
+  });
+
+  assert.deepEqual(result?.external_urls, ["https://example.com/tool"]);
+  assert.deepEqual(result?.short_urls, ["https://t.co/xyz"]);
+});
+
 test("self-referential x.com links are not treated as external", () => {
   const result = normalizeBookmark({
     id: "5",

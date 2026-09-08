@@ -25,6 +25,12 @@ import {
   writeJson,
 } from "./lib/fs-data";
 import { readSeedOrExit } from "./lib/seed";
+import {
+  loadShortLinks,
+  resolveShortLinks,
+  resolvedDestinations,
+  saveShortLinks,
+} from "./lib/shortlinks";
 import { domainOf } from "../src/lib/text";
 import type { CrawlStatus } from "../src/lib/types";
 
@@ -49,7 +55,48 @@ async function main(): Promise<void> {
   const args = parseArgs();
 
   const { bookmarks } = await readSeedOrExit();
-  const urls = [...new Set(bookmarks.flatMap((bookmark) => bookmark.external_urls))].sort();
+
+  /* Optionally resolve link shorteners so their destinations get crawled. */
+  const shortUrls = [...new Set(bookmarks.flatMap((bookmark) => bookmark.short_urls))];
+  const shortLinks = await loadShortLinks();
+  const expand = args.flags.has("expand-short-links");
+
+  if (expand) {
+    const pending = shortUrls.filter(
+      (url) => !shortLinks[url] || (args.flags.has("force") && true),
+    );
+    if (pending.length > 0) {
+      console.log(
+        `Resolving ${pending.length} shortened link(s). Note: t.co disallows all ` +
+          "non-Twitterbot agents in robots.txt; only the redirect is requested.",
+      );
+      const resolved = await resolveShortLinks(pending, {
+        concurrency: 4,
+        timeoutMs: numberArg(args, "timeout", Number(process.env.CRAWL_TIMEOUT_MS ?? 10_000)),
+        onResult: (shortUrl, result, done, total) => {
+          console.log(
+            `[${String(done).padStart(3)}/${total}] ${result.status.padEnd(8)} ` +
+              `${shortUrl} -> ${result.url ?? result.error ?? ""}`,
+          );
+        },
+      });
+      Object.assign(shortLinks, resolved);
+      await saveShortLinks(shortLinks);
+    }
+  } else if (shortUrls.length > 0) {
+    const known = shortUrls.filter((url) => shortLinks[url]?.url).length;
+    console.log(
+      `${shortUrls.length} shortened link(s) in the seed, ${known} already resolved. ` +
+        "Pass --expand-short-links to resolve the rest (see README).",
+    );
+  }
+
+  const urls = [
+    ...new Set([
+      ...bookmarks.flatMap((bookmark) => bookmark.external_urls),
+      ...bookmarks.flatMap((bookmark) => resolvedDestinations(bookmark.short_urls, shortLinks)),
+    ]),
+  ].sort();
 
   const { records: existing, invalid } = await loadCrawlRecords();
   if (invalid.length > 0) {

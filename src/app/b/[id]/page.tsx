@@ -62,6 +62,7 @@ function LinkArchive({ link }: { link: BookmarkLink }) {
             crawl.site_name.toLowerCase() !== link.domain.toLowerCase()
               ? `${crawl.site_name} · ${link.domain}`
               : link.domain}
+            {link.via && ` · via ${link.via.replace(/^https?:\/\//, "")}`}
           </p>
         </div>
         <span
