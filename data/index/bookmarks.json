@@ -787,7 +787,7 @@
           "site_name": "Typescale",
           "excerpt": "Typescale Login Typescale New Board My Boards Bookmarks Likes Explore Login Support Terms Privacy © Typescale",
           "word_count": 16,
-          "fetched_at": "2026-09-08T03:33:35.403Z",
+          "fetched_at": "2026-09-08T03:43:08.379Z",
           "error": "No extractable text"
         }
       }
@@ -1035,7 +1035,7 @@
         "domain": "tsx.is",
         "crawl": {
           "status": "network_error",
-          "fetched_at": "2026-09-08T03:33:35.401Z",
+          "fetched_at": "2026-09-08T03:43:08.378Z",
           "error": "fetch failed"
         }
       }
@@ -1465,7 +1465,7 @@
         "crawl": {
           "status": "http_error",
           "http_status": 403,
-          "fetched_at": "2026-09-08T03:33:35.399Z",
+          "fetched_at": "2026-09-08T03:43:08.377Z",
           "error": "HTTP 403 Forbidden"
         }
       }
@@ -2258,7 +2258,7 @@
         "domain": "blog.this-domain-is-gone-9182734.dev",
         "crawl": {
           "status": "network_error",
-          "fetched_at": "2026-09-08T03:33:35.381Z",
+          "fetched_at": "2026-09-08T03:43:08.366Z",
           "error": "fetch failed"
         }
       }
