@@ -34,16 +34,33 @@ export function tokenize(input: string): string[] {
   return tokens;
 }
 
-/** Light suffix folding so "embeddings" and "embedding" collide. */
+/**
+ * Light suffix folding so "embeddings" and "embedding" collide.
+ *
+ * Plural stripping runs before verb-suffix stripping, which is what makes this
+ * idempotent: a single ordered pass would fold "embeddings" to "embedding" and
+ * "embedding" to "embedd", so the two would never meet.
+ */
 export function stem(token: string): string {
-  if (token.length < 5) return token;
-  for (const suffix of ["ingly", "edly", "ing", "ies", "ed", "es", "s"]) {
-    if (token.endsWith(suffix) && token.length - suffix.length >= 3) {
-      const base = token.slice(0, token.length - suffix.length);
-      return suffix === "ies" ? `${base}y` : base;
+  let word = token;
+
+  if (word.length > 4) {
+    if (word.endsWith("ies") && word.length > 5) word = `${word.slice(0, -3)}y`;
+    else if (word.endsWith("sses")) word = word.slice(0, -2);
+    else if (word.endsWith("es") && word.length > 5) word = word.slice(0, -2);
+    else if (word.endsWith("s") && !word.endsWith("ss")) word = word.slice(0, -1);
+  }
+
+  if (word.length > 5) {
+    for (const suffix of ["ingly", "edly", "ing", "ed"]) {
+      if (word.endsWith(suffix) && word.length - suffix.length >= 4) {
+        word = word.slice(0, -suffix.length);
+        break;
+      }
     }
   }
-  return token;
+
+  return word;
 }
 
 export function terms(input: string): string[] {
@@ -62,13 +79,17 @@ export function domainOf(url: string): string {
 export function normalizeUrl(raw: string): string | null {
   let candidate = raw.trim();
   if (!candidate) return null;
-  if (!/^https?:\/\//i.test(candidate)) candidate = `https://${candidate}`;
+  // Add a scheme only when there is none at all, so "mailto:x@y.com" stays a
+  // mailto (and is rejected below) instead of becoming "https://mailto:...".
+  if (!/^[a-z][a-z0-9+.-]*:/i.test(candidate)) candidate = `https://${candidate}`;
   try {
     const url = new URL(candidate);
     if (url.protocol !== "http:" && url.protocol !== "https:") return null;
     url.hash = "";
+    // Tracking params only. `s`/`t` are deliberately left alone: X uses them,
+    // but so do WordPress search URLs, where dropping them changes the page.
     for (const key of [...url.searchParams.keys()]) {
-      if (/^(utm_|ref_|fbclid|gclid|mc_cid|mc_eid|igshid|si|s|t)$/i.test(key)) {
+      if (/^(utm_|ref_)/i.test(key) || /^(ref|fbclid|gclid|mc_cid|mc_eid|igshid|si)$/i.test(key)) {
         url.searchParams.delete(key);
       }
     }

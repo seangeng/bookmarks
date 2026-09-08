@@ -112,6 +112,7 @@ crawl summary, a search blob, precomputed related ids) and an embedding vector.
 | `npm run crawl` | Fetch every unique external URL, write artifacts to `data/crawls/` |
 | `npm run index` | Enrich + auto-tag + embed, write `data/index/`, optionally upsert to Upstash |
 | `npm run sync` | `crawl` then `index` |
+| `npm test` | Pipeline tests (`node:test` via tsx) |
 | `npm run lint` / `npm run typecheck` | ESLint / `tsc --noEmit` |
 
 Useful flags:
@@ -128,6 +129,21 @@ npm run index -- --store=local        # skip the Upstash upsert
 npm run index -- --no-llm             # force the keyword topic classifier
 npm run index -- --dry-run            # print the index summary, write nothing
 ```
+
+### Tests
+
+`npm test` covers the parts most likely to break on a real export rather than the UI: the X
+export adapter (bare arrays vs `{bookmarks}` vs API v2 `legacy`/`entities` shapes, `t.co`
+unwrapping, de-duplication, Twitter's legacy date format), URL canonicalization, the
+tokenizer and stemmer, topic classification, `robots.txt` pattern precedence, HTML extraction,
+and the local embedding provider. [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs
+lint, typecheck, tests, and a build on every pull request.
+
+Three real bugs came out of writing them, all of which silently degraded search: `utm_*` params
+were never actually stripped (so one page could produce two crawl keys), the stemmer was not
+idempotent (`embeddings` folded to `embedding` while `embedding` folded to `embedd`, so a search
+for the plural could not match the singular), and `mailto:` links were being rewritten into
+`https://mailto:…` instead of rejected.
 
 ### Crawling
 
@@ -324,6 +340,8 @@ scripts/
   build-index.ts          enrich + tag + embed + persist
   ensure-index.ts         prebuild guard so a fresh clone always builds
   lib/                    crawler, HTML extraction, LLM classification, fs helpers
+tests/
+  pipeline.test.ts        export adapter, tokenizer, robots, extraction, embeddings
 src/
   app/                    routes: /, /search, /topics, /topics/[slug], /b/[id], /api/search
   components/             cards, search box, topic chips, theme toggle, X embed

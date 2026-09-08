@@ -40,10 +40,10 @@
     "related": [
       "1959402277440000004",
       "1958771199550000005",
-      "1953004411440000010",
       "1917882200990000042",
+      "1953004411440000010",
       "1960118822330000003",
-      "1947881122990000015"
+      "1956544778990000007"
     ],
     "crawled_words": 294
   },
@@ -87,8 +87,8 @@
     "summary": "Best breakdown of agent architectures I've found: planning, memory, tool use, and where each one breaks in practice.",
     "search_text": "Best breakdown of agent architectures I've found: planning, memory, tool use, and where each one breaks in practice.\n@agentloop Dana Ko\nlilianweng.github.io\nLLM Powered Autonomous Agents\nBuilding agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver. Agent System Overview In a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components: Planning Subgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks. Reflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results. Memory Short-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn. Long-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval. Tool use The agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more. Overview of a LLM-powered autonomous agent system. Component One: Planning A complicated task usually involves many steps. An agent needs to know what they are and plan ahead.\nComponent One: Planning Task Decomposition Self-Reflection\n\nComponent Two: Memory Types of Memory Maximum Inner Product Search (MIPS)\n\nMaximum Inner Product Search (MIPS)\n\nComponent Three: Tool Use\n\nCase Studies Scientific Discovery Agent Generative Agents Simulation Proof-of-Concept Examples\n\nScientific Discovery Agent\n\nGenerative Agents Simulation\n\nProof-of-Concept Examples\n\nBuilding agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\n\nIn a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:\n\nPlanning Subgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks. Reflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\nSubgoal and decomposition: The agent breaks down large tasks into smaller, manageable subgoals, enabling efficient handling of complex tasks.\n\nReflection and refinement: The agent can do self-criticism and self-reflection over past actions, learn from mistakes and refine them for future steps, thereby improving the quality of final results.\n\nMemory Short-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn. Long-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\nShort-term memory: I would consider all the in-context learning (See Prompt Engineering) as utilizing short-term memory of the model to learn.\n\nLong-term memory: This provides the agent with the capability to retain and recall (infinite) information over extended periods, often by leveraging an external vector store and fast retrieval.\n\nTool use The agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\nThe agent learns to call external APIs for extra information that is missing from the model weights (often hard to change after pre-training), including current information, code execution capability, access to proprietary information sources and more.\n\nA complicated task usually involves many steps. An agent needs to know what they are and plan ahead.\n\nChain of thought (CoT; Wei et al. 2022) has become a standard prompting technique for enhancing model performance on complex tasks. The model is instructed to “think step by step” to utilize more test-time computation to decompose hard tasks into smaller and simpler steps. CoT transforms big tasks into multiple manageable tasks and shed lights into an interpretation of the model’s thinking process.\n\nTree of Thoughts (Yao et al. 2023) extends CoT by exploring multiple reasoning possibilities at each step. It first decomposes the problem into multiple thought steps and generates multiple thoughts per step, creating a tree structure. The search process can be BFS (breadth-first search) or DFS (depth-first search) with each state evaluated by a classifier (via a prompt) or majority vote.\n\nTask decomposition can be done (1) by LLM with simple prompting like \"Steps for XYZ.\\n1.\", \"What are the subgoals for achieving XYZ?\", (2) by using task-specific instructions; e.g. \"Write a story outline.\" for writing a novel, or (3) with human inputs.\n\nAnother quite distinct approach, LLM+P (Liu et al. 2023), involves relying on an external classical planner to do long-horizon planning. This approach utilizes the Planning Domain Definition Language (PDDL) as an intermediate interface to describe the planning problem. In this process, LLM (1) translates the problem into “Problem PDDL”, then (2) requests a classical planner to generate a PDDL plan based on an existing “Domain PDDL”, and finally (3) translates the PDDL plan back into natural language. Essentially, the planning step is outsourced to an external tool, assuming the availability of domain-specific PDDL and a suitable planner which is common in certain robotic setups but not in many other domains.\n\nSelf-reflection is a vital aspect that allows autonomous agents to improve iteratively by refining past action decisions and correcting previous mistakes. It plays a crucial role in real-world tasks where trial and error are inevitable.\n\nReAct (Yao et al. 2023) integrates reasoning and acting within LLM by extending the action space to be a combination of task-specific discrete\nai ml",
     "related": [
-      "1929004466880000032",
       "1932331100550000029",
+      "1929004466880000032",
       "1917882200990000042",
       "1931220044660000030",
       "1962011044880000001",
@@ -137,11 +137,11 @@
     "search_text": "Ten years old and still the clearest intro to why sequence models work at all. The character-level Shakespeare samples are burned into my brain.\n@stochastic_sam Sam Ito\nkarpathy.github.io\nThe Unreasonable Effectiveness of Recurrent Neural Networks\nMusings of a Computer Scientist.\nThere’s something magical about Recurrent Neural Networks (RNNs). I still remember when I trained my first recurrent network for Image Captioning. Within a few dozen minutes of training my first baby model (with rather arbitrarily-chosen hyperparameters) started to generate very nice looking descriptions of images that were on the edge of making sense. Sometimes the ratio of how simple your model is to the quality of the results you get out of it blows past your expectations, and this was one of those times. What made this result so shocking at the time was that the common wisdom was that RNNs were supposed to be difficult to train (with more experience I’ve in fact reached the opposite conclusion). Fast forward about a year: I’m training RNNs all the time and I’ve witnessed their power and robustness many times, and yet their magical outputs still find ways of amusing me. This post is about sharing some of that magic with you.\n\nWe’ll train RNNs to generate text character by character and ponder the question “how is that even possible?”\n\nBy the way, together with this post I am also releasing code on Github that allows you to train character-level language models based on multi-layer LSTMs. You give it a large chunk of text and it will learn to generate text like it one character at a time. You can also use it to reproduce my experiments below. But we’re getting ahead of ourselves; What are RNNs anyway?\n\nRecurrent Neural Networks\n\nSequences. Depending on your background you might be wondering: What makes Recurrent Networks so special? A glaring limitation of Vanilla Neural Networks (and also Convolutional Networks) is that their API is too constrained: they accept a fixed-sized vector as input (e.g. an image) and produce a fixed-sized vector as output (e.g. probabilities of different classes). Not only that: These models perform this mapping using a fixed amount of computational steps (e.g. the number of layers in the model). The core reason that recurrent nets are more exciting is that they allow us to operate over sequences of vectors: Sequences in the input, the output, or in the most general case both. A few examples may make this more concrete:\n\nAs you might expect, the sequence regime of operation is much more powerful compared to fixed networks that are doomed from the get-go by a fixed number of computational steps, and hence also much more appealing for those of us who aspire to build more intelligent systems. Moreover, as we’ll see in a bit, RNNs combine the input vector with their state vector with a fixed (but learned) function to produce a new state vector. This can in programming terms be interpreted as running a fixed program with certain inputs and some internal variables. Viewed this way, RNNs essentially describe programs. In fact, it is known that RNNs are Turing-Complete in the sense that they can to simulate arbitrary programs (with proper weights). But similar to universal approximation theorems for neural nets you shouldn’t read too much into this. In fact, forget I said anything.\n\nIf training vanilla neural nets is optimization over functions, training recurrent nets is optimization over programs.\n\nSequential processing in absence of sequences. You might be thinking that having sequences as inputs or outputs could be relatively rare, but an important point to realize is that even if your inputs/outputs are fixed vectors, it is still possible to use this powerful formalism to process them in a sequential manner. For instance, the figure below shows results from two very nice papers from DeepMind. On the left, an algorithm learns a recurrent network policy that steers its attention around an image; In particular, it learns to read out house numbers from left to right (Ba et al.). On the right, a recurrent network generates images of digits by learning to sequentially add color to a canvas (Gregor et al.):\n\nThe takeaway is that even if your data is not in form of sequences, you can still formulate and train powerful models that learn to process it sequentially. You’re learning stateful programs that process your fixed-sized data.\n\nRNN computation. So how do these things work? At the core, RNNs have a deceptively simple API: They accept an input vector x and give you an output vector y. However, crucially this output vector’s contents are influenced not only by the input you just fed in, but also on the entire history of inputs you’ve fed in in the past. Written as a class, the RNN’s API consists of a single step function:\n\nrnn = RNN() y = rnn.step(x) # x is an input vector, y is the RNN's output vector\n\nThe RNN class has some internal state that it gets to update every time step is called. In the simplest case this state consists of a single hidden vector h. Here is an implementation of the step function in a Vanilla RNN:\n\nclass RNN: # ... def step(self, x): # update the hidden state self.h = np.tanh(np.dot(self.W_hh, self.h) + np.dot(self.W_xh, x)) # compute the output vector y = np.do\nai ml",
     "related": [
       "1962011044880000001",
-      "1953004411440000010",
       "1917882200990000042",
+      "1953004411440000010",
       "1956544778990000007",
-      "1909004466880000050",
-      "1929004466880000032"
+      "1929004466880000032",
+      "1909004466880000050"
     ],
     "crawled_words": 848
   },
@@ -163,8 +163,8 @@
     "media": [],
     "topic_scores": {
       "ai-ml": 1,
-      "reading": 0.064,
-      "ui-design": 0.056
+      "reading": 0.07,
+      "ui-design": 0.062
     },
     "links": [
       {
@@ -190,7 +190,7 @@
       "1956544778990000007",
       "1942331100550000020",
       "1917882200990000042",
-      "1931220044660000030"
+      "1919004466880000041"
     ],
     "crawled_words": 820
   },
@@ -282,10 +282,10 @@
     "related": [
       "1909004466880000050",
       "1921220044660000039",
-      "1945661188220000017",
       "1934551022330000027",
       "1941220044660000021",
-      "1919004466880000041"
+      "1945661188220000017",
+      "1910118822770000049"
     ],
     "crawled_words": 808
   },
@@ -308,7 +308,7 @@
     "media": [],
     "topic_scores": {
       "ai-ml": 1,
-      "reading": 0.6
+      "reading": 0.857
     },
     "links": [
       {
@@ -330,11 +330,11 @@
     "search_text": "Running commentary on LLMs that stays grounded in what the models actually do. My default link when someone asks where to start.\n@plaintextai Ash Ferreira\nsimonwillison.net\nMaking Large Language Models work for you\nI gave an invited keynote at WordCamp 2023 in National Harbor, Maryland on Friday. I was invited to provide a practical take on Large Language Models: what they are, how …\nMaking Large Language Models work for you\n\nI gave an invited keynote at WordCamp 2023 in National Harbor, Maryland on Friday.\n\nI was invited to provide a practical take on Large Language Models: what they are, how they work, what you can do with them and what kind of things you can build with them that could not be built before.\n\nAs a long-time fan of WordPress and the WordPress community, which I think represents the very best of open source values, I was delighted to participate.\n\nYou can watch my talk on YouTube here. Here are the slides and an annotated transcript, prepared using the custom tool I described in this post.\n\nWhat we can build with them\n\nGiving them access to tools\n\nRetrieval augmented generation\n\nEmbeddings and semantic search\n\nChatGPT Code Interpreter\n\nHelping everyone program computers\n\nMy goal today is to provide practical, actionable advice for getting the most out of Large Language Models—both for personal productivity but also as a platform that you can use to build things that you couldn’t build before.\n\nThere is an enormous amount of hype and bluster in the AI world. I am trying to avoid that and just give you things that actually work and do interesting stuff.\n\nIt turns out I’ve had code in WordPress itself for 19 years now—ever since the project adopted an open source XML-RPC library I wrote called the Incutio XML RPC library.\n\n... which has been responsible for at least one security vulnerability! I’m quite proud of this, I got a CVE out of it. You can come and thank me for this after the talk.\n\nThese days I mainly work on an open source project called Datasette, which you could describe as WordPress for data.\n\nIt started out as open source tools for data journalism, to help journalists find stories and data. Over time, I’ve realized that everyone else needs to find stories in their data, too.\n\nSo right now, inspired by Automattic, I’m figuring out what the commercial hosted SaaS version of this look like. That’s a product I’m working on called Datasette Cloud.\n\nBut the biggest problem I’ve had with working on turning my open source project into a sustainable financial business is that the AI stuff came along and has been incredibly distracting for the past year and a half!\n\nThis is the LLMs tag on my blog, which now has 237 posts- actually, 238. I posted something new since I took that screenshot. So there’s a lot there. And I’m finding the whole thing kind of beguiling. I try and tear myself away from this field, but it just keeps on getting more interesting the more that I look at it.\n\nOne of the challenges in this field is that it’s noisy. There are very noisy groups with very different opinions.\n\nYou’ve got the utopian dreamers who are convinced that this is the solution to all of mankind’s problems.\n\nYou have the doomers who are convinced that we’re all going to die, that this will absolutely kill us all.\n\nThere are the skeptics who are like, “This is all just hype. I tried this thing. It’s rubbish. There is nothing interesting here at all.”\n\nAnd then there are snake oil sellers who will sell you all kinds of solutions for whatever problems that you have based around this magic AI.\n\nBut the wild thing is that all of these groups are right! A lot of what they say does make sense. And so one of the key skills you have to have in exploring the space is you need to be able to hold conflicting viewpoints in your head at the same time.\n\nI also don’t like using the term AI. I feel like it’s almost lost all meaning at this point.\n\nBut I would like to take us back to when the term Artificial Intelligence was coined. This was in 1956, when a group of scientists got together at Dartmouth College in Hanover and said that they were going to have an attempt to find out how to make machines “use language, form abstractions and concepts, solve kinds of problems now reserved for humans”.\n\nAnd then they said that we think “a significant advance can be made if a carefully selected group of scientists work on this together for a summer”.\n\nAnd that was 67 years ago. This has to be the most legendary over-optimistic software estimate of all time, right? I absolutely love this.\n\nSo I’m not going to talk about AI. I want to focus on Large Language Models, which is the subset of AI that I think is most actionably interesting right now.\n\nOne of the ways I think about these is that they’re effectively alien technology that exists right now today and that we can start using.\n\nIt feels like three years ago, aliens showed up on Earth, handed us a USB stick with this thing on and then departed. And we’ve been poking at it ever since and trying to figure out what it can do.\n\nThis is the only Midjourney image in my talk. You should always share your prompts: I asked it for a “black background illustration alien UFO delivering a thumb drive by beam”.\n\nIt did not give me that. That is very much how AI works. You very rarely get what you actually asked for.\n\nI’ll do a quick timeline just to catch up on how w\nai ml reading",
     "related": [
       "1917882200990000042",
-      "1959402277440000004",
       "1955330112220000008",
+      "1959402277440000004",
       "1962011044880000001",
-      "1920118822770000040",
-      "1949005566880000014"
+      "1949005566880000014",
+      "1910118822770000049"
     ],
     "crawled_words": 907
   },
@@ -377,11 +377,11 @@
     "search_text": "Open model leaderboards are useful right up until you read how the evals are actually scored. This thread of a post explains the traps.\n@evalsdaily Lea Novak\nhuggingface.co\nWhat's going on with the Open LLM Leaderboard?\nWe’re on a journey to advance and democratize artificial intelligence through open source and open science.\nWhat's going on with the Open LLM Leaderboard?\n\nThe discussion centered around one of the four evaluations displayed on the leaderboard: a benchmark for measuring Massive Multitask Language Understanding (shortname: MMLU).\n\nThe community was surprised that MMLU evaluation numbers of the current top model on the leaderboard, the LLaMA model 🦙, were significantly lower than the numbers in the published LLaMa paper.\n\nSo we decided to dive in a rabbit hole to understand what was going on and how to fix it 🕳🐇\n\nIn our quest, we discussed with both the great @javier-m who collaborated on the evaluations of LLaMA and the amazing @slippylolo from the Falcon team. This being said, all the errors in the below should be attributed to us rather than them of course!\n\nAlong this journey with us you’ll learn a lot about the ways you can evaluate a model on a single evaluation and whether or not to believe the numbers you see online and in papers.\n\nReady? Then buckle up, we’re taking off 🚀.\n\nWhat's the Open LLM Leaderboard?\n\nFirst, note that the Open LLM Leaderboard is actually just a wrapper running the open-source benchmarking library Eleuther AI LM Evaluation Harness created by the EleutherAI non-profit AI research lab famous for creating The Pile and training GPT-J, GPT-Neo-X 20B, and Pythia. A team with serious credentials in the AI space!\n\nThis wrapper runs evaluations using the Eleuther AI harness on the spare cycles of Hugging Face’s compute cluster, and stores the results in a dataset on the hub that are then displayed on the leaderboard online space.\n\nFor the LLaMA models, the MMLU numbers obtained with the Eleuther AI LM Evaluation Harness significantly differ from the MMLU numbers reported in the LLaMa paper.\n\nWell it turns out that the LLaMA team adapted another code implementation available online: the evaluation code proposed by the original UC Berkeley team which developed the MMLU benchmark available at https://github.com/hendrycks/test and that we will call here the \"Original implementation\".\n\nWhen diving further, we found yet another interesting implementation for evaluating on the very same MMLU dataset: the evalution code provided in Stanford’s CRFM very comprehensive evaluation benchmark Holistic Evaluation of Language Models that we will call here the HELM implementation.\n\nBoth the EleutherAI Harness and Stanford HELM benchmarks are interesting because they gather many evaluations in a single codebase (including MMLU), and thus give a wide view of a model’s performance. This is the reason the Open LLM Leaderboard is wrapping such “holistic” benchmarks instead of using individual code bases for each evaluation.\n\nTo settle the case, we decided to run these three possible implementations of the same MMLU evaluation on a set of models to rank them according to these results:\n\nthe Harness implementation (commit e47e01b)\n\nthe HELM implementation (commit cab5d89)\n\nthe Original implementation (with Hugging Face integration by the amazing @olmer at https://github.com/hendrycks/test/pull/13)\n\n(Note that the Harness implementation has been recently updated - more in this at the end of our post)\n\nThe results are surprising:\n\nYou can find the full evaluation numbers at the end of the post.\n\nThese different implementations of the same benchmark give widely different numbers and even change the ranking order of the models on the leaderboard!\n\nLet’s try to understand where this discrepancy comes from 🕵️But first, let’s briefly understand how we can automatically evaluate behaviors in modern LLMs.\n\nHow we automatically evaluate a model in today’s LLM world\n\nMMLU is a multiple choice question test, so a rather simple benchmark (versus open-ended questions) but as we’ll see, this still leaves a lot of room for implementation details and differences. The benchmark consists of questions with four possible answers covering 57 general knowledge domains grouped in coarse grained categories: “Humanities”, “Social Sciences”, “STEM”, etc\n\nFor each question, only one of the provided answers is the correct one. Here is an example:\n\nQuestion: Glucose is transported into the muscle cell: Choices: A. via protein transporters called GLUT4. B. only in the presence of insulin. C. via hexokinase. D. via monocarbylic acid transporters. Correct answer: A\n\nNote: you can very easily explore more of this dataset in the dataset viewer on the hub.\n\nLarge language models are simple models in the AI model zoo. They take a string of text as input (called a “prompt”), which is cut into tokens (words, sub-words or characters, depending on how the model is built) and fed in the model. From this input, they generate a distribution of probability for the next token, over all the tokens they know (so called the “vocabulary” of the model): you can therefore get how `probable’ any token is as a continuation of the input prompt.\n\nWe can use these probabilities to choose a token, for instance the most probable (or we can introduce some slight noise wi\nai ml",
     "related": [
       "1949005566880000014",
-      "1953004411440000010",
       "1956544778990000007",
+      "1953004411440000010",
       "1962011044880000001",
-      "1912331100550000047",
-      "1934551022330000027"
+      "1917882200990000042",
+      "1922331100550000038"
     ],
     "crawled_words": 797
   },
@@ -426,11 +426,11 @@
     "summary": "torch.compile notes. All the real performance lives in the graph-breaks section, which is of course the part everyone skips.",
     "search_text": "torch.compile notes. All the real performance lives in the graph-breaks section, which is of course the part everyone skips.\n@gpu_poor Ken Oyelaran\npytorch.org\nBlog – PyTorch\nAlibaba Cloud, Ant Group, Cambricon and Huawei Come Together in Shanghai to Advance the Open Source AI Stack at PyTorch Conference China\n\nCambricon Joins the PyTorch Foundation as a Platinum Member\n\nPyTorch x Hugging Face in Bengaluru: Building India’s Next Generation of ML Systems Contributors\n\nYour Guide to Hardware Acceleration & Compute Infrastructure at PyTorch Conference North America 2026\n\nPyTorch 2.14 Release Blog\n\nAgentic AI and Next-Gen Intelligence Sessions at PyTorch Conference North America 2026\n\nvLLM Sessions at PyTorch Conference North America 2026\n\nCore PyTorch Sessions at PyTorch Conference North America 2026\n\nPyTorch Ecosystem Landscape Welcomes Perforated, AReaL, TorchJD, RLinf, Miles, SMG, FiftyOne, TokenSpeed, VisualTorch, and TorchSurv\n\nPyTorch Conference North America 2026 Keynote Speaker Sessions Announced\n\nHarnessing AI for Day-One Model Enablement\n\nFP8 Training on AMD GPUs with TorchTitan and TorchAO: Upstreaming Performance Improvements\n\nFast, On Device Agentic AI with Muse Glimmer on ExecuTorch\n\nPyTorch Conference North America Announces 2026 Keynotes\n\nPyTorch by the Sea: The inaugural Santa Cruz PyTorch Meetup\n\nFBTriton Infra: Upstream Ingestion, Hierarchical Validation, Ideals vs Realities\n\nPyTorch Foundation Flare Pin Community Design Contest\n\nHelion on TPU: Towards Hardware Heterogeneous Kernel Authoring\n\nDriving the Future of Open Source AI: An Update from PyTorch Foundation Projects\n\nPyTorch Conference North America Schedule Is Live\nai ml",
     "related": [
+      "1956544778990000007",
       "1921220044660000039",
       "1951220099660000012",
       "1915662088220000044",
-      "1956544778990000007",
-      "1933440066440000028",
+      "1932331100550000029",
       "1960118822330000003"
     ],
     "crawled_words": 205
@@ -483,8 +483,8 @@
     "media": [],
     "topic_scores": {
       "ai-ml": 1,
-      "devtools": 0.075,
-      "crypto": 0.036
+      "devtools": 0.111,
+      "crypto": 0.053
     },
     "links": [
       {
@@ -505,12 +505,12 @@
     "summary": "Cosine vs dot product for embeddings, and when normalization actually changes your rankings. Bookmarking because I re-derive this every six months.",
     "search_text": "Cosine vs dot product for embeddings, and when normalization actually changes your rankings. Bookmarking because I re-derive this every six months.\n@vectorpilled Ivy Chaudhry\nplatform.openai.com\nVector embeddings | OpenAI API\nLearn how to turn text into numbers, unlocking use cases like search, clustering, and more with OpenAI API embeddings.\nOpenAI’s text embeddings measure the relatedness of text strings. Embeddings are commonly used for:\n\nSearch (where results are ranked by relevance to a query string)\n\nClustering (where text strings are grouped by similarity)\n\nRecommendations (where items with related text strings are recommended)\n\nAnomaly detection (where outliers with little relatedness are identified)\n\nDiversity measurement (where similarity distributions are analyzed)\n\nClassification (where text strings are classified by their most similar label)\n\nAn embedding is a vector (list) of floating point numbers. The distance between two vectors measures their relatedness. Small distances suggest high relatedness and large distances suggest low relatedness.\n\nVisit our pricing page to learn about embeddings pricing. Requests are billed based on the number of tokens in the input.\n\nTo get an embedding, send your text string to the embeddings API endpoint along with the embedding model name (e.g., text-embedding-3-small):\n\nimport OpenAI from \"openai\"; const openai = new OpenAI(); const embedding = await openai.embeddings.create({ model: \"text-embedding-3-small\", input: \"Your text string goes here\", encoding_format: \"float\", }); console.log(embedding);\n\nfrom openai import OpenAI client = OpenAI() response = client.embeddings.create( input=\"Your text string goes here\", model=\"text-embedding-3-small\" ) print(response.data[0].embedding)\n\npackage main import ( \"context\" \"fmt\" \"github.com/openai/openai-go/v3\" ) func main() { client := openai.NewClient() embedding, err := client.Embeddings.New(context.Background(), openai.EmbeddingNewParams{ Model: openai.EmbeddingModelTextEmbedding3Small, Input: openai.EmbeddingNewParamsInputUnion{ OfString: openai.String(\"Your text string goes here.\"), }, }) if err != nil { panic(err) } fmt.Println(len(embedding.Data[0].Embedding)) }\n\nimport com.openai.client.OpenAIClient; import com.openai.client.okhttp.OpenAIOkHttpClient; import com.openai.models.embeddings.EmbeddingCreateParams; var embedding = client .embeddings() .create( EmbeddingCreateParams.builder() .model(\"text-embedding-3-small\") .input(\"The food was delicious and the waiter...\") .build()); System.out.println(embedding.data().get(0).embedding());\n\nusing OpenAI.Embeddings; string key = Environment.GetEnvironmentVariable(\"OPENAI_API_KEY\")!; string model = \"text-embedding-3-small\"; EmbeddingClient client = new(model, key); OpenAIEmbedding embedding = await client.GenerateEmbeddingAsync( \"The food was delicious and the waiter was friendly.\" ); Console.WriteLine($\"Dimensions: {embedding.ToFloats().Length}\");\n\nrequire \"openai\" client = OpenAI::Client.new response = client.embeddings.create( model: \"text-embedding-3-small\", input: \"The food was delicious and the waiter...\" ) puts(response.data.fetch(0).embedding)\n\ncurl https://api.openai.com/v1/embeddings \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer $OPENAI_API_KEY\" \\ -d '{ \"input\": \"Your text string goes here\", \"model\": \"text-embedding-3-small\" }'\n\nThe response contains the embedding vector (list of floating point numbers) along with some additional metadata. You can extract the embedding vector, save it in a vector database, and use for many different use cases.\n\n{ \"object\": \"list\", \"data\": [ { \"object\": \"embedding\", \"index\": 0, \"embedding\": [ -0.006929283495992422, -0.005336422007530928, -4.547132266452536e-5, -0.024047505110502243 ] } ], \"model\": \"text-embedding-3-small\", \"usage\": { \"prompt_tokens\": 5, \"total_tokens\": 5 } }\n\nBy default, the length of the embedding vector is 1536 for text-embedding-3-small or 3072 for text-embedding-3-large. To reduce the embedding’s dimensions without losing its concept-representing properties, pass in the dimensions parameter. Find more detail on embedding dimensions in the embedding use case section.\n\nOpenAI offers two powerful third-generation embedding model (denoted by -3 in the model ID). Read the embedding v3 announcement blog post for more details.\n\nUsage is priced per input token. Below is an example of pricing pages of text per US dollar (assuming ~800 tokens per page):\n\nHere we show some representative use cases, using the Amazon fine-food reviews dataset.\n\nObtaining the embeddings\n\nThe dataset contains a total of 568,454 food reviews left by Amazon users up to October 2012. We use a subset of the 1000 most recent reviews for illustration purposes. The reviews are in English and tend to be positive or negative. Each review has a ProductId, UserId, Score, review title (Summary) and review body (Text). For example:\n\nI have bought several of the Vitality canned…\n\nProduct arrived labeled as Jumbo Salted Peanut…\n\nBelow, we combine the review summary and review text into a single combined text. The model encodes this combined text and output a single vector embedding.\n\nimport { mkdir, writeFile } from \"node:fs/promises\"; import OpenAI from \"openai\"; const client = new OpenAI(); const reviews = [\"A rich cup of coffee.\", \"A bright herbal tea.\"]; const resp\nai ml",
     "related": [
-      "1950118833770000013",
       "1909004466880000050",
-      "1956544778990000007",
+      "1950118833770000013",
       "1934551022330000027",
-      "1940118822770000022",
-      "1943442266440000019"
+      "1941220044660000021",
+      "1935662088220000026",
+      "1917882200990000042"
     ],
     "crawled_words": 621
   },
@@ -554,12 +554,12 @@
     "summary": "Nielsen's ten usability heuristics, 1994, still undefeated. Most \"AI redesign\" mockups fail three of them at once.",
     "search_text": "Nielsen's ten usability heuristics, 1994, still undefeated. Most \"AI redesign\" mockups fail three of them at once.\n@quietcraft Jules Marchetti\nnngroup.com\n10 Usability Heuristics for User Interface Design\nJakob Nielsen's 10 principles for interaction design. They are called \"heuristics\" because they are broad rules of thumb and not specific usability guidelines.\n10 Usability Heuristics for User Interface Design\n\nApril 24, 1994 · Last reviewed Jan. 30, 2024\n\nThank you to Kelley Gordon for designing the visuals and posters included in this article.\n\nThank you to Kate Moran and Feifei Liu for updating the heuristic names, descriptions, and examples.\n\n1: Visibility of System Status\n\n2: Match Between the System and the Real World\n\n3: User Control and Freedom\n\n4: Consistency and Standards\n\n6: Recognition Rather than Recall\n\n7: Flexibility and Efficiency of Use\n\n8: Aesthetic and Minimalist Design\n\n9: Help Users Recognize, Diagnose, and Recover from Errors\n\n10: Help and Documentation\n\nFree 10 Heuristics Poster\n\nThe design should always keep users informed about what is going on, through appropriate feedback within a reasonable amount of time.\n\nWhen users know the current system status, they learn the outcome of their prior interactions and determine next steps. Predictable interactions create trust in the product as well as the brand.\n\nCommunicate clearly to users what the system’s state is — no action with consequences to users should be taken without informing them.\n\nPresent feedback to the user as quickly as possible (ideally, immediately).\n\nBuild trust through open and continuous communication.\n\nFull article: Visibility of System Status\n\n3-minute video about the Visibility Heuristic\n\nThe design should speak the users' language. Use words, phrases, and concepts familiar to the user, rather than internal jargon. Follow real-world conventions, making information appear in a natural and logical order.\n\nThe way you should design depends very much on your specific users. Terms, concepts, icons, and images that seem perfectly clear to you and your colleagues may be unfamiliar or confusing to your users.\n\nWhen a design’s controls follow real-world conventions and correspond to desired outcomes (called natural mapping), it’s easier for users to learn and remember how the interface works. This helps to build an experience that feels intuitive.\n\nEnsure that users can understand meaning without having to go look up a word’s definition.\n\nNever assume your understanding of words or concepts will match that of your users.\n\nUser research will uncover your users' familiar terminology, as well as their mental models around important concepts.\n\nFull article: Match Between the System and the Real World\n\n2-minute video: Match Between the System and the Real World\n\nUsers often perform actions by mistake. They need a clearly marked \"emergency exit\" to leave the unwanted action without having to go through an extended process.\n\nWhen it's easy for people to back out of a process or undo an action, it fosters a sense of freedom and confidence. Exits allow users to remain in control of the system and avoid getting stuck and feeling frustrated.\n\nShow a clear way to exit the current interaction, like a Cancel button.\n\nMake sure the exit is clearly labeled and discoverable.\n\nFull article: User Control and Freedom\n\n2-minute video: User Control and Freedom\n\nUsers should not have to wonder whether different words, situations, or actions mean the same thing. Follow platform and industry conventions.\n\nJakob's Law states that people spend most of their time using digital products other than yours. Users’ experiences with those other products set their expectations. Failing to maintain consistency may increase the users' cognitive load by forcing them to learn something new.\n\nImprove learnability by maintaining both types of consistency: internal and external.\n\nMaintain consistency within a single product or a family of products (internal consistency).\n\nFollow established industry conventions (external consistency).\n\nFull article: Consistency and Standards\n\n3-minute video: Consistency and Standards\n\nGood error messages are important, but the best designs carefully prevent problems from occurring in the first place. Either eliminate error-prone conditions, or check for them and present users with a confirmation option before they commit to the action.\n\nThere are two types of errors: slips and mistakes. Slips are unconscious errors caused by inattention. Mistakes are conscious errors based on a mismatch between the user’s mental model and the design.\n\nPrioritize your effort: Prevent high-cost errors first, then little frustrations.\n\nAvoid slips by providing helpful constraints and good defaults.\n\nPrevent mistakes by removing memory burdens, supporting undo, and warning your users.\n\nFull article: Preventing User Errors\n\n3-minute video: Error Prevention\n\nMinimize the user's memory load by making elements, actions, and options visible. The user should not have to remember information from one part of the interface to another. Information required to use the design (e.g. field labels or menu items) should be visible or easily retrievable when needed.\n\nHumans have limited short-term memories. Interfaces that promote recognition reduce the amount of cognitive effort required from users.\n\nLet people recognize info\nui design",
     "related": [
-      "1950118833770000013",
-      "1934551022330000027",
-      "1949005566880000014",
-      "1937882200990000024",
       "1961205511220000002",
-      "1915662088220000044"
+      "1949005566880000014",
+      "1934551022330000027",
+      "1937882200990000024",
+      "1950118833770000013",
+      "1909004466880000050"
     ],
     "crawled_words": 759
   },
@@ -601,12 +601,12 @@
     "summary": "The utility-first mental model finally clicked for me reading this page rather than any of the hot takes about it.",
     "search_text": "The utility-first mental model finally clicked for me reading this page rather than any of the hot takes about it.\n@utilityfirst Rafa Okonkwo\ntailwindcss.com\nStyling with utility classes - Core concepts\nBuilding complex components from a constrained set of primitive utilities.\nYou style things with Tailwind by combining many single-purpose presentational classes (utility classes) directly in your markup:\n\n<div class=\"mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10\"> <img class=\"size-12 shrink-0\" src=\"/img/logo.svg\" alt=\"ChitChat Logo\" /> <div> <div class=\"text-xl font-medium text-black dark:text-white\">ChitChat</div> <p class=\"text-gray-500 dark:text-gray-400\">You have a new message!</p> </div></div>\n\nFor example, in the UI above we've used:\n\nThe display and padding utilities (flex, shrink-0, and p-6) to control the overall layout\n\nThe max-width and margin utilities (max-w-sm and mx-auto) to constrain the card width and center it horizontally\n\nThe background-color, border-radius, and box-shadow utilities (bg-white, rounded-xl, and shadow-lg) to style the card's appearance\n\nThe width and height utilities (size-12) to set the width and height of the logo image\n\nThe gap utilities (gap-x-4) to handle the spacing between the logo and the text\n\nThe font-size, color, and font-weight utilities (text-xl, text-black, font-medium, etc.) to style the card text\n\nStyling things this way contradicts a lot of traditional best practices, but once you try it you'll quickly notice some really important benefits:\n\nYou get things done faster — you don't spend any time coming up with class names, making decisions about selectors, or switching between HTML and CSS files, so your designs come together very fast.\n\nMaking changes feels safer — adding or removing a utility class to an element only ever affects that element, so you never have to worry about accidentally breaking something another page that's using the same CSS.\n\nMaintaining old projects is easier — changing something just means finding that element in your project and changing the classes, not trying to remember how all of that custom CSS works that you haven't touched in six months.\n\nYour code is more portable — since both the structure and styling live in the same place, you can easily copy and paste entire chunks of UI around, even between different projects.\n\nYour CSS stops growing — since utility classes are so reusable, your CSS doesn't continue to grow linearly with every new feature you add to a project.\n\nThese benefits make a big difference on small projects, but they are even more valuable for teams working on long-running projects at scale.\n\nWhy not just use inline styles?\n\nA common reaction to this approach is wondering, “isn’t this just inline styles?” and in some ways it is — you’re applying styles directly to elements instead of assigning them a class name and then styling that class.\n\nBut using utility classes has many important advantages over inline styles, for example:\n\nDesigning with constraints — using inline styles, every value is a magic number. With utilities, you’re choosing styles from a predefined design system, which makes it much easier to build visually consistent UIs.\n\nHover, focus, and other states — inline styles can’t target states like hover or focus, but Tailwind’s state variants make it easy to style those states with utility classes.\n\nMedia queries — you can’t use media queries in inline styles, but you can use Tailwind’s responsive variants to build fully responsive interfaces easily.\n\nThis component is fully responsive and includes a button with hover and active styles, and is built entirely with utility classes:\n\n<div class=\"flex flex-col gap-2 p-8 sm:flex-row sm:items-center sm:gap-6 sm:py-4 ...\"> <img class=\"mx-auto block h-24 rounded-full sm:mx-0 sm:shrink-0\" src=\"/img/erin-lindford.jpg\" alt=\"\" /> <div class=\"space-y-2 text-center sm:text-left\"> <div class=\"space-y-0.5\"> <p class=\"text-lg font-semibold text-black\">Erin Lindford</p> <p class=\"font-medium text-gray-500\">Product Engineer</p> </div> <button class=\"border-purple-200 text-purple-600 hover:border-transparent hover:bg-purple-600 hover:text-white active:bg-purple-700 ...\"> Message </button> </div></div>\n\nThinking in utility classes\n\nStyling hover and focus states\n\nTo style an element on states like hover or focus, prefix any utility with the state you want to target, for example hover:bg-sky-700:\n\nHover over this button to see the background color change\n\n<button class=\"bg-sky-500 hover:bg-sky-700 ...\">Save changes</button>\n\nThese prefixes are called variants in Tailwind, and they only apply the styles from a utility class when the condition for that variant matches.\n\nHere's what the generated CSS looks like for the hover:bg-sky-700 class:\n\n.hover\\:bg-sky-700 { &:hover { background-color: var(--color-sky-700); }}\n\nNotice how this class does nothing unless the element is hovered? Its only job is to provide hover styles — nothing else.\n\nThis is different from how you'd write traditional CSS, where a single class would usually provide the styles for many states:\n\n<button class=\"btn\">Save changes</button><style>\nui design",
     "related": [
+      "1912331100550000047",
       "1952661177550000011",
       "1951220099660000012",
-      "1912331100550000047",
       "1947881122990000015",
       "1915662088220000044",
-      "1960118822330000003"
+      "1939004466880000023"
     ],
     "crawled_words": 712
   },
@@ -654,8 +654,8 @@
       "1943442266440000019",
       "1955330112220000008",
       "1942331100550000020",
-      "1941220044660000021",
-      "1947881122990000015"
+      "1956544778990000007",
+      "1941220044660000021"
     ],
     "crawled_words": 545
   },
@@ -703,8 +703,8 @@
       "1949005566880000014",
       "1943442266440000019",
       "1931220044660000030",
-      "1927882200990000033",
-      "1917882200990000042"
+      "1958771199550000005",
+      "1940118822770000022"
     ],
     "crawled_words": 832
   },
@@ -751,8 +751,8 @@
       "1943442266440000019",
       "1936771144110000025",
       "1942331100550000020",
-      "1947881122990000015",
-      "1953004411440000010"
+      "1915662088220000044",
+      "1947881122990000015"
     ],
     "crawled_words": 14
   },
@@ -797,10 +797,10 @@
     "related": [
       "1937882200990000024",
       "1951220099660000012",
-      "1929004466880000032",
       "1934551022330000027",
-      "1914551022330000045",
-      "1933440066440000028"
+      "1929004466880000032",
+      "1933440066440000028",
+      "1940118822770000022"
     ],
     "crawled_words": 16
   },
@@ -844,10 +844,10 @@
     "related": [
       "1936771144110000025",
       "1958771199550000005",
-      "1951220099660000012",
       "1920118822770000040",
-      "1952661177550000011",
-      "1929004466880000032"
+      "1951220099660000012",
+      "1947881122990000015",
+      "1922331100550000038"
     ],
     "crawled_words": 198
   },
@@ -894,7 +894,7 @@
       "1942331100550000020",
       "1947881122990000015",
       "1920118822770000040",
-      "1958771199550000005"
+      "1925662088220000035"
     ],
     "crawled_words": 870
   },
@@ -937,12 +937,12 @@
     "summary": "App Router mental model in one sitting. Server components stop feeling weird once the request boundary is explicit in your head.",
     "search_text": "App Router mental model in one sitting. Server components stop feeling weird once the request boundary is explicit in your head.\n@rscbrain Bruno Alves\nnextjs.org\nNext.js Docs | Next.js\nWelcome to the Next.js Documentation.\nWelcome to the Next.js documentation!\n\nNext.js is a React framework for building full-stack web applications. You use React Components to build user interfaces, and Next.js for additional features and optimizations.\n\nIt also automatically configures lower-level tools like bundlers and compilers. You can instead focus on building your product and shipping quickly.\n\nWhether you're an individual developer or part of a larger team, Next.js can help you build interactive, dynamic, and fast React applications.\n\nThe docs are organized into 3 sections:\n\nGetting Started: Step-by-step tutorials to help you create a new application and learn the core Next.js features.\n\nGuides: Tutorials on specific use cases, choose what's relevant to you.\n\nAPI Reference: Detailed technical reference for every feature.\n\nUse the sidebar to navigate through the sections, or search (Ctrl+K or Cmd+K) to quickly find a page.\n\nApp Router and Pages Router\n\nNext.js has two different routers:\n\nApp Router: The newer router that supports new React features like Server Components.\n\nPages Router: The original router, still supported and being improved.\n\nAt the top of the sidebar, you'll notice a dropdown menu that allows you to switch between the App Router and the Pages Router docs.\n\nThe App Router and Pages Router handle React versions differently:\n\nApp Router: Uses React canary releases built-in, which include all the stable React 19 changes, as well as newer features being validated in frameworks, prior to a new React release.\n\nPages Router: Uses the React version installed in your project's package.json.\n\nThis approach ensures new React features work reliably in the App Router while maintaining backwards compatibility for existing Pages Router applications.\n\nOur documentation assumes some familiarity with web development. Before getting started, it'll help if you're comfortable with:\n\nIf you're new to React or need a refresher, we recommend starting with our React Foundations course, and the Next.js Foundations course that has you building an application as you learn.\n\nFor the best experience when using a screen reader, we recommend using Firefox and NVDA, or Safari and VoiceOver.\n\nIf you have questions about anything related to Next.js, you're always welcome to ask our community on GitHub Discussions, Discord, X (Twitter), and Reddit.\ndevtools",
     "related": [
+      "1909004466880000050",
+      "1943442266440000019",
       "1949005566880000014",
       "1925662088220000035",
-      "1909004466880000050",
-      "1941220044660000021",
-      "1924551022330000036",
-      "1943442266440000019"
+      "1935662088220000026",
+      "1924551022330000036"
     ],
     "crawled_words": 355
   },
@@ -986,11 +986,11 @@
     "search_text": "The dev-server-vs-bundler split is the whole insight. Worth reading the guide rather than cargo-culting a config.\n@buildstepbuild Katya Sorokina\nvite.dev\nGetting Started\nNext Generation Frontend Tooling\nVite (French word for \"quick\", pronounced /viːt/, like \"veet\") is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts:\n\nA dev server that provides rich feature enhancements over native ES modules, for example extremely fast Hot Module Replacement (HMR).\n\nA build command that bundles your code with Rolldown, pre-configured to output highly optimized static assets for production.\n\nVite is opinionated and comes with sensible defaults out of the box. Read about what's possible in the Features Guide. Support for frameworks or integration with other tools is possible through Plugins. The Config Section explains how to adapt Vite to your project if needed.\n\nVite is also highly extensible via its Plugin API and JavaScript API with full typing support.\n\nYou can learn more about the rationale behind the project in the Why Vite section.\n\nDuring development, Vite assumes that a modern browser is used. This means the browser supports most of the latest JavaScript and CSS features. For that reason, Vite sets esnext as the transform target. This prevents syntax lowering, letting Vite serve modules as close as possible to the original source code. Vite injects some runtime code to make the development server work. This code uses features included in Baseline Newly Available at the time of each major release (2026-01-01 for this major).\n\nFor production builds, Vite by default targets Baseline Widely Available browser versions as of a date fixed for each major release. For this major, that corresponds to browser versions released around mid-2023. The target can be lowered via configuration. Additionally, legacy browsers can be supported via the official @vitejs/plugin-legacy. See the Building for Production section for more details.\n\nYou can try Vite online on StackBlitz. It runs the Vite-based build setup directly in the browser, so it is almost identical to the local setup but doesn't require installing anything on your machine. You can navigate to vite.new/{template} to select which framework to use.\n\nThe supported template presets are:\n\nScaffolding Your First Vite Project ​\n\n$ npm create vite@latest\n\nThen follow the prompts!\n\nVite requires Node.js version 20.19+, 22.12+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.\n\nYou can also directly specify the project name and the template you want to use via additional command line options. For example, to scaffold a Vite + Vue project, run:\n\n# npm 7+, extra double-dash is needed: $ npm create vite@latest my-vue-app -- --template vue\n\n$ yarn create vite my-vue-app --template vue\n\n$ pnpm create vite my-vue-app --template vue\n\n$ bun create vite my-vue-app --template vue\n\n$ deno init --npm vite my-vue-app --template vue\n\nSee create-vite for more details on each supported template: vanilla, vanilla-ts, vue, vue-ts, react, react-compiler, react-ts, react-compiler-ts, preact, preact-ts, lit, lit-ts, svelte, svelte-ts, solid, solid-ts, qwik, qwik-ts.\n\nYou can use . for the project name to scaffold in the current directory.\n\nTo create a project without interactive prompts, you can use the --no-interactive flag.\n\ncreate-vite is a tool to quickly start a project from a basic template for popular frameworks. Check out Awesome Vite for community maintained templates that include other tools or target different frameworks.\n\nFor a template at https://github.com/user/project, you can try it out online using https://github.stackblitz.com/user/project (adding .stackblitz after github to the URL of the project).\n\nYou can also use a tool like tiged to scaffold your project with one of the templates. Assuming the project is on GitHub and uses main as the default branch, you can create a local copy using:\n\nnpx tiged user/project my-project cd my-project npm install npm run dev\n\nIn your project, you can install the vite CLI using:\n\nAnd create an index.html file like this:\n\nThen run the appropriate CLI command in your terminal:\n\nThe index.html will be served on http://localhost:5173.\n\nindex.html and Project Root ​\n\nOne thing you may have noticed is that in a Vite project, index.html is front-and-central instead of being tucked away inside public. This is intentional: during development Vite is a server, and index.html is the entry point to your application.\n\nVite treats index.html as source code and part of the module graph. It resolves <script type=\"module\" src=\"...\"> that references your JavaScript source code. Even inline <script type=\"module\"> and CSS referenced via <link href> also enjoy Vite-specific features. In addition, URLs inside index.html are automatically rebased so there's no need for special %PUBLIC_URL% placeholders.\n\nSimilar to static http servers, Vite has the concept of a \"root directory\" which your files are served from. You will see it referenced as <root> throughout the rest of the docs. Absolute URLs in your source code will\ndevtools",
     "related": [
       "1940118822770000022",
-      "1942331100550000020",
       "1949005566880000014",
+      "1942331100550000020",
       "1924551022330000036",
       "1951220099660000012",
-      "1926771144110000034"
+      "1952661177550000011"
     ],
     "crawled_words": 776
   },
@@ -1047,8 +1047,8 @@
       "1935662088220000026",
       "1927882200990000033",
       "1937882200990000024",
-      "1942331100550000020",
-      "1924551022330000036"
+      "1924551022330000036",
+      "1942331100550000020"
     ],
     "crawled_words": 105
   },
@@ -1093,11 +1093,11 @@
     "search_text": "One toolchain for lint + format, in Rust, with a migration path off the old setup. Ran it on a 40k-line repo and the diff was boringly correct.\n@lintfast Sasha Iyer\nbiomejs.dev\nBiome\nFormat, lint, and more in a fraction of a second.\nOne toolchain for your web project\n\nFormat code like Prettier, save time\n\nBiome is a fast formatter for JavaScript, TypeScript, JSX, TSX, JSON, HTML, CSS and GraphQL that scores 97% compatibility with Prettier (see known limitations), saving CI and developer time.\n\nBiome can even format malformed code as you write it in your favorite editor.\n\nfunction HelloWorld({greeting = \"hello\", greeted = '\"World\"', silent = false, onMouseOver,}) { if(!greeting){return null}; // TODO: Don't use random in render let num = Math.floor (Math.random() * 1E+7).toString().replace(/.d+/ig, \"\") return <div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}> <strong>{ greeting.slice( 0, 1 ).toUpperCase() + greeting.slice(1).toLowerCase() }</strong> {greeting.endsWith(\",\") ? \" \" : <span style={{color: 'grey'}}>\", \"</span> } <em> { greeted } </em> { (silent) ? \".\" : \"!\"} </div>;}\n\nfunction HelloWorld({ greeting = \"hello\", greeted = '\"World\"', silent = false, onMouseOver,}) { if (!greeting) { return null; } // TODO: Don't use random in render let num = Math.floor(Math.random() * 1E+7) .toString() .replace(/.d+/gi, \"\"); return ( <div className=\"HelloWorld\" title={`You are visitor number ${num}`} onMouseOver={onMouseOver} > <strong> {greeting.slice(0, 1).toUpperCase() + greeting.slice(1).toLowerCase()} </strong> {greeting.endsWith(\",\") ? ( \" \" ) : ( <span style={{ color: \"grey\" }}>\", \"</span> )} <em>{greeted}</em> {silent ? \".\" : \"!\"} </div> );}\n\nFaster than Prettier when formatting 171,127 lines of code in 2,104 files with an Intel Core i7 1270P.\n\nTry the Biome formatter on the playground or directly on your project:\n\nnpm i -D -E @biomejs/biomenpm @biomejs/biome format\n\npnpm add -D -E @biomejs/biomepnpm @biomejs/biome format\n\nbun add -D -E @biomejs/biomebun @biomejs/biome format\n\ndeno add -D npm:@biomejs/biomedeno @biomejs/biome format\n\nyarn add -D -E @biomejs/biomeyarn @biomejs/biome format\n\nFix problems, learn best practice\n\nBiome is a performant linter for JavaScript, TypeScript, JSX, CSS and GraphQL that features 540 rules from ESLint, TypeScript ESLint, and other sources.\n\nBiome outputs detailed and contextualized diagnostics that help you to improve your code and become a better programmer!\n\ncomplexity/useFlatMap.js:2:1 lint/complexity/useFlatMap FIXABLE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ✖ The call chain .map().flat() can be replaced with a single .flatMap() call. 1 │ const array = [\"split\", \"the text\", \"into words\"]; > 2 │ array.map(sentence => sentence.split(' ')).flat(); │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 3 │ ℹ Safe fix: Replace the chain with .flatMap(). 1 1 │ const array = [\"split\", \"the text\", \"into words\"]; 2 │ - array.map(sentence·=>·sentence.split('·')).flat(); 2 │ + array.flatMap(sentence·=>·sentence.split('·')); 3 3 │\n\nTry the Biome linter on the playground or directly on your project:\n\nnpm i -D -E @biomejs/biomenpm @biomejs/biome lint --write\n\npnpm add -D -E @biomejs/biomepnpm @biomejs/biome lint --write\n\nbun add -D -E @biomejs/biomebun @biomejs/biome lint --write\n\ndeno add -D npm:@biomejs/biomedeno @biomejs/biome lint --write\n\nyarn add -D -E @biomejs/biomeyarn @biomejs/biome lint --write\n\nNot only can you format and lint your code separately, you can do it all at once with a single command!\n\nEvery tool integrates seamlessly with others to create a cohesive toolchain for web projects.\n\nRun all tools with the check command:\n\nnpm i -D -E @biomejs/biomenpm @biomejs/biome check --write\n\npnpm add -D -E @biomejs/biomepnpm @biomejs/biome check --write\n\nbun add -D -E @biomejs/biomebun @biomejs/biome check --write\n\ndeno add -D npm:@biomejs/biomedeno @biomejs/biome check --write\n\nyarn add -D -E @biomejs/biomeyarn @biomejs/biome check --write\n\nBuilt with Rust and an innovative architecture inspired by rust-analyzer.\n\nZero configuration needed to get started. Extensive options available for when you need them.\n\nDesigned to handle codebases of any size. Focus on growing product instead of your tools.\n\nActionable & Informative\n\nAvoid obscure error messages, when we tell you something is wrong, we tell you exactly where the problem is and how to fix it.\n\nOut of the box support for all the language features you use today. First class support for TypeScript and JSX.\n\nWe offer commercial support to organizations that need it through our community of contributors.\n\nInstall Biome using your preferred package manager AND integrate it in your editor.\n\nInstall with package manager\n\nIntegrate Biome in your editor\n\nTrusted by leading organizations\n\nJoin thousands of developers and companies using Biome in production\n\nPowered by our open-source contributors\n\nCopyright (c) 2023-present Biome Developers and Contributors.\ndevtools",
     "related": [
       "1933440066440000028",
-      "1937882200990000024",
-      "1920118822770000040",
-      "1959402277440000004",
       "1943442266440000019",
-      "1941220044660000021"
+      "1941220044660000021",
+      "1917882200990000042",
+      "1959402277440000004",
+      "1937882200990000024"
     ],
     "crawled_words": 658
   },
@@ -1144,10 +1144,10 @@
     "related": [
       "1940118822770000022",
       "1951220099660000012",
-      "1945661188220000017",
       "1927882200990000033",
-      "1939004466880000023",
-      "1941220044660000021"
+      "1945661188220000017",
+      "1959402277440000004",
+      "1960118822330000003"
     ],
     "crawled_words": 656
   },
@@ -1191,8 +1191,8 @@
     "related": [
       "1946770044110000016",
       "1944550022330000018",
-      "1947881122990000015",
       "1927882200990000033",
+      "1947881122990000015",
       "1952661177550000011",
       "1913440066440000046"
     ],
@@ -1239,9 +1239,9 @@
     "search_text": "Islands architecture explained without the marketing. Good reminder that most content sites ship far too much JavaScript.\n@shipless_js Liam Doyle\ndocs.astro.build\nGetting started\nGuides, resources, and API references to help you build with Astro — the web framework for content-driven websites.\nGuides, resources, and API references to help you build with Astro.\n\nPowered by Astro and our open-source contributors. Join us!\n\nWhat will you build with Astro?\n\nExplore Astro starter themes for blogs, portfolios, docs, landing pages, SaaS, marketing, ecommerce sites, and more!\n\nComplete our introductory Build a Blog Tutorial to learn the basics and create your first Astro site.\n\n# create a new project with npmnpm create astro@latest\n\nOur installation guide has step-by-step instructions for installing Astro using our CLI wizard, creating a new project from an existing Astro GitHub repository, and for installing Astro manually.\n\nThe Astro template syntax\n\nAdd integrations like React and Partytown\n\nCreate type safe content collections\n\nEnhance navigation with view transitions\n\nConnect a headless CMS to your project\n\nHave a question or want to get involved?\ndevtools",
     "related": [
       "1940118822770000022",
+      "1942331100550000020",
       "1927882200990000033",
       "1924551022330000036",
-      "1942331100550000020",
       "1929004466880000032",
       "1920118822770000040"
     ],
@@ -1265,7 +1265,7 @@
     "media": [],
     "topic_scores": {
       "infra": 1,
-      "devtools": 0.041
+      "devtools": 0.037
     },
     "links": [
       {
@@ -1286,12 +1286,12 @@
     "summary": "Serverless vector database with a REST API and a free tier. Exactly the amount of infrastructure a side project should own.",
     "search_text": "Serverless vector database with a REST API and a free tier. Exactly the amount of infrastructure a side project should own.\n@smallstack Nadia Rossi\nupstash.com\nGetting Started - Upstash Documentation\nPrerequisite You need an Upstash account before creating a vector, create one here. Create an Index Once you logged in, you can create a Vector Index\nYou need an Upstash account before creating a vector, create one here.\n\nOnce you logged in, you can create a Vector Index by clicking on the Create Index button in the Vector tab.\n\nName: Type a name for your index.\n\nRegion: Choose the region for your index. For optimal performance, select the region closest to your applications. We plan to support additional regions and cloud providers. Feel free to send your requests to support@upstash.com\n\nType: The type of index: Dense, Sparse or Hybrid. For semantic search, you can prefer dense. For full text (or keyword) search, you can prefer sparse. If you need a combination, you can choose hybrid.\n\nIf you choose Dense or Hybrid as index type, you will also be presented with options to select the dimensions and distance metric of your index.\n\nFor the purpose of using the code samples on this page, you can create a dense index with dimension: 2. Distance metric can be any of the options.\n\nOnce you pick these options, you will choose a plan:\n\nFree: The free plan is suitable for small projects. It has a limit of 10,000 queries and 10,000 updates daily.\n\nPay as You Go: Pay as you go plan is a flexible plan with per-request-pricing. It is suitable for projects with unpredictable traffic.\n\nFixed: Fixed plan is suitable for projects with predictable traffic. It has a fixed monthly price with 1M query and 1M updates daily.\n\nPro: Pro plan is suitable for projects with high traffic and storage needs. It has a fixed monthly price with extra security and isolation features.\n\nEnterprise: If you plan to have over a billion vectors then Enterprise plan is for you. It has a fixed monthly price with extra security and isolation features. Contact us at sales@upstash.com for more information.\n\nYou can access data in your index using REST API or our SDKs. You can copy the sample code from the Connect section in the console.\n\nfrom upstash_vector import Indexindex = Index(url=\"UPSTASH_VECTOR_REST_URL\", token=\"UPSTASH_VECTOR_REST_TOKEN\")index.upsert( vectors=[ (\"1\", [0.6, 0.8], {\"field\": \"value\"}), ])\n\nimport { Index } from \"@upstash/vector\";const index = new Index({ url: \"UPSTASH_VECTOR_REST_URL\", token: \"UPSTASH_VECTOR_REST_TOKEN\",})await index.upsert({ id: \"1\", vector: [0.6, 0.8], metadata: {field: \"value\"} })\n\nimport \"github.com/upstash/vector-go\"func main() { index := vector.NewIndex(\"UPSTASH_VECTOR_REST_URL\", \"UPSTASH_VECTOR_REST_TOKEN\") index.Upsert(vector.Upsert{ Id: \"1\", Vector: []float32{0.6, 0.8}, Metadata: map[string]any{\"field\": \"value\"}, })}\n\nuse Upstash\\Vector\\Index;use Upstash\\Vector\\VectorUpsert;$index = new Index( url: 'UPSTASH_VECTOR_REST_URL', token: 'UPSTASH_VECTOR_REST_TOKEN', );$index->upsert(new VectorUpsert( id: '1', vector: [0.6, 0.8], metadata: ['field' => 'value'],));\n\ncurl $UPSTASH_VECTOR_REST_URL/upsert \\ -X POST \\ -H \"Authorization: Bearer $UPSTASH_VECTOR_REST_TOKEN\" \\ -d '{\"id\": \"1\", \"vector\": [0.6, 0.8], \"metadata\": {\"field\": \"value\"}}'\n\nYou can perform a similarity search by providing a query vector as a parameter. The dimension of the query vector must match the dimension of your index. Also, you can query by metadata filtering.\n\nUpstash is eventually consistent, so there may be a delay before the newly inserted or updated vectors are ready for querying.\n\nfrom upstash_vector import Indexindex = Index(url=\"UPSTASH_VECTOR_REST_URL\", token=\"UPSTASH_VECTOR_REST_TOKEN\")index.query( vector=[0.6, 0.8], top_k=3, include_metadata=True,)\n\nimport { Index } from \"@upstash/vector\";const index = new Index({ url: \"UPSTASH_VECTOR_REST_URL\", token: \"UPSTASH_VECTOR_REST_TOKEN\",})await index.query({ vector: [0.6, 0.8], topK: 3, includeMetadata: true })\n\nimport \"github.com/upstash/vector-go\"func main() { index := vector.NewIndex(\"UPSTASH_VECTOR_REST_URL\", \"UPSTASH_VECTOR_REST_TOKEN\") index.Query(vector.Query{ Vector: []float32{0.6, 0.8}, TopK: 3, IncludeMetadata: true, })}\n\nuse Upstash\\Vector\\Index;use Upstash\\Vector\\VectorQuery;$index = new Index( url: '<UPSTASH_VECTOR_REST_URL>', token: '<UPSTASH_VECTOR_REST_TOKEN>',);$index->query(new VectorQuery( vector: [0.6, 0.8], topK: 3, includeMetadata: true,));\n\ncurl $UPSTASH_VECTOR_REST_URL/query \\ -H \"Authorization: Bearer $UPSTASH_VECTOR_REST_TOKEN\" \\ -d '{\"vector\": [0.6, 0.8], \"topK\": 3, \"includeMetadata\": \"true\"}'\n\nIn Upstash console, you can see the charts of your index:\n\nThere are following charts:\n\nDaily Requests: The number of queries and updates to your index in the last 5 days.\n\nThroughput: The number of queries and updates to your index in the selected time period.\n\nLatency: The mean and P99 latency of queries and updates to your index in the selected time period.\n\nVector Count: The number of vectors in your index in the selected time period.\n\nData Size: The size of your index in the selected time period.\n\nYou can also query your index with a simple UI:\ninfra",
     "related": [
-      "1909004466880000050",
       "1932331100550000029",
+      "1909004466880000050",
       "1915662088220000044",
       "1924551022330000036",
-      "1942331100550000020",
-      "1920118822770000040"
+      "1920118822770000040",
+      "1942331100550000020"
     ],
     "crawled_words": 662
   },
@@ -1335,10 +1335,10 @@
     "search_text": "If you only read one page of the Kubernetes docs, read the concepts overview. Most \"k8s is complex\" pain is skipping this and copying YAML.\n@yamlwrangler Marc Delgado\nkubernetes.io\nOverview\nKubernetes is a portable, extensible, open source platform for managing containerized workloads and services that facilitate both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.\nThis page is an overview of Kubernetes.\n\nThe name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation results from counting the eight letters between the \"K\" and the \"s\". Google open sourced the Kubernetes project in 2014. Kubernetes combines over 15 years of Google's experience running production workloads at scale with best-of-breed ideas and practices from the community.\n\nWhy you need Kubernetes and what it can do\n\nContainers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?\n\nThat's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed systems resiliently. It takes care of scaling and failover for your application, provides deployment patterns, and more. For example: Kubernetes can easily manage a canary deployment for your system.\n\nKubernetes provides you with:\n\nService discovery and load balancing Kubernetes can expose a container using a DNS name or its own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.\n\nStorage orchestration Kubernetes allows you to automatically mount a storage system of your choice, such as local storage, public cloud providers, and more.\n\nAutomated rollouts and rollbacks You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers and adopt all their resources to the new container.\n\nAutomatic bin packing You provide Kubernetes with a cluster of nodes that it can use to run containerized tasks. You tell Kubernetes how much CPU and memory (RAM) each container needs. Kubernetes can fit containers onto your nodes to make the best use of your resources.\n\nSelf-healing Kubernetes restarts containers that fail, replaces containers, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.\n\nSecret and configuration management Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and SSH keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.\n\nBatch execution In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.\n\nHorizontal scaling Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.\n\nIPv4/IPv6 dual-stack Allocation of IPv4 and IPv6 addresses to Pods and Services.\n\nDesigned for extensibility Add features to your Kubernetes cluster without changing upstream source code.\n\nKubernetes is not a traditional, all-inclusive PaaS (Platform as a Service) system. Since Kubernetes operates at the container level rather than at the hardware level, it provides some generally applicable features common to PaaS offerings, such as deployment, scaling, load balancing, and lets users integrate their logging, monitoring, and alerting solutions. However, Kubernetes is not monolithic, and these default solutions are optional and pluggable. Kubernetes provides the building blocks for building developer platforms, but preserves user choice and flexibility where it is important.\n\nDoes not limit the types of applications supported. Kubernetes aims to support an extremely diverse variety of workloads, including stateless, stateful, and data-processing workloads. If an application can run in a container, it should run great on Kubernetes.\n\nDoes not deploy source code and does not build your application. Continuous Integration, Delivery, and Deployment (CI/CD) workflows are determined by organization cultures and preferences as well as technical requirements.\n\nDoes not provide application-level services, such as middleware (for example, message buses), data-processing frameworks (for example, Spark), databases (for example, MySQL), caches, nor cluster storage systems (for example, Ceph) as built-in services. Such components can run on Kubernetes, and/or can be accessed by applications running on Kubernetes through portable mechanisms, such as the Open Service Broker.\n\nDoes not dictate logging, monitoring, or alerting solutions. It provides some integrations as proof of concept, and mechanisms to collect and export metrics.\n\nDoes not provide nor mandate a configuration language/system (for example, Jsonnet). It provides a declarative API that may be targeted by arbitrary forms of declarative specifications.\n\nDoes not provide nor\ninfra",
     "related": [
       "1926771144110000034",
-      "1939004466880000023",
       "1934551022330000027",
-      "1932331100550000029",
+      "1939004466880000023",
       "1962011044880000001",
+      "1932331100550000029",
       "1924551022330000036"
     ],
     "crawled_words": 743
@@ -1383,11 +1383,11 @@
     "search_text": "Container fundamentals refresher. Layer caching is the single highest-leverage thing to understand about your build times.\n@layercache Zoe Ashford\ndocs.docker.com\nGet started\nChoose a tutorial to build and run an application, work with an AI agent safely, or set up Docker for your organization.\nGet Docker Desktop or Docker Engine for your operating system.\n\nInstall Docker Sandboxes\n\nInstall the sbx command to run coding agents in isolated environments.\n\nBuild and share a containerized application\n\nRun a container and an application stack, build an image, and share it through Docker Hub.\n\nRun your coding agent in a sandbox\n\nMove your existing full-autonomy coding-agent workflow into a disposable Docker Sandbox.\n\nRoll out Docker to a pilot group\n\nInvite a pilot user, apply a Docker Desktop policy, and verify the managed experience.\ninfra",
     "related": [
       "1929004466880000032",
-      "1934551022330000027",
       "1961205511220000002",
+      "1934551022330000027",
       "1927882200990000033",
       "1913440066440000046",
-      "1910118822770000049"
+      "1962011044880000001"
     ],
     "crawled_words": 85
   },
@@ -1431,11 +1431,11 @@
     "search_text": "Error budgets are the only on-call idea that survived contact with every team I've been on. The whole book is free online.\n@errorbudget Ruth Nakamura\nsre.google\nGoogle SRE - Site reliability engineering book Google index\nGo through the complete table of contents of sre Google book, outlined are the key topics and insights covered in this essential resource for SRE professionals.\n2. The Production Environment at Google, from the Viewpoint of an SRE\n\n4. Service Level Objectives\n\n6. Monitoring Distributed Systems\n\n7. The Evolution of Automation at Google\n\n12. Effective Troubleshooting\n\n15. Postmortem Culture: Learning from Failure\n\n17. Testing for Reliability\n\n18. Software Engineering in SRE\n\n19. Load Balancing at the Frontend\n\n20. Load Balancing in the Datacenter\n\n22. Addressing Cascading Failures\n\n23. Managing Critical State: Distributed Consensus for Reliability\n\n24. Distributed Periodic Scheduling with Cron\n\n25. Data Processing Pipelines\n\n26. Data Integrity: What You Read Is What You Wrote\n\n27. Reliable Product Launches at Scale\n\n28. Accelerating SREs to On-Call and Beyond\n\n29. Dealing with Interrupts\n\n30. Embedding an SRE to Recover from Operational Overload\n\n31. Communication and Collaboration in SRE\n\n32. The Evolving SRE Engagement Model\n\n33. Lessons Learned from Other Industries\n\nAppendix A. Availability Table\n\nAppendix B. A Collection of Best Practices for Production Services\n\nAppendix C. Example Incident State Document\n\nAppendix D. Example Postmortem\n\nAppendix E. Launch Coordination Checklist\n\nAppendix F. Example Production Meeting Minutes\n\nChapter 1 - Introduction\n\nChapter 2 - The Production Environment at Google, from the Viewpoint of an SRE\n\nChapter 3 - Embracing Risk\n\nChapter 4 - Service Level Objectives\n\nChapter 5 - Eliminating Toil\n\nChapter 6 - Monitoring Distributed Systems\n\nChapter 7 - The Evolution of Automation at Google\n\nChapter 8 - Release Engineering\n\nChapter 10 - Practical Alerting\n\nChapter 11 - Being On-Call\n\nChapter 12 - Effective Troubleshooting\n\nChapter 13 - Emergency Response\n\nChapter 14 - Managing Incidents\n\nChapter 15 - Postmortem Culture: Learning from Failure\n\nChapter 16 - Tracking Outages\n\nChapter 17 - Testing for Reliability\n\nChapter 18 - Software Engineering in SRE\n\nChapter 19 - Load Balancing at the Frontend\n\nChapter 20 - Load Balancing in the Datacenter\n\nChapter 21 - Handling Overload\n\nChapter 22 - Addressing Cascading Failures\n\nChapter 23 - Managing Critical State: Distributed Consensus for Reliability\n\nChapter 24 - Distributed Periodic Scheduling with Cron\n\nChapter 25 - Data Processing Pipelines\n\nChapter 26 - Data Integrity: What You Read Is What You Wrote\n\nChapter 27 - Reliable Product Launches at Scale\n\nChapter 28 - Accelerating SREs to On-Call and Beyond\n\nChapter 29 - Dealing with Interrupts\n\nChapter 30 - Embedding an SRE to Recover from Operational Overload\n\nChapter 31 - Communication and Collaboration in SRE\n\nChapter 32 - The Evolving SRE Engagement Model\n\nChapter 33 - Lessons Learned from Other Industries\n\nAppendix A - Availability Table\n\nAppendix B - A Collection of Best Practices for Production Services\n\nAppendix C - Example Incident State Document\n\nAppendix D - Example Postmortem\n\nAppendix E - Launch Coordination Checklist\n\nAppendix F - Example Production Meeting Minutes\n\nCopyright © 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0\ninfra",
     "related": [
       "1961205511220000002",
-      "1947881122990000015",
-      "1959402277440000004",
-      "1962011044880000001",
       "1942331100550000020",
-      "1934551022330000027"
+      "1962011044880000001",
+      "1959402277440000004",
+      "1947881122990000015",
+      "1924551022330000036"
     ],
     "crawled_words": 450
   },
@@ -1475,9 +1475,9 @@
     "related": [
       "1962011044880000001",
       "1947881122990000015",
-      "1955330112220000008",
       "1933440066440000028",
-      "1917882200990000042",
+      "1955330112220000008",
+      "1919004466880000041",
       "1913440066440000046"
     ],
     "crawled_words": 0
@@ -1528,8 +1528,8 @@
       "1961205511220000002",
       "1958771199550000005",
       "1962011044880000001",
-      "1935662088220000026",
-      "1927882200990000033"
+      "1927882200990000033",
+      "1935662088220000026"
     ],
     "crawled_words": 752
   },
@@ -1552,8 +1552,8 @@
     "media": [],
     "topic_scores": {
       "infra": 1,
-      "ai-ml": 0.465,
-      "devtools": 0.034
+      "ai-ml": 0.383,
+      "devtools": 0.028
     },
     "links": [
       {
@@ -1574,12 +1574,12 @@
     "summary": "Postgres with branching, so preview environments get their own database. Changes how you think about migrations in PRs.",
     "search_text": "Postgres with branching, so preview environments get their own database. Changes how you think about migrations in PRs.\n@branchmydb Omar Tahir\nneon.com\nNeon documentation - Neon Docs\nGetting started. Start with a quick setup prompt, or follow a guided tutorial to build the full Neon stack step by step. Products. Build backends for web apps and agents with Lakebase Postgres, Auth, ...\nNeon is the backend for apps and agents.\n\nStart with a quick setup prompt, or follow a guided tutorial to build the full Neon stack step by step.\n\nAI-guided setup. Creates a project, applies your schema, and writes a .env in one step. Copy the prompt below and get started.\n\nNext.js on the full Neon backend: Lakebase Postgres, Auth, Object Storage, and AI Gateway, from create-next-app to deployed.\n\nLearn how Lakebase Postgres, Managed Better Auth, Object Storage, Functions, and the AI Gateway connect across a real project, and where each one lives in your codebase.\n\nBuild backends for web apps and agents with Lakebase Postgres, Auth, Object Storage, and AI Gateway. Every service is agent-ready: instant, branchable, and serverless.\n\nLakebase PostgresServerless Postgres with branching, autoscaling, scale to zero, and instant restore.\n\nServerless Postgres with branching, autoscaling, scale to zero, and instant restore.\n\nAuthManaged Better Auth with sign-up, OAuth, and sessions. Users live in your Postgres and branch with it.\n\nManaged Better Auth with sign-up, OAuth, and sessions. Users live in your Postgres and branch with it.\n\nData APIHTTPS queries with no backend code. Drop-in compatible with Supabase.\n\nHTTPS queries with no backend code. Drop-in compatible with Supabase.\n\nBetaObject StorageS3-compatible object storage that branches with your database.\n\nS3-compatible object storage that branches with your database.\n\nBetaFunctionsLong-running serverless functions on Node.js, deployed alongside your database.\n\nLong-running serverless functions on Node.js, deployed alongside your database.\n\nBetaAI GatewayOne API for frontier and open-source models, built into your Neon project.\n\nOne API for frontier and open-source models, built into your Neon project.\n\nNew to Object Storage, Functions, or AI Gateway? Start with the Neon backend beta guide.\n\nBrowse our framework, language, and ORM guides for full connection details.\n\nAdd vector, keyword, and hybrid search directly to your database, so agent retrieval and RAG need no separate vector store. Explore Lakebase Search →\n\nNeon integrates with AI coding tools and agents through MCP. Pick your editor for setup and integration details.\n\nCursorConnect Neon to Cursor\n\nClaude CodeConnect Neon to Claude Code\n\nCodexConnect Neon to OpenAI Codex\n\nGitHub CopilotConnect Neon to GitHub Copilot\n\nQuestions about Neon or Postgres? Join our Discord\ninfra ai ml",
     "related": [
-      "1935662088220000026",
       "1932331100550000029",
+      "1935662088220000026",
       "1940118822770000022",
       "1929004466880000032",
-      "1947881122990000015",
-      "1942331100550000020"
+      "1942331100550000020",
+      "1937882200990000024"
     ],
     "crawled_words": 354
   },
@@ -1623,11 +1623,11 @@
     "search_text": "Running containers close to users without becoming a full-time platform engineer. The networking docs are unusually honest about tradeoffs.\n@regionsplit Sara Lindqvist\nfly.io\nFly.io developer documentation\nDocumentation and guides from the team at Fly.io.\nFly.io developer documentation\n\nNot using brew? Check out the installation guide\n\nExplore Fly.io by features\n\nGet answers in your language\n\nOr framework. You know what we mean. Check out the docs specific to your tech so you can move faster.\n\nCould you use more help?\n\nOur Community forum and Support team have the answers.\n\nDiscuss Fly.io with other users\n\nSee new Fly.io developments first\n\nQuick answers to common issues\n\nPlans start at $29/month\n\nGuaranteed response time\n\nRun by Fly.io engineers, not chat bots\n\nTechnical architecture support\ninfra",
     "related": [
       "1924551022330000036",
-      "1933440066440000028",
       "1942331100550000020",
-      "1923440066440000037",
+      "1933440066440000028",
       "1951220099660000012",
-      "1941220044660000021"
+      "1941220044660000021",
+      "1919004466880000041"
     ],
     "crawled_words": 86
   },
@@ -1668,11 +1668,11 @@
     "search_text": "Nine pages that started all of it. Re-reading the double-spend section is a good antidote to most timeline discourse.\n@ninepages Yusuf Kaya\nbitcoin.org\nbitcoin.pdf\ncrypto",
     "related": [
       "1942331100550000020",
-      "1924551022330000036",
-      "1940118822770000022",
       "1943442266440000019",
-      "1941220044660000021",
-      "1915662088220000044"
+      "1924551022330000036",
+      "1931220044660000030",
+      "1915662088220000044",
+      "1940118822770000022"
     ],
     "crawled_words": 0
   },
@@ -1694,7 +1694,7 @@
     "media": [],
     "topic_scores": {
       "crypto": 1,
-      "devtools": 0.126,
+      "devtools": 0.17,
       "ui-design": 0.095,
       "reading": 0.063
     },
@@ -1719,10 +1719,10 @@
     "related": [
       "1926771144110000034",
       "1923440066440000037",
-      "1935662088220000026",
       "1942331100550000020",
+      "1934551022330000027",
       "1920118822770000040",
-      "1934551022330000027"
+      "1935662088220000026"
     ],
     "crawled_words": 680
   },
@@ -1744,6 +1744,7 @@
     "media": [],
     "topic_scores": {
       "crypto": 1,
+      "devtools": 0.035,
       "infra": 0.018
     },
     "links": [
@@ -1766,10 +1767,10 @@
     "related": [
       "1924551022330000036",
       "1962011044880000001",
+      "1956544778990000007",
+      "1935662088220000026",
       "1953004411440000010",
-      "1932331100550000029",
-      "1926771144110000034",
-      "1956544778990000007"
+      "1921220044660000039"
     ],
     "crawled_words": 841
   },
@@ -1814,7 +1815,7 @@
       "1934551022330000027",
       "1959402277440000004",
       "1923440066440000037",
-      "1916771144110000043"
+      "1921220044660000039"
     ],
     "crawled_words": 0
   },
@@ -1856,11 +1857,11 @@
     "summary": "Dashboard I actually trust for L2 activity and risk assumptions. The \"stage\" framing did more for the discourse than any thread.",
     "search_text": "Dashboard I actually trust for L2 activity and risk assumptions. The \"stage\" framing did more for the discourse than any thread.\n@l2watcher Hugo Meier\nl2beat.com\nL2BEAT - The state of the layer two ecosystem\nL2BEAT is an analytics and research website about Ethereum layer 2 scaling. Here you will find in depth comparison of major protocols live on Ethereum today.\nSearch for projects by name or address\n\nRollups are L2s that periodically post state commitments to Ethereum. These commitments are validated by either Validity Proofs or are accepted optimistically and can be challenged via Fraud Proof mechanism within a certain fraud proof window. Additionally L2 data is also posted to Ethereum, hence there are no additional trust assumptions introduced.\n\n$14.58 B2.07%33.6% with additional trust assumptions\n\nArbitrum OneArbitrum One\n\n$12.64 B5.81%33.3% with additional trust assumptions\n\n$1.74 B6.36%17.4% with additional trust assumptions\n\n$1.47 B1.97%43.5% with additional trust assumptions\n\nLighterExchangeLighterExchange\n\n$1.37 B15.3%0.00% with additional trust assumptions\n\n$403.45 M5.80%22.8% with additional trust assumptions\n\n$361.18 M12.2%63.5% with additional trust assumptions\n\n$336.00 M2.39%86.3% with additional trust assumptions\n\n$239.84 M8.30%5.06% with additional trust assumptions\n\n$154.05 M1.34%89.7% with additional trust assumptions\n\n$84.24 M8.88%53.9% with additional trust assumptions\n\n$77.21 M1.17%55.2% with additional trust assumptions\n\n$75.49 M0.83%73.9% with additional trust assumptions\n\n$52.19 M3.75%52.3% with additional trust assumptions\n\n$46.39 M1.78%6.43% with additional trust assumptions\n\nTaiko AlethiaTaiko Alethia\n\nValiditySP1 Hypercube / RISC Zero\n\n$12.81 M10.7%1.67% with additional trust assumptions\n\n$11.26 M6.65%52.0% with additional trust assumptions\n\n$663 K0.73%99.9% with additional trust assumptions\n\nINTMAXPaymentsINTMAXPayments\n\n$136 K0.94%0.00% with additional trust assumptions\n\nHoneypot v2Bug bountyHoneypot v2Bug bounty\n\n$1 K2.84%0.00% with additional trust assumptions\n\n<$1K13.2%0.00% with additional trust assumptions\n\nEthscriptionsNFTEthscriptionsNFT\ncrypto",
     "related": [
-      "1954118844330000009",
       "1924551022330000036",
+      "1910118822770000049",
+      "1954118844330000009",
       "1909004466880000050",
       "1956544778990000007",
-      "1910118822770000049",
       "1957889001660000006"
     ],
     "crawled_words": 203
@@ -1905,9 +1906,9 @@
       "1919004466880000041",
       "1915662088220000044",
       "1924551022330000036",
+      "1934551022330000027",
       "1917882200990000042",
-      "1956544778990000007",
-      "1934551022330000027"
+      "1949005566880000014"
     ],
     "crawled_words": 892
   },
@@ -1951,11 +1952,11 @@
     "search_text": "The instant-gratification monkey is a better model of my Tuesday afternoons than any productivity framework I've tried.\n@monkeymind Ravi Menon\nwaitbutwhy.com\nWhy Procrastinators Procrastinate\nThe full story about why procrastinators routinely ruin their own lives.\nPDF: We made a fancy PDF of this post for printing and offline viewing. Buy it here. (Or see a preview.)\n\npro-cras-ti-na-tion |prəˌkrastəˈnāSHən, prō-|nounthe action of delaying or postponing something: your first tip is to avoid procrastination.\n\nWho would have thought that after decades of struggle with procrastination, the dictionary, of all places, would hold the solution.\n\nAvoid procrastination. So elegant in its simplicity.\n\nWhile we’re here, let’s make sure obese people avoid overeating, depressed people avoid apathy, and someone please tell beached whales that they should avoid being out of the ocean.\n\nNo, “avoid procrastination” is only good advice for fake procrastinators—those people that are like, “I totally go on Facebook a few times every day at work—I’m such a procrastinator!” The same people that will say to a real procrastinator something like, “Just don’t procrastinate and you’ll be fine.”\n\nThe thing that neither the dictionary nor fake procrastinators understand is that for a real procrastinator, procrastination isn’t optional—it’s something they don’t know how to not do.\n\nIn college, the sudden unbridled personal freedom was a disaster for me—I did nothing, ever, for any reason. The one exception was that I had to hand in papers from time to time. I would do those the night before, until I realized I could just do them through the night, and I did that until I realized I could actually start them in the early morning on the day they were due. This behavior reached caricature levels when I was unable to start writing my 90-page senior thesis until 72 hours before it was due, an experience that ended with me in the campus doctor’s office learning that lack of blood sugar was the reason my hands had gone numb and curled up against my will. (I did get the thesis in—no, it was not good.)\n\nEven this post took much longer than it should have, because I spent a bunch of hours doing things like seeing this picture sitting on my desktop from a previous post, opening it, looking at it for a long time thinking about how easily he could beat me in a fight, then wondering if he could beat a tiger in a fight, then wondering who would win between a lion and a tiger, and then googling that and reading about it for a while (the tiger would win). I have problems.\n\nTo understand why procrastinators procrastinate so much, let’s start by understanding a non-procrastinator’s brain:\n\nPretty normal, right? Now, let’s look at a procrastinator’s brain:\n\nNotice anything different?\n\nIt seems the Rational Decision-Maker in the procrastinator’s brain is coexisting with a pet—the Instant Gratification Monkey.\n\nThis would be fine—cute, even—if the Rational Decision-Maker knew the first thing about how to own a monkey. But unfortunately, it wasn’t a part of his training and he’s left completely helpless as the monkey makes it impossible for him to do his job.\n\nThe fact is, the Instant Gratification Monkey is the last creature who should be in charge of decisions—he thinks only about the present, ignoring lessons from the past and disregarding the future altogether, and he concerns himself entirely with maximizing the ease and pleasure of the current moment. He doesn’t understand the Rational Decision-Maker any better than the Rational Decision-Maker understands him—why would we continue doing this jog, he thinks, when we could stop, which would feel better. Why would we practice that instrument when it’s not fun? Why would we ever use a computer for work when the internet is sitting right there waiting to be played with? He thinks humans are insane.\n\nIn the monkey world, he’s got it all figured out—if you eat when you’re hungry, sleep when you’re tired, and don’t do anything difficult, you’re a pretty successful monkey. The problem for the procrastinator is that he happens to live in the human world, making the Instant Gratification Monkey a highly unqualified navigator. Meanwhile, the Rational Decision-Maker, who was trained to make rational decisions, not to deal with competition over the controls, doesn’t know how to put up an effective fight—he just feels worse and worse about himself the more he fails and the more the suffering procrastinator whose head he’s in berates him.\n\nIt’s a mess. And with the monkey in charge, the procrastinator finds himself spending a lot of time in a place called the Dark Playground.1\n\nThe Dark Playground is a place every procrastinator knows well. It’s a place where leisure activities happen at times when leisure activities are not supposed to be happening. The fun you have in the Dark Playground isn’t actually fun because it’s completely unearned and the air is filled with guilt, anxiety, self-hatred, and dread. Sometimes the Rational Decision-Maker puts his foot down and refuses to let you waste time doing normal leisure things, and since the Instant Gratification Monkey sure as hell isn’t gonna let you work, you find yourself in a bizarre purgatory of weird activities where everyone l\nreading",
     "related": [
       "1920118822770000040",
-      "1962011044880000001",
       "1917882200990000042",
+      "1962011044880000001",
       "1959402277440000004",
       "1913440066440000046",
-      "1961205511220000002"
+      "1932331100550000029"
     ],
     "crawled_words": 827
   },
@@ -1997,12 +1998,12 @@
     "summary": "Mental models list to skim when a decision feels stuck. Inversion and second-order thinking earn their keep every time.",
     "search_text": "Mental models list to skim when a decision feels stuck. Inversion and second-order thinking earn their keep every time.\n@modelsofthought Nina Costa\nfs.blog\nMental Models: The Best Way to Make Intelligent Decisions (~100 Models Explained)\nThe smartest people in the world use mental models to make intelligent decisions, avoid stupidity, and increase productivity. Let's take a look at how ...\nMental Models: The Best Way to Make Intelligent Decisions (~100 Models Explained)\n\nA mental model is a simplified explanation of how something works.\n\nAny idea, belief, or concept can be boiled down to its essence. Like a map, mental models highlight key information while ignoring irrelevant details. They’re tools for compressing complexity into manageable chunks.\n\nMental models help us understand the world. For example, velocity shows that both speed and direction matter. Reciprocity reveals how being positive and taking initiative gets the world to do most of the work for you. Margin of Safety reminds us that things don’t always go as planned. Relativity exposes our blind spots and shows how a different perspective can reveal new information. These are just a few examples.\n\nIf you want to be a good thinker, you must develop a mind that can jump the jurisdictional boundaries. You don’t have to know it all. Just take in the best big ideas from all these disciplines. And it’s not that hard to do.Charlie Munger\n\nIf you want to be a good thinker, you must develop a mind that can jump the jurisdictional boundaries. You don’t have to know it all. Just take in the best big ideas from all these disciplines. And it’s not that hard to do.\n\nThe Big Ideas From The Big Disciplines\n\nThis page summarizes the big ideas to help you make better decisions, avoid problems, and spot opportunities others miss.\n\nPhysics, Chemistry, and Biology\n\nHuman Nature and Judgment\n\nThe Map is Not the Territory\n\nThe map is not the territory reminds us that our mental models of the world are not the same as the world itself. It cautions against confusing our abstractions and representations with the complex, ever-­shifting reality they aim to describe.\n\nIt is dangerous to mistake the map for the territory. Consider the person with an outstanding résumé who checks all the boxes on paper but can’t do the job.\n\nUpdating our maps is a difficult process of reconciling what we want to be true with what is true.\n\nIn many areas of life, we are offered maps by other people. We are reliant on the maps provided by experts, pundits, and teachers. In these cases, the best we can do is to choose our mapmakers wisely and to seek out those who are rigorous, transparent, and open to revision.\n\nUltimately, the map/territory distinction invites us to engage with the world as it is, not just as we imagine it. And remember, when you don’t make the map, choose your cartographer wisely.\n\nThe first rule of competition is that you are more likely to win if you play where you have an advantage. Playing to your advantage requires a firm understanding of what you know and don’t know.\n\nYour circle of competence is your personal sphere of expertise, where your knowledge and skills are concentrated. It’s the domain where you have a deep understanding, where your judgments are reliable, and your decisions are sound.\n\nThe size of your circle isn’t as important as knowing the boundaries. The wise person knows the limits of their knowledge and can confidently say, “This falls within my circle,” or “This is outside my area of expertise.”\n\nWhile operating within your circle of competence is a recipe for confidence and effectiveness, venturing outside your circle of competence is a recipe for trouble. You’re like a sailor navigating unfamiliar waters without a map, at the mercy of currents and storms you don’t fully understand. This isn’t to say that you should never venture outside your circle. Learning new things, gaining new skills, and mastering new domains is one of the most beautiful things about life.\n\nCelebrate your expertise, but also acknowledge your limitations.\n\nFirst Principles Thinking\n\nFirst principles thinking is the art of breaking down complex problems into their fundamental truths. It’s a way of thinking that goes beyond the surface and allows us to see things from a new perspective.\n\nThinking in first principles allows us to identify the root causes, strip away the layers of complexity, and focus on the most effective solutions. Reasoning from first principles allows us to step outside the way things have always been done and instead see what is possible.\n\nFirst principles thinking is not easy. It requires a willingness to challenge the status quo. This is why it’s often the domain of rebels and disrupters who believe there must be a better way. It’s the thinking of those willing to start from scratch and build from the ground up.\n\nIn a world focused on incremental improvement, first principles thinking offers a competitive advantage because almost no one does it.\n\nThought experiments are the sandbox of the mind, the place where we can play with ideas without constraints. They’re a way of exploring the implications of our theories, of testing the boundaries of our understanding. They offer a powerful tool for clarifying our thinking, revealing hidden assumptions, and showing us unintended consequences.\n\nThe power of thought experiments lies in their ability t\nreading",
     "related": [
-      "1913440066440000046",
       "1962011044880000001",
+      "1913440066440000046",
       "1956544778990000007",
+      "1960118822330000003",
       "1961205511220000002",
-      "1953004411440000010",
-      "1960118822330000003"
+      "1953004411440000010"
     ],
     "crawled_words": 835
   },
@@ -2024,7 +2025,7 @@
     "media": [],
     "topic_scores": {
       "reading": 1,
-      "ui-design": 0.231
+      "ui-design": 0.2
     },
     "links": [
       {
@@ -2044,12 +2045,12 @@
     "summary": "Programmer moneyball: the market for engineering talent is far less efficient than people assume, and the data backs it up.",
     "search_text": "Programmer moneyball: the market for engineering talent is far less efficient than people assume, and the data backs it up.\n@hiringdata Ada Whitfield\ndanluu.com\nWe only hire the trendiest\nAn acquaintance of mine, let’s call him Mike, is looking for work after getting laid off from a contract role at Microsoft, which has happened to a lot of people I know. Like me, Mike has 11 years in industry. Unlike me, he doesn't know a lot of folks at trendy companies, so I passed his resume around to some engineers I know at companies that are desperately hiring. My engineering friends thought Mike's resume was fine, but most recruiters rejected him in the resume screening phase.\n\nWhen I asked why he was getting rejected, the typical response I got was:\n\nTech experience is in irrelevant tech\n\n\"Experience is too random, with payments, mobile, data analytics, and UX.\"\n\nContractors are generally not the strongest technically\n\nThis response is something from a recruiter that was relayed to me through an engineer; the engineer was incredulous at the response from the recruiter. Just so we have a name, let's call this company TrendCo. It's one of the thousands of companies that claims to have world class engineers, hire only the best, etc. This is one company in particular, but it's representative of a large class of companies and the responses Mike has gotten.\n\nAnyway, (1) is code for “Mike's a .NET dev, and we don't like people with Windows experience”.\n\nI'm familiar with TrendCo's tech stack, which multiple employees have told me is “a tire fire”. Their core systems top out under 1k QPS, which has caused them to go down under load. Mike has worked on systems that can handle multiple orders of magnitude more load, but his experience is, apparently, irrelevant.\n\n(2) is hard to make sense of. I've interviewed at TrendCo and one of the selling points is that it's a startup where you get to do a lot of different things. TrendCo almost exclusively hires generalists but Mike is, apparently, too general for them.\n\n(3), combined with (1), gets at what TrendCo's real complaint with Mike is. He's not their type. TrendCo's median employee is a recent graduate from one of maybe five “top” schools with 0-2 years of experience. They have a few experienced hires, but not many, and most of their experienced hires have something trendy on their resume, not a boring old company like Microsoft.\n\nWhether or not you think there's anything wrong with having a type and rejecting people who aren't your type, as Thomas Ptacek has observed, if your type is the same type everyone else is competing for, “you are competing for talent with the wealthiest (or most overfunded) tech companies in the market”.\n\nIf you look at new grad hiring data, it looks like FB is offering people with zero experience > $100k/ salary, $100k signing bonus, and $150k in RSUs, for an amortized total comp > $160k/yr, including $240k in the first year. Google's package has > $100k salary, a variable signing bonus in the $10k range, and $187k in RSUs. That comes in a bit lower than FB, but it's much higher than most companies that claim to only hire the best are willing to pay for a new grad. Keep in mind that compensation can go much higher for contested candidates, and that compensation for experienced candidates is probably higher than you expect if you're not a hiring manager who's seen what competitive offers look like today.\n\nBy going after people with the most sought after qualifications, TrendCo has narrowed their options down to either paying out the nose for employees, or offering non-competitive compensation packages. TrendCo has chosen the latter option, which partially explains why they have, proportionally, so few senior devs -- the compensation delta increases as you get more senior, and you have to make a really compelling pitch to someone to get them to choose TrendCo when you're offering $150k/yr less than the competition. And as people get more experience, they're less likely to believe the part of the pitch that explains how much the stock options are worth.\n\nJust to be clear, I don't have anything against people with trendy backgrounds. I know a lot of these people who have impeccable interviewing skills and got 5-10 strong offers last time they looked for work. I've worked with someone like that: he was just out of school, his total comp package was north of $200k/yr, and he was worth every penny. But think about that for a minute. He had strong offers from six different companies, of which he was going to accept at most one. Including lunch and phone screens, the companies put in an average of eight hours apiece interviewing him. And because they wanted to hire him so much, the companies that were really serious spent an average of another five hours apiece of engineer time trying to convince him to take their offer. Because these companies had, on average, a ⅙ chance of hiring this person, they have to spend at least an expected (8+5) * 6 = 78 hours of engineer time1. People with great backgrounds are, on average, pretty great, but they're really hard to hire. It's much easier to hire people who are underrated, especially if you're not pa\nreading",
     "related": [
-      "1922331100550000038",
       "1926771144110000034",
-      "1961205511220000002",
+      "1937882200990000024",
       "1931220044660000030",
-      "1933440066440000028",
-      "1920118822770000040"
+      "1961205511220000002",
+      "1922331100550000038",
+      "1939004466880000023"
     ],
     "crawled_words": 862
   },
@@ -2094,9 +2095,9 @@
       "1920118822770000040",
       "1934551022330000027",
       "1924551022330000036",
+      "1917882200990000042",
       "1913440066440000046",
-      "1951220099660000012",
-      "1917882200990000042"
+      "1942331100550000020"
     ],
     "crawled_words": 874
   },
@@ -2140,9 +2141,9 @@
       "1953004411440000010",
       "1917882200990000042",
       "1911220044660000048",
-      "1956544778990000007",
-      "1955330112220000008",
-      "1945661188220000017"
+      "1961205511220000002",
+      "1932331100550000029",
+      "1941220044660000021"
     ],
     "crawled_words": 332
   },
@@ -2185,8 +2186,8 @@
       "1932331100550000029",
       "1962011044880000001",
       "1915662088220000044",
-      "1956544778990000007",
-      "1924551022330000036"
+      "1924551022330000036",
+      "1956544778990000007"
     ],
     "crawled_words": 28
   },
@@ -2227,9 +2228,9 @@
     "related": [
       "1950118833770000013",
       "1955330112220000008",
+      "1932331100550000029",
       "1947881122990000015",
       "1939004466880000023",
-      "1932331100550000029",
       "1934551022330000027"
     ],
     "crawled_words": 860
@@ -2267,10 +2268,10 @@
     "related": [
       "1914551022330000045",
       "1920118822770000040",
+      "1916771144110000043",
       "1931220044660000030",
       "1927882200990000033",
-      "1910118822770000049",
-      "1917882200990000042"
+      "1910118822770000049"
     ],
     "crawled_words": 0
   },
@@ -2293,11 +2294,11 @@
     "summary": "Reminder that a personal search index over your own saved links beats any algorithmic feed. Building mine this weekend.",
     "search_text": "Reminder that a personal search index over your own saved links beats any algorithmic feed. Building mine this weekend.\n@seangeng Sean Geng\nmisc",
     "related": [
-      "1909004466880000050",
       "1956544778990000007",
-      "1932331100550000029",
-      "1934551022330000027",
+      "1909004466880000050",
       "1921220044660000039",
+      "1934551022330000027",
+      "1932331100550000029",
       "1957889001660000006"
     ],
     "crawled_words": 0
@@ -2343,8 +2344,8 @@
       "1934551022330000027",
       "1942331100550000020",
       "1952661177550000011",
-      "1910118822770000049",
       "1957889001660000006",
+      "1910118822770000049",
       "1917882200990000042"
     ],
     "crawled_words": 757

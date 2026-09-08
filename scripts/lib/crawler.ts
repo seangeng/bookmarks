@@ -36,7 +36,7 @@ type Robots = { rules: Rule[]; crawlDelayMs?: number };
 
 const robotsCache = new Map<string, Promise<Robots | null>>();
 
-function parseRobots(body: string): Robots {
+export function parseRobots(body: string): Robots {
   const groups: RobotsGroup[] = [];
   let current: RobotsGroup | null = null;
   let expectingAgents = false;
@@ -97,7 +97,7 @@ function patternMatches(pattern: string, target: string): boolean {
 }
 
 /** Longest matching rule wins; Allow wins ties. No match means allowed. */
-function pathAllowed(robots: Robots, target: string): boolean {
+export function pathAllowed(robots: Robots, target: string): boolean {
   let decision = true;
   let bestLength = -1;
 
