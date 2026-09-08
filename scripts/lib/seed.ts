@@ -14,10 +14,15 @@ import type { Bookmark } from "../../src/lib/types";
  * first must stop the build, the second may proceed with an empty library.
  */
 
-export type SeedFailure = "missing" | "invalid_json" | "wrong_shape" | "no_bookmarks";
+export type SeedFailure =
+  | "missing"
+  | "invalid_json"
+  | "wrong_shape"
+  | "no_bookmarks"
+  | "truncated";
 
 export type SeedResult =
-  | { ok: true; bookmarks: Bookmark[]; skipped: number }
+  | { ok: true; bookmarks: Bookmark[]; skipped: number; declaredCount?: number }
   | { ok: false; reason: SeedFailure; message: string };
 
 /** Placeholder tokens an export/upload step can leave behind instead of data. */
@@ -89,7 +94,33 @@ export async function readSeed(file: string = SEED_FILE): Promise<SeedResult> {
     };
   }
 
-  return { ok: true, bookmarks, skipped };
+  // The export self-reports how many bookmarks it should contain. When that
+  // disagrees with what is actually in the array, the upload was truncated —
+  // a case worth failing on, because the file is otherwise perfectly valid
+  // JSON and would sail through every other check.
+  const declared = declaredCount(parsed);
+  if (declared !== undefined && declared > bookmarks.length + skipped) {
+    return {
+      ok: false,
+      reason: "truncated",
+      message:
+        `${name} declares "count": ${declared} but contains only ` +
+        `${bookmarks.length + skipped} ${
+          bookmarks.length + skipped === 1 ? "entry" : "entries"
+        }. The export looks truncated — re-push the complete file.`,
+    };
+  }
+
+  return { ok: true, bookmarks, skipped, declaredCount: declared };
+}
+
+function declaredCount(parsed: object): number | undefined {
+  const record = parsed as Record<string, unknown>;
+  for (const key of ["count", "total", "total_count", "bookmark_count"]) {
+    const value = record[key];
+    if (typeof value === "number" && Number.isFinite(value) && value >= 0) return value;
+  }
+  return undefined;
 }
 
 /** Reads the seed or exits with an actionable message. For the CLI scripts. */

@@ -312,6 +312,13 @@ deserve opposite responses:
 | Seed present but unusable | `npm run check:seed` fails, and `prebuild` **fails the build** rather than deploying an empty library |
 | Artifacts committed, seed unusable | Build proceeds on the last known-good index, with a loud warning that it no longer matches the seed |
 
+A truncated export is the nastiest version of this, because the file is perfectly valid JSON and
+passes every structural check — it is just missing most of its records. The export declares its
+own size, so that is what gets verified: a seed saying `"count": 196` while holding one bookmark
+is rejected as truncated. This matters because the pipeline is faithful by design — the crawler
+prunes artifacts for links that left the seed — so syncing a truncated seed deletes the archive
+for every link it dropped.
+
 `npm run check:seed` reports the count of bookmarks, links, domains, and authors, and warns when
 a suspicious share of records have no resolvable author, no date, or empty text — the usual sign
 that a new export uses field names the adapter does not read yet. It runs first in CI and again

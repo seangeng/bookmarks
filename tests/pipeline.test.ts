@@ -141,6 +141,52 @@ test("readSeed reports a parseable seed that yields nothing usable", async () =>
   }
 });
 
+test("readSeed catches a truncated export via its own declared count", async () => {
+  const file = await seedFixture(
+    JSON.stringify({
+      count: 196,
+      bookmarks: [
+        {
+          id: "2096692234196283511",
+          text: "one of many",
+          author_username: "omarsar0",
+          post_url: "https://x.com/omarsar0/status/2096692234196283511",
+          created_at: "2026-09-06T20:09:17.000Z",
+          external_urls: [],
+        },
+      ],
+    }),
+  );
+
+  const result = await readSeed(file);
+  assert.equal(result.ok, false, "a seed claiming 196 entries but holding 1 must fail");
+  if (!result.ok) {
+    assert.equal(result.reason, "truncated");
+    assert.match(result.message, /declares "count": 196 but contains only 1 entry/);
+  }
+});
+
+test("a declared count matching the contents passes", async () => {
+  const file = await seedFixture(
+    JSON.stringify({
+      count: 1,
+      bookmarks: [
+        {
+          id: "1",
+          text: "complete",
+          author_username: "seangeng",
+          created_at: "2026-01-01T00:00:00Z",
+          external_urls: [],
+        },
+      ],
+    }),
+  );
+
+  const result = await readSeed(file);
+  assert.equal(result.ok, true, result.ok ? "" : result.message);
+  if (result.ok) assert.equal(result.declaredCount, 1);
+});
+
 test("readSeed accepts a valid seed and reports skipped entries", async () => {
   const file = await seedFixture(
     JSON.stringify({
