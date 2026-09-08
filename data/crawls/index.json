@@ -1,0 +1,622 @@
+{
+  "generated_at": "2026-09-08T03:51:47.634Z",
+  "counts": {
+    "ok": 63,
+    "network_error": 1,
+    "blocked_by_robots": 2,
+    "empty": 2,
+    "http_error": 1
+  },
+  "entries": [
+    {
+      "key": "1e7fd49812535f15",
+      "url": "http://canvasui.dev/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Canvas UI: Creative Canvas, WebGL and WebGPU Component Library",
+      "word_count": 769,
+      "fetched_at": "2026-09-08T03:50:07.319Z"
+    },
+    {
+      "key": "3d0b2985c2e002bd",
+      "url": "http://image.jakubantalik.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Image loader moved to a new home",
+      "word_count": 26,
+      "fetched_at": "2026-09-08T03:50:07.333Z"
+    },
+    {
+      "key": "24f8b0daa39aeeff",
+      "url": "https://3pxgrid.com/",
+      "status": "network_error",
+      "fetched_at": "2026-09-08T03:51:46.562Z"
+    },
+    {
+      "key": "b0d708459ec0df23",
+      "url": "https://aave.com/design/building-glass-for-the-web",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Building Glass for the Web",
+      "word_count": 850,
+      "fetched_at": "2026-09-08T03:50:07.338Z"
+    },
+    {
+      "key": "3e834173ba777c0b",
+      "url": "https://acceptmarkdown.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Serve Markdown to AI Agents with Accept Headers",
+      "word_count": 235,
+      "fetched_at": "2026-09-08T03:50:07.339Z"
+    },
+    {
+      "key": "7984b72067e83f87",
+      "url": "https://aicss.dev/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "AICSS · UI components for AI agents",
+      "word_count": 79,
+      "fetched_at": "2026-09-08T03:50:07.582Z"
+    },
+    {
+      "key": "e02f2743217e6fb5",
+      "url": "https://amazon.com/dp/B0H1MTZXGL?lv=shuf&channelId=1&plpRedirect=mhFallback&linkCode=sl2&tag=abde2203-20&linkId=62fdd76c10e04c342cbfc410a4b8e045&language=en_US",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Amazon",
+      "word_count": 107,
+      "fetched_at": "2026-09-08T03:50:07.835Z"
+    },
+    {
+      "key": "8fed6f60f4b87ece",
+      "url": "https://amicro.vercel.app/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Amicro — Premium React Micro-transitions & Interaction Components",
+      "word_count": 0,
+      "fetched_at": "2026-09-08T03:50:08.021Z"
+    },
+    {
+      "key": "a46aec250b1cf7a3",
+      "url": "https://anam.ai/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Anam - Real-Time Interactive AI Avatars API",
+      "word_count": 477,
+      "fetched_at": "2026-09-08T03:50:08.384Z"
+    },
+    {
+      "key": "12711822b2aa7ef7",
+      "url": "https://beam.jakubantalik.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Border beam moved to a new home",
+      "word_count": 26,
+      "fetched_at": "2026-09-08T03:50:08.797Z"
+    },
+    {
+      "key": "4d4232b5133c384a",
+      "url": "https://beautifului.dev/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Beautiful UI — Crafted primitives for AI-native interfaces",
+      "word_count": 536,
+      "fetched_at": "2026-09-08T03:50:08.817Z"
+    },
+    {
+      "key": "6f79108c376f8eeb",
+      "url": "https://blog.cloudflare.com/kitesurf",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Introducing Kitesurf: The agent-first browser that runs in V8 isolates on Cloudflare Workers",
+      "word_count": 836,
+      "fetched_at": "2026-09-08T03:50:08.946Z"
+    },
+    {
+      "key": "f74f982bfc55c936",
+      "url": "https://cells2pixels.github.io/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Neural Cellular Automata: From Cells to Pixels",
+      "word_count": 192,
+      "fetched_at": "2026-09-08T03:50:09.826Z"
+    },
+    {
+      "key": "2693ce7b25024f14",
+      "url": "https://danny.md/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "danny.md — files for agents",
+      "word_count": 88,
+      "fetched_at": "2026-09-08T03:50:13.031Z"
+    },
+    {
+      "key": "cd4d8c987798d3f7",
+      "url": "https://declank.skeptrune.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Declank: Remove AI Watermarks From Images Online, Free",
+      "word_count": 0,
+      "fetched_at": "2026-09-08T03:50:13.103Z"
+    },
+    {
+      "key": "79826310ff44e89a",
+      "url": "https://dotforge.vercel.app/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "DotForge — Real-Time Dither Animation Builder",
+      "word_count": 13,
+      "fetched_at": "2026-09-08T03:50:13.112Z"
+    },
+    {
+      "key": "c0d9413e1c92dce4",
+      "url": "https://dutchdiederik.github.io/AmberConsole/docs/index.html",
+      "status": "ok",
+      "http_status": 200,
+      "title": "ORION-70 Projection Console — Amber Console",
+      "word_count": 885,
+      "fetched_at": "2026-09-08T03:50:13.254Z"
+    },
+    {
+      "key": "77c2411166c69f7b",
+      "url": "https://emilkowal.ski/ui/agents-with-taste",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Agents with Taste",
+      "word_count": 848,
+      "fetched_at": "2026-09-08T03:50:13.399Z"
+    },
+    {
+      "key": "9b1a802f0f388ddf",
+      "url": "https://figma.com/design/1RjQY50dy7t9SucZtAIb1p/Super-Visuals--Backgrounds-Library",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Figma",
+      "word_count": 0,
+      "fetched_at": "2026-09-08T03:50:13.418Z"
+    },
+    {
+      "key": "321bb2ad46df4b06",
+      "url": "https://geodo.ai/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Geodo | AI-Powered GTM Platform to Close Deals Faster",
+      "word_count": 228,
+      "fetched_at": "2026-09-08T03:50:13.449Z"
+    },
+    {
+      "key": "0fb1d159adb38393",
+      "url": "https://gist.github.com/burritosoftware/dcde4ca404c825dced9421840eb8a497",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Poke System Prompt (June 2026) - As close as I could get, using repeated tries to ensure consistency of what is likely properly in the true prompt.",
+      "word_count": 705,
+      "fetched_at": "2026-09-08T03:50:13.888Z"
+    },
+    {
+      "key": "d72e8109d89535c2",
+      "url": "https://gist.github.com/burritosoftware/f7b240a001ccbac474859846c4bb229b",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Poke email agent prompt (June 5, 2026)",
+      "word_count": 844,
+      "fetched_at": "2026-09-08T03:50:13.956Z"
+    },
+    {
+      "key": "20328403bdd2d45d",
+      "url": "https://gist.github.com/retlehs/cf0ac6c74476e766fba2f14076fff501",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Backlinks for any domain via Common Crawl",
+      "word_count": 584,
+      "fetched_at": "2026-09-08T03:50:14.002Z"
+    },
+    {
+      "key": "60872f7499e5bc82",
+      "url": "https://github.com/browser-use/browser-harness",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - browser-use/browser-harness: Browser Harness | Self-healing harness that enables LLMs to complete any task.",
+      "word_count": 285,
+      "fetched_at": "2026-09-08T03:50:15.220Z"
+    },
+    {
+      "key": "a8650743054ffad8",
+      "url": "https://github.com/DutchDiederik/AmberConsole",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - DutchDiederik/AmberConsole: A UI design system inspired by the 1970s",
+      "word_count": 692,
+      "fetched_at": "2026-09-08T03:50:14.083Z"
+    },
+    {
+      "key": "29f7bb3a6c0529fe",
+      "url": "https://github.com/elijah0528/video2ascii",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - elijah0528/video2ascii: WebGL-powered React Component for video to ASCII conversion",
+      "word_count": 108,
+      "fetched_at": "2026-09-08T03:50:15.567Z"
+    },
+    {
+      "key": "b20bf15c2f4c4611",
+      "url": "https://github.com/gfodor/legal-skills",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - gfodor/legal-skills: Replacing lawyers with markdown files",
+      "word_count": 826,
+      "fetched_at": "2026-09-08T03:50:15.827Z"
+    },
+    {
+      "key": "04c4005359b369e0",
+      "url": "https://github.com/h4ckf0r0day/obscura",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - h4ckf0r0day/obscura: The headless browser for AI agents and web scraping",
+      "word_count": 669,
+      "fetched_at": "2026-09-08T03:50:16.082Z"
+    },
+    {
+      "key": "c8f0d9e1608e294a",
+      "url": "https://github.com/Leonxlnx/taste-skill/blob/main/skills%2Fimagegen-frontend-web%2FSKILL.md",
+      "status": "ok",
+      "http_status": 200,
+      "title": "taste-skill/skills/imagegen-frontend-web/SKILL.md at main · Leonxlnx/taste-skill",
+      "word_count": 771,
+      "fetched_at": "2026-09-08T03:50:14.416Z"
+    },
+    {
+      "key": "3953687675731413",
+      "url": "https://github.com/littledivy/mimic",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - littledivy/mimic: Intercept any app, then call it from Python like a library",
+      "word_count": 635,
+      "fetched_at": "2026-09-08T03:50:16.800Z"
+    },
+    {
+      "key": "5927cd421bee0d60",
+      "url": "https://github.com/openai/realtime-voice-component",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - openai/realtime-voice-component",
+      "word_count": 714,
+      "fetched_at": "2026-09-08T03:50:17.526Z"
+    },
+    {
+      "key": "1b0a2cde24b7c914",
+      "url": "https://github.com/Osmantic/ODS",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - Osmantic/ODS: Turn your PC, Mac, or Linux box into an AI server. LLM inference, chat UI, voice, agents, workflows, RAG, and image generation.",
+      "word_count": 696,
+      "fetched_at": "2026-09-08T03:50:14.663Z"
+    },
+    {
+      "key": "fb7257e5dda2b73f",
+      "url": "https://github.com/proofofplay/piratenation-art/tree/main/Voxel%20Game%20Assets",
+      "status": "blocked_by_robots",
+      "fetched_at": "2026-09-08T03:50:18.199Z"
+    },
+    {
+      "key": "8118ee3e9db4a512",
+      "url": "https://github.com/superloglabs/superlog",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - superloglabs/superlog: Open-source observability tool that uses AI agents to self-heal your software",
+      "word_count": 214,
+      "fetched_at": "2026-09-08T03:50:18.199Z"
+    },
+    {
+      "key": "12ec623145538000",
+      "url": "https://github.com/tonbo-io/ursula",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - tonbo-io/ursula: Distributed event stream server over HTTP, backed by S3.",
+      "word_count": 790,
+      "fetched_at": "2026-09-08T03:50:18.960Z"
+    },
+    {
+      "key": "ff70fd2c4ba3766f",
+      "url": "https://github.com/Vanilagy/mediabunny",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - Vanilagy/mediabunny: Pure TypeScript media toolkit for reading, writing, and converting video and audio files, directly in the browser.",
+      "word_count": 703,
+      "fetched_at": "2026-09-08T03:50:14.888Z"
+    },
+    {
+      "key": "0e7ad2773accc41a",
+      "url": "https://github.com/wuyoscar/GPT-Image2-Skill",
+      "status": "ok",
+      "http_status": 200,
+      "title": "GitHub - wuyoscar/GPT-Image2-Skill: GPT Image 2 prompt gallery, image prompt library, agentic skill, and CLI for OpenAI image generation/editing",
+      "word_count": 657,
+      "fetched_at": "2026-09-08T03:50:19.834Z"
+    },
+    {
+      "key": "fabba99a1f622c1f",
+      "url": "https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools/tree/main/Poke",
+      "status": "blocked_by_robots",
+      "fetched_at": "2026-09-08T03:50:20.458Z"
+    },
+    {
+      "key": "3daaee8d021b7da7",
+      "url": "https://glaze.app/app/peel-esimhU",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Peel for Mac — Remove backgrounds from images | Glaze",
+      "word_count": 99,
+      "fetched_at": "2026-09-08T03:50:20.459Z"
+    },
+    {
+      "key": "bc630abddb5bddee",
+      "url": "https://gradient-shimmer.vercel.app/",
+      "status": "empty",
+      "http_status": 200,
+      "title": "Gradient shimmer — multi-stop text shimmer for React",
+      "word_count": 0,
+      "fetched_at": "2026-09-08T03:51:46.586Z"
+    },
+    {
+      "key": "6f4c704e00589e21",
+      "url": "https://herdr.dev/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Herdr: the runtime coding agents run on",
+      "word_count": 269,
+      "fetched_at": "2026-09-08T03:50:20.959Z"
+    },
+    {
+      "key": "a259d6634eea5911",
+      "url": "https://heyclicky.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "heyclicky - an ai buddy on your mac",
+      "word_count": 537,
+      "fetched_at": "2026-09-08T03:50:21.154Z"
+    },
+    {
+      "key": "344705673fbd23b0",
+      "url": "https://higgsfield.ai/mcp",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Higgsfield MCP | AI Image & Video Generation for Any Agent",
+      "word_count": 382,
+      "fetched_at": "2026-09-08T03:50:21.211Z"
+    },
+    {
+      "key": "13415386ee52e0a5",
+      "url": "https://hologram-particles.vercel.app/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "3D Playground",
+      "word_count": 21,
+      "fetched_at": "2026-09-08T03:50:21.579Z"
+    },
+    {
+      "key": "482b03adeecdcca9",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-1B",
+      "status": "ok",
+      "http_status": 200,
+      "title": "openbmb/MiniCPM5-1B · Hugging Face",
+      "word_count": 715,
+      "fetched_at": "2026-09-08T03:50:21.772Z"
+    },
+    {
+      "key": "6ff52d87ba1d3503",
+      "url": "https://huggingface.co/unsloth/gemma-4-E4B-it-qat-GGUF",
+      "status": "ok",
+      "http_status": 200,
+      "title": "unsloth/gemma-4-E4B-it-qat-GGUF · Hugging Face",
+      "word_count": 733,
+      "fetched_at": "2026-09-08T03:50:21.787Z"
+    },
+    {
+      "key": "094a518153128dea",
+      "url": "https://hyperbolic.ai/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Hyperbolic — Open-Access GPU & AI Cloud",
+      "word_count": 715,
+      "fetched_at": "2026-09-08T03:50:21.967Z"
+    },
+    {
+      "key": "edeacb79e763f1e5",
+      "url": "https://index.how/to/articulate",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Say precisely what you mean.",
+      "word_count": 817,
+      "fetched_at": "2026-09-08T03:50:22.016Z"
+    },
+    {
+      "key": "768c5485b4b16a54",
+      "url": "https://interactlabs.ai/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Interact AI — Agentic interface for your website",
+      "word_count": 181,
+      "fetched_at": "2026-09-08T03:50:22.273Z"
+    },
+    {
+      "key": "e2ba0f1bef08746d",
+      "url": "https://jckhlry.com/logo-prompt",
+      "status": "http_error",
+      "http_status": 404,
+      "fetched_at": "2026-09-08T03:51:46.587Z"
+    },
+    {
+      "key": "a1b10c0bf6d5d727",
+      "url": "https://joinascend.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Ascend",
+      "word_count": 765,
+      "fetched_at": "2026-09-08T03:50:22.633Z"
+    },
+    {
+      "key": "25ae5ca7ebb7af00",
+      "url": "https://languagemodelbuilder.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Language Model Builder — Build models. Understand AI.",
+      "word_count": 183,
+      "fetched_at": "2026-09-08T03:50:22.701Z"
+    },
+    {
+      "key": "9908769dac91fa38",
+      "url": "https://mapcn.dev/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "mapcn - Beautiful maps made simple",
+      "word_count": 17,
+      "fetched_at": "2026-09-08T03:50:22.756Z"
+    },
+    {
+      "key": "ba258b03bcfcc6e3",
+      "url": "https://namethatui.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "NameThatUI — What Is This UI Element Called?",
+      "word_count": 805,
+      "fetched_at": "2026-09-08T03:51:46.587Z"
+    },
+    {
+      "key": "3aca944e93737141",
+      "url": "https://okara.ai/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "AI CMO | Okara",
+      "word_count": 799,
+      "fetched_at": "2026-09-08T03:50:22.865Z"
+    },
+    {
+      "key": "b9c9992b4c562a32",
+      "url": "https://opendata.dev/blog/introducing-vector",
+      "status": "ok",
+      "http_status": 200,
+      "title": "OpenData Vector: MIT-licensed Vector Search on Object Storage | OpenData",
+      "word_count": 761,
+      "fetched_at": "2026-09-08T03:50:22.905Z"
+    },
+    {
+      "key": "77016c8e030011f1",
+      "url": "https://originkit.dev/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Originkit — Free Animated component library for modern websites",
+      "word_count": 0,
+      "fetched_at": "2026-09-08T03:50:22.988Z"
+    },
+    {
+      "key": "9fb751b5f55003dc",
+      "url": "https://poke.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Poke – Chat with Poke",
+      "word_count": 259,
+      "fetched_at": "2026-09-08T03:50:23.037Z"
+    },
+    {
+      "key": "8f061baee69de5cd",
+      "url": "https://rareui.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Rare UI — Rare Animated React Components",
+      "word_count": 40,
+      "fetched_at": "2026-09-08T03:50:23.450Z"
+    },
+    {
+      "key": "976354bc9dfb7372",
+      "url": "https://reelcode.fayaz.workers.dev/",
+      "status": "empty",
+      "http_status": 200,
+      "title": "Reelcode - animate code snippets",
+      "word_count": 0,
+      "fetched_at": "2026-09-08T03:51:46.588Z"
+    },
+    {
+      "key": "aa68c12f054d9fe0",
+      "url": "https://supaste.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Supaste — Clipboard History Manager for Mac",
+      "word_count": 785,
+      "fetched_at": "2026-09-08T03:50:23.588Z"
+    },
+    {
+      "key": "0a7d5a8dac100329",
+      "url": "https://terminal-code.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "terminal-code",
+      "word_count": 47,
+      "fetched_at": "2026-09-08T03:50:23.791Z"
+    },
+    {
+      "key": "77b9d4d75c678a62",
+      "url": "https://textmotion.dev/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "slot-text — tiny text roll animation",
+      "word_count": 295,
+      "fetched_at": "2026-09-08T03:50:23.810Z"
+    },
+    {
+      "key": "845da6df4d516e58",
+      "url": "https://tools.simonwillison.net/llm-cliche-highlighter",
+      "status": "ok",
+      "http_status": 200,
+      "title": "LLM cliché highlighter",
+      "word_count": 65,
+      "fetched_at": "2026-09-08T03:50:23.856Z"
+    },
+    {
+      "key": "cfd5b80bc510331e",
+      "url": "https://tripwire.sh/dither-kit",
+      "status": "ok",
+      "http_status": 200,
+      "title": "dither-kit — dithered charts & components for shadcn/ui",
+      "word_count": 3,
+      "fetched_at": "2026-09-08T03:50:23.915Z"
+    },
+    {
+      "key": "b615997627fc3c9c",
+      "url": "https://usehallmark.com/",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Hallmark — A design skill that refuses to look AI-generated",
+      "word_count": 766,
+      "fetched_at": "2026-09-08T03:50:24.061Z"
+    },
+    {
+      "key": "24d9abf77411029d",
+      "url": "https://v0.link/mQrZGfj",
+      "status": "ok",
+      "http_status": 200,
+      "title": "Expired Link",
+      "word_count": 181,
+      "fetched_at": "2026-09-08T03:50:24.138Z"
+    },
+    {
+      "key": "d1fc64a6e1fcf952",
+      "url": "https://vercel.com/blog/the-end-of-credential-sprawl-for-agents",
+      "status": "ok",
+      "http_status": 200,
+      "title": "The end of credential sprawl for agents",
+      "word_count": 791,
+      "fetched_at": "2026-09-08T03:50:24.148Z"
+    },
+    {
+      "key": "17097032575466e8",
+      "url": "https://youtube.com/watch?v=iO-P2gEuOUc",
+      "status": "ok",
+      "http_status": 200,
+      "title": "- YouTube",
+      "word_count": 13,
+      "fetched_at": "2026-09-08T03:50:24.278Z"
+    }
+  ]
+}

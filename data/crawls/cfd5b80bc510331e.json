@@ -1,0 +1,15 @@
+{
+  "key": "cfd5b80bc510331e",
+  "url": "https://tripwire.sh/dither-kit",
+  "fetched_at": "2026-09-08T03:50:23.915Z",
+  "final_url": "https://www.tripwire.sh/dither-kit",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "dither-kit — dithered charts & components for shadcn/ui",
+  "description": "Composable, dithered charts — area, bar, line, pie, radar — plus generative avatars, buttons, and gradient washes, on one tiny canvas engine. A recharts-style, children-as-config API for shadcn/ui projects.",
+  "site_name": "tripwire.sh",
+  "text": "Skip to content",
+  "word_count": 3,
+  "duration_ms": 523
+}

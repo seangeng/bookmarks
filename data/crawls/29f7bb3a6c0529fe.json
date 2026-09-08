@@ -1,0 +1,15 @@
+{
+  "key": "29f7bb3a6c0529fe",
+  "url": "https://github.com/elijah0528/video2ascii",
+  "fetched_at": "2026-09-08T03:50:15.567Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "GitHub - elijah0528/video2ascii: WebGL-powered React Component for video to ASCII conversion",
+  "description": "WebGL-powered React Component for video to ASCII conversion - elijah0528/video2ascii",
+  "site_name": "GitHub",
+  "byline": "elijah0528",
+  "text": "Notifications You must be signed in to change notification settings\n\nRepository files navigation\n\nWebGL-powered React Component for video to ASCII conversion.\n\nimport Video2Ascii from \"video2ascii\"; <Video2Ascii src=\"/video.mp4\" numColumns={120} colored={true} brightness={1.0} audioEffect={50} enableMouse={true} enableRipple={true} charset=\"detailed\" isPlaying={true} autoPlay={true} />;\n\nNumber of columns (controls size)\n\nUse video colors vs green terminal\n\nBrightness multiplier (0-2, 1.0 = normal)\n\n0 = ASCII, 100 = original video\n\nBackground behind characters (0-100)\n\nHow much audio affects brightness (0-100)\n\nHow dramatic audio brightness changes are (0-100)\n\nWhether video is playing\n\nEnable spacebar to toggle play/pause\n\nimport { ASCII_CHARSETS } from \"video2ascii\";\n\ndetailed — Full gradient with 70 characters\n\nWebGL-powered React Component for video to ASCII conversion",
+  "word_count": 108,
+  "duration_ms": 2632
+}

@@ -1,0 +1,152 @@
+[
+  {
+    "id": "1996190873441509684",
+    "text": "are you looking for a new app icon? https://t.co/N9Peu13ofr",
+    "title": "@dmiiiitrii: are you looking for a new app icon?",
+    "post_url": "https://x.com/dmiiiitrii/status/1996190873441509684",
+    "created_at": "2025-12-03T12:12:46.000Z",
+    "author_username": "dmiiiitrii",
+    "author_name": "Dmitri",
+    "conversation_id": "1996190873441509684",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2063559592316141685",
+    "text": "Can't stop making Glass UI elements.\n\nBlur + shadow + the right opacity = that floating effect everyone wants.\n\nSave this \ud83d\udc47 https://t.co/36vsPzJSCK",
+    "title": "@tranmautritam: Can't stop making Glass UI elements. Blur + shadow + the right opacity = that fl",
+    "post_url": "https://x.com/tranmautritam/status/2063559592316141685",
+    "created_at": "2026-06-07T09:52:00.000Z",
+    "author_username": "tranmautritam",
+    "author_name": "Tran Mau Tri Tam \u272a",
+    "conversation_id": "2063559592316141685",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2063371983300300886",
+    "text": "i built an app that removes ai image watermarks\nhttps://t.co/sO7lWLHmxk",
+    "title": "@skeptrune: i built an app that removes ai image watermarks",
+    "post_url": "https://x.com/skeptrune/status/2063371983300300886",
+    "created_at": "2026-06-06T21:26:31.000Z",
+    "author_username": "skeptrune",
+    "author_name": "Nick Khami",
+    "conversation_id": "2063371983300300886",
+    "is_reply": false,
+    "external_urls": [
+      "https://declank.skeptrune.com/"
+    ]
+  },
+  {
+    "id": "2063287845851443706",
+    "text": "CleanShot X is great. The subscription isn't.\n\nSo I rebuilt BetterShot from the ground up native Swift, zero web views, zero tauri.\n\nBetterShot now runs natively on macOS, powered by Swift 6 + SwiftUI.\n\nHere's what you get for free, forever:\n\n- Region, fullscreen &amp; window capture https://t.co/mrlKFg3Kmb",
+    "title": "@code_kartik: CleanShot X is great. The subscription isn't. So I rebuilt BetterShot from the g",
+    "post_url": "https://x.com/code_kartik/status/2063287845851443706",
+    "created_at": "2026-06-06T15:52:11.000Z",
+    "author_username": "code_kartik",
+    "author_name": "Kartik",
+    "conversation_id": "2063287845851443706",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2062575428213285352",
+    "text": "Say hi to the new Poke! \ud83c\udf34\n\nNow officially approved by Apple to text on Apple Messages.\n\nAs the first and only AI agent. Chat now: https://t.co/VIWYU64dUI https://t.co/AtZxupI2Ji",
+    "title": "@interaction: Say hi to the new Poke! \ud83c\udf34 Now officially approved by Apple to text on Apple Mess",
+    "post_url": "https://x.com/interaction/status/2062575428213285352",
+    "created_at": "2026-06-04T16:41:17.000Z",
+    "author_username": "interaction",
+    "author_name": "Poke",
+    "conversation_id": "2062575428213285352",
+    "is_reply": false,
+    "external_urls": [
+      "https://poke.com/"
+    ]
+  },
+  {
+    "id": "2062896263767703999",
+    "text": "https://t.co/EikY8uVg78",
+    "title": "@usekernel",
+    "post_url": "https://x.com/usekernel/status/2062896263767703999",
+    "created_at": "2026-06-05T13:56:10.000Z",
+    "author_username": "usekernel",
+    "author_name": "KERNEL",
+    "conversation_id": "2062896263767703999",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2062906242247319896",
+    "text": "Drag enough to collapse it.\n\nDemo \u2193 https://t.co/VPBDZByBus",
+    "title": "@guerriero_se: Drag enough to collapse it. Demo \u2193",
+    "post_url": "https://x.com/guerriero_se/status/2062906242247319896",
+    "created_at": "2026-06-05T14:35:49.000Z",
+    "author_username": "guerriero_se",
+    "author_name": "Sebastiano Guerriero",
+    "conversation_id": "2062906242247319896",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2062934834402799710",
+    "text": "We\u2019ve achieved glass on the web \u2728\n\nReal refractions. Real DOM. And it works everywhere. Yes, even on Safari.\n\nhttps://t.co/A3LimdS5xw",
+    "title": "@abjt14: We\u2019ve achieved glass on the web \u2728 Real refractions. Real DOM. And it works every",
+    "post_url": "https://x.com/abjt14/status/2062934834402799710",
+    "created_at": "2026-06-05T16:29:26.000Z",
+    "author_username": "abjt14",
+    "author_name": "Abhijeet Singh",
+    "conversation_id": "2062934834402799710",
+    "is_reply": false,
+    "external_urls": [
+      "https://aave.com/design/building-glass-for-the-web"
+    ]
+  },
+  {
+    "id": "2062627452745384046",
+    "text": "Gemma 4 12B + MTP speculative decoding on mlx-vlm \ud83d\ude80\n\nWe benchmarked MTP on Gemma 4 12B across all 4 modalities in mlx-vlm \u2014 and it speeds up everything:\n\ntext, image, audio, and combined audio+image, up to 1.72\u00d7 and 80 tok/s on a single M3 Ultra.\n\nGet started today: \n\n&gt; uv pip https://t.co/hvND4J0ZLK https://t.co/92JIgrP5CH",
+    "title": "@Prince_Canuma: Gemma 4 12B + MTP speculative decoding on mlx-vlm \ud83d\ude80 We benchmarked MTP on Gemma ",
+    "post_url": "https://x.com/Prince_Canuma/status/2062627452745384046",
+    "created_at": "2026-06-04T20:08:01.000Z",
+    "author_username": "Prince_Canuma",
+    "author_name": "Prince Canuma",
+    "conversation_id": "2062627452745384046",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2062312164455862286",
+    "text": "Local AI hardware = capacity \u00d7 bandwidth \u00d7 software stack\n\n- Capacity tells you what fits\n- Bandwidth tells you how hard the box can breathe\n- The software stack tells you how much of the spec sheet you can actually cash out.\n\nHardware by Memory Bandwidth\n- Mac Studio M3 Ultra: https://t.co/MYwg3bKHCI",
+    "title": "@TheAhmadOsman: Local AI hardware = capacity \u00d7 bandwidth \u00d7 software stack - Capacity tells you w",
+    "post_url": "https://x.com/TheAhmadOsman/status/2062312164455862286",
+    "created_at": "2026-06-03T23:15:10.000Z",
+    "author_username": "TheAhmadOsman",
+    "author_name": "Ahmad",
+    "conversation_id": "2062312164455862286",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2062202706882883696",
+    "text": "Meet Gemma 4 12B!\n\nA unified, encoder-free multimodal model designed to bring high-performance intelligence directly to your laptop, and released under an Apache 2.0 license.\n\nBridging the gap between edge efficiency and advanced reasoning. Here is what\u2019s new with Gemma 4 12B: \ud83d\udc47 https://t.co/gf4FZv0WZb",
+    "title": "@googlegemma: Meet Gemma 4 12B! A unified, encoder-free multimodal model designed to bring hig",
+    "post_url": "https://x.com/googlegemma/status/2062202706882883696",
+    "created_at": "2026-06-03T16:00:13.000Z",
+    "author_username": "googlegemma",
+    "author_name": "Google Gemma",
+    "conversation_id": "2062202706882883696",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2062180504649257322",
+    "text": "Introducing ai-sdk-heal, a small companion library for @aisdk.\n\nFor cases where long conversations + tool calls + reasoning models drift out of provider spec, it repairs the message array before the request goes out:\n\n- Pairs orphan tool calls with results\n- Drops reasoning https://t.co/KOE2FQuFKY",
+    "title": "@pontusab: Introducing ai-sdk-heal, a small companion library for @aisdk. For cases where l",
+    "post_url": "https://x.com/pontusab/status/2062180504649257322",
+    "created_at": "2026-06-03T14:32:00.000Z",
+    "author_username": "pontusab",
+    "author_name": "Pontus Abrahamsson",
+    "conversation_id": "2062180504649257322",
+    "is_reply": false,
+    "external_urls": []
+  }
+]

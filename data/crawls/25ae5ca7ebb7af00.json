@@ -1,0 +1,14 @@
+{
+  "key": "25ae5ca7ebb7af00",
+  "url": "https://languagemodelbuilder.com/",
+  "fetched_at": "2026-09-08T03:50:22.701Z",
+  "http_status": 200,
+  "content_type": "text/html",
+  "status": "ok",
+  "title": "Language Model Builder — Build models. Understand AI.",
+  "description": "Language Model Builder is a free Mac app that walks you through building a small language model from scratch: train a tokenizer, pick your data, pre-train, fine-tune, and chat with a model that you made.",
+  "site_name": "Language Model Builder",
+  "text": "A short textbook with interactive playgrounds\n\nI often find myself explaining how language models are built and trained to friends and family. I finally wrote the introduction I always wanted: It’s friendly to non-programmers, contains many interactive examples, and covers all the fundamentals without treating the reader like a child or a machine learning expert.\n\nInteractive from the first pageRun the experiments yourself: build a tokenizer, move through embedding space, inspect attention, and watch a tiny model learn.\n\nInteractive from the first page\n\nRun the experiments yourself: build a tokenizer, move through embedding space, inspect attention, and watch a tiny model learn.\n\nGo as deep as you likeNo coding, machine learning, or math experience required. Where useful, I’ve added opportunities for those curious to dive a little deeper.\n\nNo coding, machine learning, or math experience required. Where useful, I’ve added opportunities for those curious to dive a little deeper.\n\nNo artificial additivesThe educational content is only as long as it needs to be, without generated filler content.\n\nThe educational content is only as long as it needs to be, without generated filler content.",
+  "word_count": 183,
+  "duration_ms": 164
+}

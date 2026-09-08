@@ -1,0 +1,14 @@
+{
+  "key": "77b9d4d75c678a62",
+  "url": "https://textmotion.dev/",
+  "fetched_at": "2026-09-08T03:50:23.810Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "slot-text — tiny text roll animation",
+  "description": "slot-text — dependency-free text roll animation for tiny, tactile UI labels. Roll by character or whole word.",
+  "site_name": "textmotion.dev",
+  "text": "Text roll animation for tiny, tactile UI labels. Now rolls by character or whole word.\n\nimport { slotText } from \"slot-text\"; import \"slot-text/style.css\"; const label = slotText(el, \"Save\"); label.set(\"Changes saved\", { rollBy: \"word\", });import { SlotText } from \"slot-text/react\"; import \"slot-text/style.css\"; <SlotText text=\"Changes saved\" options={{ rollBy: \"word\" }} />import { SlotText } from \"slot-text/vue\"; import \"slot-text/style.css\"; <SlotText text=\"Changes saved\" :options=\"{ rollBy: 'word' }\" />import { slotText } from \"slot-text/solid\"; import \"slot-text/style.css\"; <span use:slotText={{ text: \"Changes saved\", options: { rollBy: \"word\" }, }} />import { slotText } from \"slot-text/svelte\"; import \"slot-text/style.css\"; <span use:slotText={{ text: \"Changes saved\", options: { rollBy: \"word\" }, }} ></span>\n\nCharacter or whole-word roll with spring easing\n\nPer-segment stagger and duration controls\n\nset and flash with spam-safe interrupt handling\n\nPer-segment color, chromatic() rainbow helper\n\nReact, Vue, Solid, and Svelte adapters\n\nZero dependencies, ~1 kB of CSS\n\nReal browser tests — suite runs in actual Chromium, every roll and cleanup tested where it happens\n\nReduced motion — respects prefers-reduced-motion, text swaps instantly\n\nScreen reader support — animation stays visual-only, assistive tech reads the final text once\n\nFull emoji and grapheme support — rolls as one character, not four\n\nStable API — locked surface, strict semver, changelog. Safe to build on\n\nZero-setup styles — no separate CSS import, it just works (CSS file stays for strict-CSP)\n\nAwaitable rolls — await label.set(\"Done\") and get notified when the last character lands\n\nNumber mode — odometer-style digit rolling, each digit takes the shortest path\n\nScramble style — characters spin through random glyphs before landing\n\nStagger origin — roll from start, end, center, or random order\n\nTiming presets — snappy, smooth, playful — three tuned defaults\n\n<slot-text> web component — one tag for Angular, Astro, or plain HTML\n\nDocs site with live playground — tweak options, copy the code",
+  "word_count": 295,
+  "duration_ms": 528
+}

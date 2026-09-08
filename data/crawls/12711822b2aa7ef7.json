@@ -1,0 +1,15 @@
+{
+  "key": "12711822b2aa7ef7",
+  "url": "https://beam.jakubantalik.com/",
+  "fetched_at": "2026-09-08T03:50:08.797Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "Border beam moved to a new home",
+  "description": "Border beam has moved to a new home: libraries.dev/beam, accessible from one place together with the other libraries. The npm package is unchanged: border-beam.",
+  "site_name": "Border beam",
+  "byline": "Jakub Antalik",
+  "text": "Border beam moved to a new home\n\nBorder beam has moved to a new home: libraries.dev to be accessible from one place together with other libraries.",
+  "word_count": 26,
+  "duration_ms": 4314
+}

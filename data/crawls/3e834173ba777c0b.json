@@ -1,0 +1,15 @@
+{
+  "key": "3e834173ba777c0b",
+  "url": "https://acceptmarkdown.com/",
+  "fetched_at": "2026-09-08T03:50:07.339Z",
+  "http_status": 200,
+  "content_type": "text/html",
+  "status": "ok",
+  "title": "Serve Markdown to AI Agents with Accept Headers",
+  "description": "Serve Markdown to AI agents and LLMs via the Accept: text/markdown header. Browsers get HTML, agents get clean Markdown.",
+  "site_name": "acceptmarkdown.com",
+  "byline": "Ben Word",
+  "text": "Serve Markdown to AI agents with content negotiation\n\nYour site already has the content. Serving a Markdown variant lets agent AI clients skip nav/scripts/layout markup and read the content directly.\n\n01 — Tokens A fraction of the bytes. Markdown drops nav, styles, scripts, and layout wrappers. Agents spend context on your prose, not your DOM.\n\nA fraction of the bytes.\n\nMarkdown drops nav, styles, scripts, and layout wrappers. Agents spend context on your prose, not your DOM.\n\n02 — Retrieval Higher signal-to-noise. No ads, related-content rails, or modal overlays muddying the text a RAG pipeline has to embed.\n\nNo ads, related-content rails, or modal overlays muddying the text a RAG pipeline has to embed.\n\n03 — Latency Faster first token. Less to fetch, less to parse, less to stuff into the context window before the model starts thinking.\n\nLess to fetch, less to parse, less to stuff into the context window before the model starts thinking.\n\nQuick start The smallest working setup Three steps. One server, two responses.\n\nGuides Fundamentals & correctness Vary, q-values, 406, caching, and the Cloudflare zero-config shortcut.\n\nRecipes Copy-paste configs Nginx, Caddy, WordPress, Discourse, Laravel, Rails, Cloudflare Workers, Next.js, Astro, Apache, SvelteKit, Nuxt/Nitro, Express, Go, Django.\n\nStatus AI agent support matrix Which AI agents send Accept: text/markdown when their browse or fetch tools hit a URL.\n\nReference Standards & sources RFC 9110, RFC 7763, the text/markdown media type, and adjacent specs.",
+  "word_count": 235,
+  "duration_ms": 496
+}

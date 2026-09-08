@@ -1,0 +1,58 @@
+[
+  {
+    "id": "2045960021171945693",
+    "text": "if you're enjoying codex's computer use, there are several open source projects worth exploring too.\n\n- browser-harness\nthin self healing chrome CDP harness built for open-ended browser tasks, where agents patch and extend their own capabilities live.\nhttps://t.co/Dws9elK4ZW\n\n-",
+    "title": "@kevinkern: if you're enjoying codex's computer use, there are several open source projects ",
+    "post_url": "https://x.com/kevinkern/status/2045960021171945693",
+    "created_at": "2026-04-19T20:17:35.000Z",
+    "author_username": "kevinkern",
+    "author_name": "Kevin Kern",
+    "conversation_id": "2045960021171945693",
+    "is_reply": false,
+    "external_urls": [
+      "https://github.com/browser-use/browser-harness"
+    ]
+  },
+  {
+    "id": "2045043438920605881",
+    "text": "Yes, Cavalry is more powerful. but the learning curve is steep.\nDotForge bridges that gap and lets you create procedural dither/ASCII animations in a few clicks - presets, live preview, no code.\n\nhttps://t.co/BqiwXlyVzw",
+    "title": "@kail_designs: Yes, Cavalry is more powerful. but the learning curve is steep. DotForge bridges",
+    "post_url": "https://x.com/kail_designs/status/2045043438920605881",
+    "created_at": "2026-04-17T07:35:25.000Z",
+    "author_username": "kail_designs",
+    "author_name": "Kailash",
+    "conversation_id": "2045043436315914689",
+    "is_reply": true,
+    "external_urls": [
+      "https://dotforge.vercel.app/"
+    ]
+  },
+  {
+    "id": "2045169132748877992",
+    "text": "TIL you can pull the backlinks to any domain for free (instead of using a service that charges hundreds a month) using Common Crawl's web graph. Wrote a tiny bash script:\n\nhttps://t.co/KDVhYMjhq8 https://t.co/gq5mq99ya0",
+    "title": "@retlehs: TIL you can pull the backlinks to any domain for free (instead of using a servic",
+    "post_url": "https://x.com/retlehs/status/2045169132748877992",
+    "created_at": "2026-04-17T15:54:53.000Z",
+    "author_username": "retlehs",
+    "author_name": "Ben Word",
+    "conversation_id": "2045169132748877992",
+    "is_reply": false,
+    "external_urls": [
+      "https://gist.github.com/retlehs/cf0ac6c74476e766fba2f14076fff501"
+    ]
+  },
+  {
+    "id": "2044341633119084609",
+    "text": "@Aurelien_Gz @k_grajeda Hmmm... great minds I guess: https://t.co/Wz3HYqJdtT",
+    "title": "@MetaHeavies: @Aurelien_Gz @k_grajeda Hmmm... great minds I guess:",
+    "post_url": "https://x.com/MetaHeavies/status/2044341633119084609",
+    "created_at": "2026-04-15T09:06:42.000Z",
+    "author_username": "MetaHeavies",
+    "author_name": "Gordon",
+    "conversation_id": "2044125273562484893",
+    "is_reply": true,
+    "external_urls": [
+      "https://3pxgrid.com/"
+    ]
+  }
+]

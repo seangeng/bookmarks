@@ -1,0 +1,160 @@
+[
+  {
+    "id": "2085207628045574324",
+    "text": "If you have DGX sparks or honestly any local AI - I can't recommend this enough.\n\nMy room is normal temp again and my 6 sparks are running super cool at max load. \n\nRecipe:\n- 4 plexy glass pannels\n- 8 magnets with adhesive\n- hole saw on the left side with a 4\" flange\n- a duct fan https://t.co/FntyC6Ydng https://t.co/D3E8wYgTDJ",
+    "title": "@lucasfulks: If you have DGX sparks or honestly any local AI - I can't recommend this enough.",
+    "post_url": "https://x.com/lucasfulks/status/2085207628045574324",
+    "created_at": "2026-08-06T03:33:34.000Z",
+    "author_username": "lucasfulks",
+    "author_name": "Lucas Fulks",
+    "conversation_id": "2085207628045574324",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2084911982013292708",
+    "text": "oof another web3 gaming company bites the dust\n\nBUT they CC0'd all their artwork and 3d models\n\nprops to that. bunch of gold in there you can use for your own games like this giant squid\n\nLink: https://t.co/alPHuVc68O https://t.co/PIYrsjgwZ8 https://t.co/Ze3AwvDl7J",
+    "title": "@AzFlin: oof another web3 gaming company bites the dust BUT they CC0'd all their artwork ",
+    "post_url": "https://x.com/AzFlin/status/2084911982013292708",
+    "created_at": "2026-08-05T07:58:46.000Z",
+    "author_username": "AzFlin",
+    "author_name": "AzFlin \ud83d\uddff",
+    "conversation_id": "2084911982013292708",
+    "is_reply": false,
+    "external_urls": [
+      "https://github.com/proofofplay/piratenation-art/tree/main/Voxel%20Game%20Assets"
+    ]
+  },
+  {
+    "id": "2083279883950862631",
+    "text": "they gave frontier models a 1 billion token context window:\n\nyou can now run Fable [1B], Opus [100M], \nGPT 5.6 [500M] across your entire codebase\n\n- it's a graph based tool that can traverse databases with 400M+ of nodes in ms\n- only one prompt to install\n- &amp; it's open source https://t.co/mNny90FjoL",
+    "title": "@fdotinc: they gave frontier models a 1 billion token context window: you can now run Fabl",
+    "post_url": "https://x.com/fdotinc/status/2083279883950862631",
+    "created_at": "2026-07-31T19:53:24.000Z",
+    "author_username": "fdotinc",
+    "author_name": "Founders Inc",
+    "conversation_id": "2083279883950862631",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2083121320876020223",
+    "text": "Beautiful UI components you can just copy &amp; paste. Save this \ud83d\udc47\n\n- https://t.co/R7SB1qqLyw - WebGL effects over live HTML\n- https://t.co/j5HQBv8hLi - animated border beam effect\n- https://t.co/qcxsVUaPqt - free animated component library\n- https://t.co/evSdejilyC - UI components https://t.co/m7el8I9mDq",
+    "title": "@tranmautritam: Beautiful UI components you can just copy &amp; paste. Save this \ud83d\udc47 - - WebGL eff",
+    "post_url": "https://x.com/tranmautritam/status/2083121320876020223",
+    "created_at": "2026-07-31T09:23:20.000Z",
+    "author_username": "tranmautritam",
+    "author_name": "Tran Mau Tri Tam \u272a",
+    "conversation_id": "2083121320876020223",
+    "is_reply": false,
+    "external_urls": [
+      "http://canvasui.dev",
+      "https://beam.jakubantalik.com/",
+      "https://www.originkit.dev/",
+      "https://www.aicss.dev/"
+    ]
+  },
+  {
+    "id": "2082048566005313631",
+    "text": "Introducing Tailark!\n\nA @shadcn registry for building marketing websites. Here's what's new : \n\n- Redesigned dusk kit\n- 10 dusk landing pages\n- Base UI support https://t.co/7A8VWQftOa",
+    "title": "@MeschacIrung: Introducing Tailark! A @shadcn registry for building marketing websites. Here's ",
+    "post_url": "https://x.com/MeschacIrung/status/2082048566005313631",
+    "created_at": "2026-07-28T10:20:35.000Z",
+    "author_username": "MeschacIrung",
+    "author_name": "irung",
+    "conversation_id": "2082048566005313631",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2081845248120988114",
+    "text": "Interesting trend:\n\nCTO/ Head of Eng / VPE folks at startups and mid-sized companies are... leaving / burning out. Hiring for these roles is HARD, but even after filling the role, they will often leave a few months later and take a career break\n\nAnd they have v good reasons",
+    "title": "@GergelyOrosz: Interesting trend: CTO/ Head of Eng / VPE folks at startups and mid-sized compan",
+    "post_url": "https://x.com/GergelyOrosz/status/2081845248120988114",
+    "created_at": "2026-07-27T20:52:40.000Z",
+    "author_username": "GergelyOrosz",
+    "author_name": "Gergely Orosz",
+    "conversation_id": "2081845248120988114",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2081519697657270620",
+    "text": "AMBER CONSOLE: a free-to-use, open-source CSS framework that looks like it controls heavy machinery.\n\nOne stylesheet, zero dependencies, and no JS needed for any component's appearance.\n\nDemo:\nhttps://t.co/TmzO5zPcIr\n\nRepository:\nhttps://t.co/GlYQHUFJRV\n\nA thread. \n\n1/18 https://t.co/nAiqY358GK",
+    "title": "@DutchDiederik: AMBER CONSOLE: a free-to-use, open-source CSS framework that looks like it contr",
+    "post_url": "https://x.com/DutchDiederik/status/2081519697657270620",
+    "created_at": "2026-07-26T23:19:03.000Z",
+    "author_username": "DutchDiederik",
+    "author_name": "Diederik \ud83c\uddf3\ud83c\uddf1",
+    "conversation_id": "2081519697657270620",
+    "is_reply": false,
+    "external_urls": [
+      "https://dutchdiederik.github.io/AmberConsole/docs/index.html",
+      "https://github.com/DutchDiederik/AmberConsole"
+    ]
+  },
+  {
+    "id": "2081448512911290768",
+    "text": "@levelsio we sell, amongst others, to service businesses like handymen, pool cleaners etc\n\nto assume that any of these people will have the urge and time to vibe code a replacement is just an illusion \n\nyes, ai will and has increased competition but you can't make people all of the sudden",
+    "title": "@onlinedopamine: @levelsio we sell, amongst others, to service businesses like handymen, pool cle",
+    "post_url": "https://x.com/onlinedopamine/status/2081448512911290768",
+    "created_at": "2026-07-26T18:36:11.000Z",
+    "author_username": "onlinedopamine",
+    "author_name": "Vik",
+    "conversation_id": "2081441046844657787",
+    "is_reply": true,
+    "external_urls": []
+  },
+  {
+    "id": "2081030982061412762",
+    "text": "Meet Peel \ud83e\udd5d\n\nRemove image backgrounds instantly, either fully on device or online with @remove_bg.\n\nBuilt with @glazeapp \ud83d\udc49 https://t.co/IMYBiZbcDB https://t.co/9VmTklzRWM",
+    "title": "@thomaspaulmann: Meet Peel \ud83e\udd5d Remove image backgrounds instantly, either fully on device or online",
+    "post_url": "https://x.com/thomaspaulmann/status/2081030982061412762",
+    "created_at": "2026-07-25T14:57:04.000Z",
+    "author_username": "thomaspaulmann",
+    "author_name": "Thomas Paul Mann",
+    "conversation_id": "2081030982061412762",
+    "is_reply": false,
+    "external_urls": [
+      "https://www.glaze.app/app/peel-esimhU"
+    ]
+  },
+  {
+    "id": "2080986155047440808",
+    "text": "Introducing Amicro.\n\nA curated library of premium micro-interactions and transition components for React.\n\nAdd beautiful Loaders ,card hovers, button interactions, and seamless transitions to your app with a single CLI command. \u2728\n\nOpen source.\n\nTry it: https://t.co/2QtGnxtcZb https://t.co/PUL4OPOUcc",
+    "title": "@SubhanHQ: Introducing Amicro. A curated library of premium micro-interactions and transiti",
+    "post_url": "https://x.com/SubhanHQ/status/2080986155047440808",
+    "created_at": "2026-07-25T11:58:56.000Z",
+    "author_username": "SubhanHQ",
+    "author_name": "Kiyotaka",
+    "conversation_id": "2080986155047440808",
+    "is_reply": false,
+    "external_urls": [
+      "https://amicro.vercel.app/"
+    ]
+  },
+  {
+    "id": "2077803066800103846",
+    "text": "https://t.co/HjQCZ1gDhX",
+    "title": "@thedelost",
+    "post_url": "https://x.com/thedelost/status/2077803066800103846",
+    "created_at": "2026-07-16T17:10:29.000Z",
+    "author_username": "thedelost",
+    "author_name": "delost",
+    "conversation_id": "2077803066800103846",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2079207566526259654",
+    "text": "This is how I animated shaders for these buttons. Save this \ud83d\udc47\n\nDepth: 125% \u2192 200%\nRGB split: 10% \u2192 15%\nScale: 100% \u2192 200%\nAngle: -180 \u2192 0\nOffset: 0% \u2192 -100% https://t.co/tmNT7N2egW",
+    "title": "@tranmautritam: This is how I animated shaders for these buttons. Save this \ud83d\udc47 Depth: 125% \u2192 200%",
+    "post_url": "https://x.com/tranmautritam/status/2079207566526259654",
+    "created_at": "2026-07-20T14:11:28.000Z",
+    "author_username": "tranmautritam",
+    "author_name": "Tran Mau Tri Tam \u272a",
+    "conversation_id": "2079207566526259654",
+    "is_reply": false,
+    "external_urls": []
+  }
+]

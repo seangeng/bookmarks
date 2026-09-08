@@ -1,0 +1,154 @@
+[
+  {
+    "id": "2061862733126275549",
+    "text": "Introducing model routing to Factory.\n\nFactory Router picks the right model for every task, automatically.\n\nMaintain frontier performance while cutting costs by 25%. https://t.co/WFnJbSnwNQ",
+    "title": "@FactoryAI: Introducing model routing to Factory. Factory Router picks the right model for e",
+    "post_url": "https://x.com/FactoryAI/status/2061862733126275549",
+    "created_at": "2026-06-02T17:29:17.000Z",
+    "author_username": "FactoryAI",
+    "author_name": "Factory",
+    "conversation_id": "2061862733126275549",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2061493283839459590",
+    "text": "Files SDK 1.7 is out!\n\nThis release is all about safer file workflows and long-running transfers.\n\n\u2192 resumable uploads\n\u2192 sync between providers\n\u2192 read-only clients\n\u2192 directory-style list()\n\u2192 MCP/adapters security hardening https://t.co/8MgGuZSnPm",
+    "title": "@haydenbleasel: Files SDK 1.7 is out! This release is all about safer file workflows and long-ru",
+    "post_url": "https://x.com/haydenbleasel/status/2061493283839459590",
+    "created_at": "2026-06-01T17:01:14.000Z",
+    "author_username": "haydenbleasel",
+    "author_name": "Hayden",
+    "conversation_id": "2061493283839459590",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2061446699856642378",
+    "text": "I just shipped message-ui, build dynamic iMessage attachments with React.\n\n\u25c6 Charts\n\u25c6 Tables\n\u25c6 Text primitives\n\u25c6 Local preview + PNG export\n\u25c6 Tailwind support\n\u25c6 Works with Chat SDK\n\nLink \u2b07\ufe0f\ud83e\uddf5 https://t.co/IiA5HOukyF",
+    "title": "@pontusab: I just shipped message-ui, build dynamic iMessage attachments with React. \u25c6 Char",
+    "post_url": "https://x.com/pontusab/status/2061446699856642378",
+    "created_at": "2026-06-01T13:56:07.000Z",
+    "author_username": "pontusab",
+    "author_name": "Pontus Abrahamsson",
+    "conversation_id": "2061446699856642378",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2061735970920427744",
+    "text": "My new macOS app just launched \ud83c\udf89\ud83e\udd73\n\nHere\u2019s your new favorite macOS app: https://t.co/NtZBcmqkBk\n\nClipboard history + manager app \ud83d\udc47\n\nFor sure: local, private, offline, no subscription. https://t.co/8wlQkDrzyK",
+    "title": "@soltwagner: My new macOS app just launched \ud83c\udf89\ud83e\udd73 Here\u2019s your new favorite macOS app: Clipboard ",
+    "post_url": "https://x.com/soltwagner/status/2061735970920427744",
+    "created_at": "2026-06-02T09:05:35.000Z",
+    "author_username": "soltwagner",
+    "author_name": "Solt Wagner",
+    "conversation_id": "2061735970920427744",
+    "is_reply": false,
+    "external_urls": [
+      "https://www.supaste.com/"
+    ]
+  },
+  {
+    "id": "2061052674414358930",
+    "text": "great work by my good friend Lauris\n\n@itomarkets helps enterprises, funds, family offices and insurers put this into practice: hedge core business risks, gain prediction-market exposure, and run curated event-contract baskets/custom strategies through managed infra https://t.co/EWSXWIkWBA",
+    "title": "@affaan: great work by my good friend Lauris @itomarkets helps enterprises, funds, family",
+    "post_url": "https://x.com/affaan/status/2061052674414358930",
+    "created_at": "2026-05-31T11:50:24.000Z",
+    "author_username": "affaan",
+    "author_name": "cogsec",
+    "conversation_id": "2061052674414358930",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2060783957143359510",
+    "text": "Liquid's LFM2.5-8B-A1B smashed OpenAI's gpt-oss-20b on tool calling\n\nWe ran both locally on a MacBook Pro M5 Max, 64GB, and gave each the same trip-planning request that only completes if the model fires all 7 tool calls - weather for 3 cities, two currency conversions, an email https://t.co/mJo2PZB7OB",
+    "title": "@atomic_chat_hq: Liquid's LFM2.5-8B-A1B smashed OpenAI's gpt-oss-20b on tool calling We ran both ",
+    "post_url": "https://x.com/atomic_chat_hq/status/2060783957143359510",
+    "created_at": "2026-05-30T18:02:37.000Z",
+    "author_username": "atomic_chat_hq",
+    "author_name": "atomic.chat",
+    "conversation_id": "2060783957143359510",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2060829721856823474",
+    "text": "Someone out there likely needs this: https://t.co/Eof2fGH1Kv",
+    "title": "@MikeBradleyAI: Someone out there likely needs this:",
+    "post_url": "https://x.com/MikeBradleyAI/status/2060829721856823474",
+    "created_at": "2026-05-30T21:04:28.000Z",
+    "author_username": "MikeBradleyAI",
+    "author_name": "Mike Bradley",
+    "conversation_id": "2060829721856823474",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2060667529601941740",
+    "text": "@levelsio https://t.co/aOhXc2QuB7 https://t.co/uG4pcStN7a",
+    "title": "@nikitabier: @levelsio",
+    "post_url": "https://x.com/nikitabier/status/2060667529601941740",
+    "created_at": "2026-05-30T10:19:59.000Z",
+    "author_username": "nikitabier",
+    "author_name": "Nikita Bier",
+    "conversation_id": "2060390648986173857",
+    "is_reply": true,
+    "external_urls": []
+  },
+  {
+    "id": "2060456091817824404",
+    "text": "Best models I\u2019ve seen this week for your hardware: if you have 8-16gb you have a competitive model finally! \n\n\u2014\u2014\u2014-\n\n4gb - 8gb: \n\n- minicpm5: this model was built for agentic tool use on tiny machines: https://t.co/nQcsuChENt\n\n- tops benchmarks in weight class\n- extremely small \n-",
+    "title": "@0xSero: Best models I\u2019ve seen this week for your hardware: if you have 8-16gb you have a",
+    "post_url": "https://x.com/0xSero/status/2060456091817824404",
+    "created_at": "2026-05-29T20:19:48.000Z",
+    "author_username": "0xSero",
+    "author_name": "0xSero",
+    "conversation_id": "2060456091817824404",
+    "is_reply": false,
+    "external_urls": [
+      "https://huggingface.co/openbmb/MiniCPM5-1B"
+    ]
+  },
+  {
+    "id": "2060025609867387239",
+    "text": "you can create a sticky navbar that morphs when you scroll with pure CSS, no JS or animation libraries required\n\n\ud835\ude91\ud835\ude8e\ud835\ude8a\ud835\ude8d\ud835\ude8e\ud835\ude9b {\n  \ud835\ude8c\ud835\ude98\ud835\ude97\ud835\ude9d\ud835\ude8a\ud835\ude92\ud835\ude97\ud835\ude8e\ud835\ude9b-\ud835\ude9d\ud835\udea2\ud835\ude99\ud835\ude8e: \ud835\ude9c\ud835\ude8c\ud835\ude9b\ud835\ude98\ud835\ude95\ud835\ude95-\ud835\ude9c\ud835\ude9d\ud835\ude8a\ud835\ude9d\ud835\ude8e;\n  \ud835\ude99\ud835\ude98\ud835\ude9c\ud835\ude92\ud835\ude9d\ud835\ude92\ud835\ude98\ud835\ude97: \ud835\ude9c\ud835\ude9d\ud835\ude92\ud835\ude8c\ud835\ude94\ud835\udea2;\n  \ud835\ude9d\ud835\ude98\ud835\ude99: \ud835\udff6;\n}\n@\ud835\ude8c\ud835\ude98\ud835\ude97\ud835\ude9d\ud835\ude8a\ud835\ude92\ud835\ude97\ud835\ude8e\ud835\ude9b https://t.co/MqC8dibQCM",
+    "title": "@mannupaaji: you can create a sticky navbar that morphs when you scroll with pure CSS, no JS ",
+    "post_url": "https://x.com/mannupaaji/status/2060025609867387239",
+    "created_at": "2026-05-28T15:49:13.000Z",
+    "author_username": "mannupaaji",
+    "author_name": "Manu Arora",
+    "conversation_id": "2060025609867387239",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2060286969184391519",
+    "text": "If you want to make these animated code snippet videos. \n\nRuns is the browser, made with Shiki + Remotion + Mediabunny\n\nhttps://t.co/vqsvcxwyOQ https://t.co/2nKd2Z92sP https://t.co/57kAFQBYay",
+    "title": "@fayazara: If you want to make these animated code snippet videos. Runs is the browser, mad",
+    "post_url": "https://x.com/fayazara/status/2060286969184391519",
+    "created_at": "2026-05-29T09:07:46.000Z",
+    "author_username": "fayazara",
+    "author_name": "Fayaz Ahmed",
+    "conversation_id": "2060286969184391519",
+    "is_reply": false,
+    "external_urls": [
+      "https://reelcode.fayaz.workers.dev"
+    ]
+  },
+  {
+    "id": "2059303043305521265",
+    "text": "Animated image loader component library\n\nready to use, supports dark and light theme\nhttps://t.co/rbB4BgfZWd\nnpm install img-fx https://t.co/7eLfW6pux2",
+    "title": "@Jakubantalik: Animated image loader component library ready to use, supports dark and light th",
+    "post_url": "https://x.com/Jakubantalik/status/2059303043305521265",
+    "created_at": "2026-05-26T15:58:00.000Z",
+    "author_username": "Jakubantalik",
+    "author_name": "Jakub Antalik",
+    "conversation_id": "2059303043305521265",
+    "is_reply": false,
+    "external_urls": [
+      "http://image.jakubantalik.com"
+    ]
+  }
+]

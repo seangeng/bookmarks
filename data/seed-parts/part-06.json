@@ -1,0 +1,152 @@
+[
+  {
+    "id": "2068047168653426729",
+    "text": "@douga111www Available here.\ud83d\udc47\ud83c\udf87\n@grok draw https://t.co/p7m9w1OJSA",
+    "title": "@CaringSerenity: @douga111www Available here.\ud83d\udc47\ud83c\udf87 @grok draw",
+    "post_url": "https://x.com/CaringSerenity/status/2068047168653426729",
+    "created_at": "2026-06-19T19:04:02.000Z",
+    "author_username": "CaringSerenity",
+    "author_name": "mazopickss",
+    "conversation_id": "2067790690076266914",
+    "is_reply": true,
+    "external_urls": [
+      "https://www.amazon.com/dp/B0H1MTZXGL?lv=shuf&channelId=1&plpRedirect=mhFallback&linkCode=sl2&tag=abde2203-20&linkId=62fdd76c10e04c342cbfc410a4b8e045&language=en_US&ref_=as_li_ss_tl"
+    ]
+  },
+  {
+    "id": "2067176008445513800",
+    "text": "Vector databases are officially cooked \ud83e\udd2f\n\nThis repo shrinks 60 million text chunks from 201 GB to just 6 GB without any loss in accuracy.\n\n\u2192 97% smaller storage\n\u2192 No cloud. No GPU.\n\u2192 Runs on a standard laptop\n\u2192 Fully private\n\n100% open-source. https://t.co/UbonvPue1L",
+    "title": "@HowToPrompt__: Vector databases are officially cooked \ud83e\udd2f This repo shrinks 60 million text chunk",
+    "post_url": "https://x.com/HowToPrompt__/status/2067176008445513800",
+    "created_at": "2026-06-17T09:22:21.000Z",
+    "author_username": "HowToPrompt__",
+    "author_name": "How To Prompt",
+    "conversation_id": "2067176008445513800",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2066160513969537470",
+    "text": "I built a @threejs game director skill system for Codex &amp; Claude Code to help agents create more polished playable browser games. \n\nIt guides gameplay loops, graphics, HUD/UI, debugging, QA, and optional @tripoai @ElevenLabs @NanoBanana  3D/image/audio assets with API keys.\n\nOpen https://t.co/EtnFURxs11",
+    "title": "@majidmanzarpour: I built a @threejs game director skill system for Codex &amp; Claude Code to hel",
+    "post_url": "https://x.com/majidmanzarpour/status/2066160513969537470",
+    "created_at": "2026-06-14T14:07:08.000Z",
+    "author_username": "majidmanzarpour",
+    "author_name": "Majid Manzarpour",
+    "conversation_id": "2066160513969537470",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2066346573693645091",
+    "text": "I turned @itsreallyvivek's \u201chow to be good at research\u201d essay into an agent skill.\n\nresearch-craft helps agents plan better research loops: choose problems, forecast experiments, keep logs, inspect failures, and tighten iteration.\n\nnpx -y skills add nik1t7n/research-craft-skill",
+    "title": "@nik1t7n: I turned @itsreallyvivek's \u201chow to be good at research\u201d essay into an agent skil",
+    "post_url": "https://x.com/nik1t7n/status/2066346573693645091",
+    "created_at": "2026-06-15T02:26:28.000Z",
+    "author_username": "nik1t7n",
+    "author_name": "Nikita Nosov",
+    "conversation_id": "2066346573693645091",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2066184338006516150",
+    "text": "Everyone needs to hear this\u2026\n\nThe Empty Boat Mindset\n\n(a visual thread) https://t.co/9OJhY8vnof",
+    "title": "@SahilBloom: Everyone needs to hear this\u2026 The Empty Boat Mindset (a visual thread)",
+    "post_url": "https://x.com/SahilBloom/status/2066184338006516150",
+    "created_at": "2026-06-14T15:41:48.000Z",
+    "author_username": "SahilBloom",
+    "author_name": "Sahil Bloom",
+    "conversation_id": "2066184338006516150",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2066225908202053818",
+    "text": "I basically never write my own /goal anymore.\n\nI ask Codex to write one for itself, and one for each agent it spawns.\n\nLike this \ud83d\udc47 https://t.co/8ykoPJNLmC",
+    "title": "@skirano: I basically never write my own /goal anymore. I ask Codex to write one for itsel",
+    "post_url": "https://x.com/skirano/status/2066225908202053818",
+    "created_at": "2026-06-14T18:26:59.000Z",
+    "author_username": "skirano",
+    "author_name": "Pietro Schirano",
+    "conversation_id": "2066225908202053818",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2066203836814143712",
+    "text": "highlighted text can look weird when it wraps.\n\nbecause the browser treats the highlight like one long sticker that got cut into multiple lines. so the middle lines can lose the nice padding / rounded edges.\n\nfix \u2192 `box-decoration-break: clone`\n\nit tells the browser to paint a https://t.co/3Bdnh5w9Lw",
+    "title": "@okaytanvir: highlighted text can look weird when it wraps. because the browser treats the hi",
+    "post_url": "https://x.com/okaytanvir/status/2066203836814143712",
+    "created_at": "2026-06-14T16:59:17.000Z",
+    "author_username": "okaytanvir",
+    "author_name": "tanvir",
+    "conversation_id": "2066203836814143712",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2066036807255679136",
+    "text": "A 28 YEAR OLD AMD ENGINEER WIRED 4 FRAMEWORK DESKTOPS INTO A CLOSET RACK AND KILLED A $5,280/YEAR AI STACK FOR $36 A MONTH\n\nethan is 28, lives in austin, works as a backend engineer and was paying $440 a month across claude code max, chatgpt pro, gemini advanced and cursor for https://t.co/KMK9haVXEd https://t.co/gRxUT89TPH",
+    "title": "@antisadh: A 28 YEAR OLD AMD ENGINEER WIRED 4 FRAMEWORK DESKTOPS INTO A CLOSET RACK AND KIL",
+    "post_url": "https://x.com/antisadh/status/2066036807255679136",
+    "created_at": "2026-06-14T05:55:34.000Z",
+    "author_username": "antisadh",
+    "author_name": "Antid",
+    "conversation_id": "2066036807255679136",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2065799598757609833",
+    "text": "https://t.co/6YXpRKJAiz",
+    "title": "@Uniswap",
+    "post_url": "https://x.com/Uniswap/status/2065799598757609833",
+    "created_at": "2026-06-13T14:12:59.000Z",
+    "author_username": "Uniswap",
+    "author_name": "Uniswap",
+    "conversation_id": "2065799598757609833",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2065681946064154766",
+    "text": "State of Local AI #1\n\n\u2014\u2014\u2014\n\nIn lieu of Fable ban. \n\nHere\u2019s the best LLMs of the week to run on your hardware. \n\n\u2014\u2014 4-8gb vram/ram 500$\n\n- Gemma-4-qat https://t.co/JlO6DoJRvv I had someone mention it\u2019s very good for subagent stuff \n\n\u2014\u2014 8-16gb vram/ram &lt; 1k usd \n\n- Gemma-12B https://t.co/pw1eI5EAxn",
+    "title": "@0xSero: State of Local AI #1 \u2014\u2014\u2014 In lieu of Fable ban. Here\u2019s the best LLMs of the week ",
+    "post_url": "https://x.com/0xSero/status/2065681946064154766",
+    "created_at": "2026-06-13T06:25:29.000Z",
+    "author_username": "0xSero",
+    "author_name": "0xSero",
+    "conversation_id": "2065681946064154766",
+    "is_reply": false,
+    "external_urls": [
+      "https://huggingface.co/unsloth/gemma-4-E4B-it-qat-GGUF"
+    ]
+  },
+  {
+    "id": "2065821179810644410",
+    "text": "Design Engineering Tip:\nNot every pixel should feel equally movable. Add resistance near important boundaries. It makes interfaces feel physical instead of digital. \n\nThe effect mainly comes from these things:\n\n- dragConstraints \u2192 defines the allowed movement area\n\n- https://t.co/8DcXvbKOix",
+    "title": "@gabriell_lab: Design Engineering Tip: Not every pixel should feel equally movable. Add resista",
+    "post_url": "https://x.com/gabriell_lab/status/2065821179810644410",
+    "created_at": "2026-06-13T15:38:45.000Z",
+    "author_username": "gabriell_lab",
+    "author_name": "Gabriel",
+    "conversation_id": "2065821179810644410",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2065462041440108853",
+    "text": "input morph\n\nfork it: https://t.co/D36qNQXMhl https://t.co/Sfp1sj2hnu",
+    "title": "@joelbqz: input morph fork it:",
+    "post_url": "https://x.com/joelbqz/status/2065462041440108853",
+    "created_at": "2026-06-12T15:51:39.000Z",
+    "author_username": "joelbqz",
+    "author_name": "Joel",
+    "conversation_id": "2065462041440108853",
+    "is_reply": false,
+    "external_urls": [
+      "https://v0.link/mQrZGfj"
+    ]
+  }
+]

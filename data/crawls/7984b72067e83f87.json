@@ -1,0 +1,16 @@
+{
+  "key": "7984b72067e83f87",
+  "url": "https://aicss.dev/",
+  "fetched_at": "2026-09-08T03:50:07.582Z",
+  "final_url": "https://www.aicss.dev/",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "AICSS · UI components for AI agents",
+  "description": "Beautifully designed, copy-paste UI components for AI agent conversations: thinking states, tool calls, streaming text, citations, tables and more. Ships in React, Vue and Svelte.",
+  "site_name": "AICSS",
+  "byline": "AICSS",
+  "text": "UI componentsfor AI Agents\n\nBeautifully crafted, copy-paste blocks for everything an agent shows mid-conversation: thinking states, tool calls, streaming text, tables and more.\n\nHere's a quick summary. The migration touches three modules and is safe to run incrementally.\n\nI'd recommend starting with the auth service, then rolling out the rest behind a feature flag.\n\nTransformers scale well with data and compute1, though attention is quadratic in sequence length2.\n\nScaffold the project structure\n\nBuild the component registry\n\nImplement entitlement gating",
+  "word_count": 79,
+  "duration_ms": 802
+}

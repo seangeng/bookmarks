@@ -1,0 +1,16 @@
+{
+  "key": "9908769dac91fa38",
+  "url": "https://mapcn.dev/",
+  "fetched_at": "2026-09-08T03:50:22.756Z",
+  "final_url": "https://www.mapcn.dev/",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "mapcn - Beautiful maps made simple",
+  "description": "A collection of beautifully designed, accessible, and customizable map components. Built on MapLibre GL. Styled with Tailwind CSS. Works with shadcn/ui.",
+  "site_name": "mapcn",
+  "byline": "Anmoldeep Singh",
+  "text": "Beautiful maps, made simple\n\nReady to use, customizable map components for React.Built on MapLibre. Styled with Tailwind.",
+  "word_count": 17,
+  "duration_ms": 281
+}

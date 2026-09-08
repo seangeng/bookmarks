@@ -1,0 +1,49 @@
+{
+  "name": "bookmarks",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "crawl": "tsx scripts/crawl.ts",
+    "index": "tsx scripts/build-index.ts",
+    "sync": "npm run crawl && npm run index",
+    "prebuild": "tsx scripts/ensure-index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "check:seed": "tsx scripts/check-seed.ts",
+    "seed:assemble": "tsx scripts/assemble-seed.ts"
+  },
+  "dependencies": {
+    "@upstash/vector": "^1.2.3",
+    "cheerio": "^1.2.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cn": "^0.2.6",
+    "lucide-react": "^1.42.0",
+    "next": "16.3.4",
+    "radix-ui": "^1.6.7",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1",
+    "shadcn": "^4.21.0",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^22.20.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.4",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.13",
+    "tw-animate-css": "^1.4.0",
+    "typescript": "^5"
+  },
+  "description": "Searchable personal X bookmarks library"
+}

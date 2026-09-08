@@ -1,0 +1,186 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-newsreader);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Warm paper. The light theme is the "reading room" counterpart to the dark
+   default — same hue family, inverted luminance. */
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.985 0.006 85);
+  --foreground: oklch(0.22 0.014 60);
+  --card: oklch(1 0.003 85);
+  --card-foreground: oklch(0.22 0.014 60);
+  --popover: oklch(1 0.003 85);
+  --popover-foreground: oklch(0.22 0.014 60);
+  --primary: oklch(0.5 0.11 62);
+  --primary-foreground: oklch(0.99 0.005 85);
+  --secondary: oklch(0.95 0.009 85);
+  --secondary-foreground: oklch(0.28 0.015 60);
+  --muted: oklch(0.955 0.008 85);
+  --muted-foreground: oklch(0.48 0.018 62);
+  --accent: oklch(0.94 0.014 80);
+  --accent-foreground: oklch(0.26 0.02 60);
+  --destructive: oklch(0.55 0.2 27);
+  --border: oklch(0.885 0.01 75);
+  --input: oklch(0.885 0.01 75);
+  --ring: oklch(0.62 0.1 65);
+
+  --topic-ai-ml: oklch(0.58 0.15 285);
+  --topic-ui-design: oklch(0.58 0.16 355);
+  --topic-devtools: oklch(0.55 0.12 225);
+  --topic-infra: oklch(0.53 0.12 158);
+  --topic-crypto: oklch(0.6 0.14 62);
+  --topic-reading: oklch(0.56 0.1 105);
+  --topic-misc: oklch(0.55 0.02 260);
+
+  --sidebar: oklch(0.97 0.008 85);
+  --sidebar-foreground: oklch(0.22 0.014 60);
+  --sidebar-primary: oklch(0.5 0.11 62);
+  --sidebar-primary-foreground: oklch(0.99 0.005 85);
+  --sidebar-accent: oklch(0.94 0.014 80);
+  --sidebar-accent-foreground: oklch(0.26 0.02 60);
+  --sidebar-border: oklch(0.885 0.01 75);
+  --sidebar-ring: oklch(0.62 0.1 65);
+}
+
+/* Ink. Default theme: near-black with a warm bias, brass accent. */
+.dark {
+  --background: oklch(0.155 0.008 62);
+  --foreground: oklch(0.945 0.008 85);
+  --card: oklch(0.196 0.009 62);
+  --card-foreground: oklch(0.945 0.008 85);
+  --popover: oklch(0.185 0.009 62);
+  --popover-foreground: oklch(0.945 0.008 85);
+  --primary: oklch(0.82 0.13 80);
+  --primary-foreground: oklch(0.2 0.03 66);
+  --secondary: oklch(0.255 0.011 62);
+  --secondary-foreground: oklch(0.93 0.008 85);
+  --muted: oklch(0.245 0.01 62);
+  --muted-foreground: oklch(0.715 0.018 78);
+  --accent: oklch(0.28 0.016 70);
+  --accent-foreground: oklch(0.95 0.01 85);
+  --destructive: oklch(0.7 0.19 22);
+  --border: oklch(0.92 0.02 85 / 11%);
+  --input: oklch(0.92 0.02 85 / 15%);
+  --ring: oklch(0.68 0.09 80);
+
+  --topic-ai-ml: oklch(0.76 0.14 285);
+  --topic-ui-design: oklch(0.76 0.15 355);
+  --topic-devtools: oklch(0.78 0.12 225);
+  --topic-infra: oklch(0.78 0.13 158);
+  --topic-crypto: oklch(0.83 0.13 68);
+  --topic-reading: oklch(0.82 0.1 105);
+  --topic-misc: oklch(0.74 0.02 260);
+
+  --sidebar: oklch(0.18 0.009 62);
+  --sidebar-foreground: oklch(0.945 0.008 85);
+  --sidebar-primary: oklch(0.82 0.13 80);
+  --sidebar-primary-foreground: oklch(0.2 0.03 66);
+  --sidebar-accent: oklch(0.28 0.016 70);
+  --sidebar-accent-foreground: oklch(0.95 0.01 85);
+  --sidebar-border: oklch(0.92 0.02 85 / 11%);
+  --sidebar-ring: oklch(0.68 0.09 80);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  html {
+    @apply font-sans;
+    scrollbar-gutter: stable;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 32%, transparent);
+  }
+}
+
+@utility topic-chip {
+  --chip: var(--topic-misc);
+  color: color-mix(in oklch, var(--chip) 88%, var(--foreground));
+  background: color-mix(in oklch, var(--chip) 12%, transparent);
+  border-color: color-mix(in oklch, var(--chip) 32%, transparent);
+}
+
+/* Faint brass wash behind the masthead so the page has a light source. */
+@utility page-glow {
+  background-image: radial-gradient(
+    58rem 26rem at 50% -12rem,
+    color-mix(in oklch, var(--primary) 13%, transparent),
+    transparent 70%
+  );
+}
+
+@utility rule-dots {
+  background-image: radial-gradient(
+    currentColor 1px,
+    transparent 1px
+  );
+  background-size: 6px 6px;
+}
+
+@layer components {
+  mark {
+    background: color-mix(in oklch, var(--primary) 26%, transparent);
+    color: inherit;
+    border-radius: 0.2rem;
+    padding-inline: 0.1rem;
+  }
+
+  .crawl-prose {
+    @apply text-sm leading-relaxed text-muted-foreground;
+  }
+
+  .crawl-prose p + p {
+    @apply mt-3;
+  }
+}
