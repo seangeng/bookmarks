@@ -17,16 +17,14 @@ import { crawlAll, DEFAULT_CRAWL_OPTIONS } from "./lib/crawler";
 import {
   CRAWL_DIR,
   CRAWL_INDEX_FILE,
-  SEED_FILE,
   loadEnv,
   numberArg,
   parseArgs,
-  readJson,
   relative,
   urlKey,
   writeJson,
 } from "./lib/fs-data";
-import { normalizeExport } from "../src/lib/normalize";
+import { readSeedOrExit } from "./lib/seed";
 import { domainOf } from "../src/lib/text";
 import type { CrawlStatus } from "../src/lib/types";
 
@@ -50,13 +48,7 @@ async function main(): Promise<void> {
   await loadEnv();
   const args = parseArgs();
 
-  const seed = await readJson<unknown>(SEED_FILE);
-  if (!seed) {
-    console.error(`No seed found at ${relative(SEED_FILE)}. Add the X export first.`);
-    process.exit(1);
-  }
-
-  const { bookmarks } = normalizeExport(seed);
+  const { bookmarks } = await readSeedOrExit();
   const urls = [...new Set(bookmarks.flatMap((bookmark) => bookmark.external_urls))].sort();
 
   const { records: existing, invalid } = await loadCrawlRecords();

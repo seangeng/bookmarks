@@ -17,19 +17,17 @@ import {
   BOOKMARKS_INDEX_FILE,
   INDEX_DIR,
   META_FILE,
-  SEED_FILE,
   VECTORS_FILE,
   loadEnv,
   numberArg,
   parseArgs,
-  readJson,
   relative,
   urlKey,
   writeJson,
 } from "./lib/fs-data";
+import { readSeedOrExit } from "./lib/seed";
 import { classifyWithLlm } from "./lib/classify";
 import { cosineSimilarity, resolveEmbeddingProvider } from "../src/lib/embeddings";
-import { normalizeExport } from "../src/lib/normalize";
 import { domainOf, truncate } from "../src/lib/text";
 import { DEFAULT_TOPIC, TOPICS, pickTopics, scoreTopics, toTopicSlug } from "../src/lib/topics";
 import type {
@@ -109,18 +107,7 @@ async function main(): Promise<void> {
   const args = parseArgs();
   const dryRun = args.flags.has("dry-run");
 
-  const seed = await readJson<unknown>(SEED_FILE);
-  if (!seed) {
-    console.error(`No seed found at ${relative(SEED_FILE)}. Add the X export first.`);
-    process.exit(1);
-  }
-
-  const { bookmarks, skipped } = normalizeExport(seed);
-  if (bookmarks.length === 0) {
-    console.error("Seed contained no usable bookmarks.");
-    process.exit(1);
-  }
-  if (skipped > 0) console.warn(`Skipped ${skipped} malformed seed entries.`);
+  const { bookmarks } = await readSeedOrExit();
 
   const { records: crawls, invalid } = await loadCrawlRecords();
   if (invalid.length > 0) {

@@ -12,7 +12,8 @@
     "sync": "npm run crawl && npm run index",
     "prebuild": "tsx scripts/ensure-index.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test tests/*.test.ts",
+    "check:seed": "tsx scripts/check-seed.ts"
   },
   "dependencies": {
     "@upstash/vector": "^1.2.3",

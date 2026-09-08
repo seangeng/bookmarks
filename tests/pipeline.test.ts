@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import { test } from "node:test";
 
 import { parseRobots, pathAllowed } from "../scripts/lib/crawler";
 import { extractArticle } from "../scripts/lib/extract";
+import { readSeed } from "../scripts/lib/seed";
 import { cosineSimilarity, localEmbed } from "../src/lib/embeddings";
 import { normalizeBookmark, normalizeExport } from "../src/lib/normalize";
 import { normalizeUrl, snippetFor, terms } from "../src/lib/text";
@@ -95,6 +99,76 @@ test("self-referential x.com links are not treated as external", () => {
   });
 
   assert.deepEqual(result?.external_urls, ["https://example.com/post"]);
+});
+
+/* ---------------------------------------------------------- seed reading */
+
+/** Seed fixtures go in a temp dir so tests never touch data/bookmarks-seed.json. */
+async function seedFixture(contents: string): Promise<string> {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "seed-"));
+  const file = path.join(dir, "bookmarks-seed.json");
+  await fs.writeFile(file, contents, "utf8");
+  return file;
+}
+
+test("readSeed rejects placeholder contents from a failed upload", async () => {
+  for (const contents of ["<file>", "PLACEHOLDER", "", "null", "TODO"]) {
+    const result = await readSeed(await seedFixture(contents));
+    assert.equal(result.ok, false, `expected failure for ${JSON.stringify(contents)}`);
+    if (result.ok) continue;
+    assert.equal(result.reason, "invalid_json");
+    assert.match(result.message, /placeholder|valid JSON/i);
+  }
+});
+
+test("readSeed distinguishes a missing seed from a broken one", async () => {
+  const missing = await readSeed(path.join(os.tmpdir(), "definitely-not-here-9182734.json"));
+  assert.equal(missing.ok, false);
+  if (!missing.ok) assert.equal(missing.reason, "missing");
+
+  const broken = await readSeed(await seedFixture('{"bookmarks": [ this is not json'));
+  assert.equal(broken.ok, false);
+  if (!broken.ok) assert.equal(broken.reason, "invalid_json");
+});
+
+test("readSeed reports a parseable seed that yields nothing usable", async () => {
+  const file = await seedFixture(JSON.stringify({ bookmarks: [{ nope: 1 }, { also: 2 }] }));
+  const result = await readSeed(file);
+  assert.equal(result.ok, false);
+  if (!result.ok) {
+    assert.equal(result.reason, "no_bookmarks");
+    assert.match(result.message, /2 entries rejected/);
+  }
+});
+
+test("readSeed accepts a valid seed and reports skipped entries", async () => {
+  const file = await seedFixture(
+    JSON.stringify({
+      bookmarks: [
+        {
+          id: "1",
+          text: "real",
+          author_username: "seangeng",
+          post_url: "https://x.com/seangeng/status/1",
+          created_at: "2026-01-01T00:00:00Z",
+          external_urls: [],
+        },
+        { garbage: true },
+      ],
+    }),
+  );
+
+  const result = await readSeed(file);
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.equal(result.bookmarks.length, 1);
+    assert.equal(result.skipped, 1);
+  }
+});
+
+test("the committed seed is valid", async () => {
+  const result = await readSeed();
+  assert.equal(result.ok, true, result.ok ? "" : result.message);
 });
 
 /* ------------------------------------------------------------------ urls */

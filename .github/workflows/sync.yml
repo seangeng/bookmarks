@@ -34,6 +34,12 @@ jobs:
 
       - run: npm ci
 
+      # Stop before crawling if the export upload produced a placeholder or
+      # otherwise unusable file, so the committed artifacts are never rebuilt
+      # from a broken seed.
+      - name: Validate seed
+        run: npm run check:seed
+
       - name: Crawl external links
         run: npm run crawl -- --max-age=30 --retry-failed ${{ inputs.force_recrawl && '--force' || '' }}
         env:

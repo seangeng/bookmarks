@@ -21,6 +21,12 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # Runs first and on its own: a failed export upload should fail the PR
+      # with an obvious message rather than surface as a confusing build error.
+      - name: Validate seed
+        run: npm run check:seed
+
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test

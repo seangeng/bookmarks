@@ -1,1 +1,464 @@
-<file>
+{
+  "_note": "Sample seed. Replace this whole file with the weekday X bookmarks export (a bare array or {\"bookmarks\": [...]} both work) and re-run `npm run sync`. Handles and post ids here are synthetic; the external links are real so the crawler has something to chew on.",
+  "source": "sample",
+  "generated_at": "2026-09-01T00:00:00.000Z",
+  "bookmarks": [
+    {
+      "id": "1962011044880000001",
+      "text": "The \"Attention Is All You Need\" paper still reads better than most of the explainers written about it since. Worth a re-read once a year. https://arxiv.org/abs/1706.03762",
+      "author": { "name": "Priya Raman", "handle": "kernelnotes" },
+      "url": "https://x.com/kernelnotes/status/1962011044880000001",
+      "created_at": "2026-08-28T15:12:00.000Z",
+      "bookmarked_at": "2026-08-28T15:40:00.000Z",
+      "external_urls": ["https://arxiv.org/abs/1706.03762"],
+      "topics": []
+    },
+    {
+      "id": "1961205511220000002",
+      "text": "Best breakdown of agent architectures I've found: planning, memory, tool use, and where each one breaks in practice.",
+      "author": { "name": "Dana Ko", "handle": "agentloop" },
+      "url": "https://x.com/agentloop/status/1961205511220000002",
+      "created_at": "2026-08-26T09:03:00.000Z",
+      "external_urls": ["https://lilianweng.github.io/posts/2023-06-23-agent/"],
+      "topics": ["AI/ML"]
+    },
+    {
+      "id": "1960118822330000003",
+      "text": "Ten years old and still the clearest intro to why sequence models work at all. The character-level Shakespeare samples are burned into my brain.",
+      "author": { "name": "Sam Ito", "handle": "stochastic_sam" },
+      "url": "https://x.com/stochastic_sam/status/1960118822330000003",
+      "created_at": "2026-08-23T18:45:00.000Z",
+      "external_urls": ["https://karpathy.github.io/2015/05/21/rnn-effectiveness/"],
+      "topics": []
+    },
+    {
+      "id": "1959402277440000004",
+      "text": "Send this to anyone who says they \"kind of\" understand attention. The diagrams do the work that equations don't.",
+      "author": { "name": "Mira Lund", "handle": "mlvisuals" },
+      "url": "https://x.com/mlvisuals/status/1959402277440000004",
+      "created_at": "2026-08-21T11:20:00.000Z",
+      "external_urls": ["https://jalammar.github.io/illustrated-transformer/"],
+      "topics": []
+    },
+    {
+      "id": "1958771199550000005",
+      "text": "Self-attention implemented from scratch in about a hundred lines. Good weekend exercise if you've only ever called the library version.",
+      "author": { "name": "Tomas Vela", "handle": "fromscratchml" },
+      "url": "https://x.com/fromscratchml/status/1958771199550000005",
+      "created_at": "2026-08-19T20:10:00.000Z",
+      "external_urls": [
+        "https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html"
+      ],
+      "topics": []
+    },
+    {
+      "id": "1957889001660000006",
+      "text": "Half the embedding cluster screenshots on this timeline are making exactly this mistake. Perplexity is a knob, not a truth.",
+      "author": { "name": "Noor Haddad", "handle": "distillfan" },
+      "url": "https://x.com/distillfan/status/1957889001660000006",
+      "created_at": "2026-08-17T13:37:00.000Z",
+      "external_urls": ["https://distill.pub/2016/misread-tsne/"],
+      "topics": []
+    },
+    {
+      "id": "1956544778990000007",
+      "text": "Running commentary on LLMs that stays grounded in what the models actually do. My default link when someone asks where to start.",
+      "author": { "name": "Ash Ferreira", "handle": "plaintextai" },
+      "url": "https://x.com/plaintextai/status/1956544778990000007",
+      "created_at": "2026-08-13T08:02:00.000Z",
+      "external_urls": ["https://simonwillison.net/2023/Aug/27/wordcamp-llms/"],
+      "topics": []
+    },
+    {
+      "id": "1955330112220000008",
+      "text": "Open model leaderboards are useful right up until you read how the evals are actually scored. This thread of a post explains the traps.",
+      "author": { "name": "Lea Novak", "handle": "evalsdaily" },
+      "url": "https://x.com/evalsdaily/status/1955330112220000008",
+      "created_at": "2026-08-09T17:55:00.000Z",
+      "external_urls": ["https://huggingface.co/blog/evaluating-mmlu-leaderboard"],
+      "topics": []
+    },
+    {
+      "id": "1954118844330000009",
+      "text": "torch.compile notes. All the real performance lives in the graph-breaks section, which is of course the part everyone skips.",
+      "author": { "name": "Ken Oyelaran", "handle": "gpu_poor" },
+      "url": "https://x.com/gpu_poor/status/1954118844330000009",
+      "created_at": "2026-08-05T22:18:00.000Z",
+      "external_urls": ["https://pytorch.org/blog/"],
+      "topics": []
+    },
+    {
+      "id": "1953004411440000010",
+      "text": "Note to self: every RAG failure I've debugged this year was a chunking or retrieval-eval problem, not a model problem. Stop swapping models first.",
+      "author": { "name": "Sean Geng", "handle": "seangeng" },
+      "url": "https://x.com/seangeng/status/1953004411440000010",
+      "created_at": "2026-08-02T04:44:00.000Z",
+      "external_urls": [],
+      "topics": []
+    },
+    {
+      "id": "1952661177550000011",
+      "text": "Cosine vs dot product for embeddings, and when normalization actually changes your rankings. Bookmarking because I re-derive this every six months.",
+      "author": { "name": "Ivy Chaudhry", "handle": "vectorpilled" },
+      "url": "https://x.com/vectorpilled/status/1952661177550000011",
+      "created_at": "2026-07-31T12:09:00.000Z",
+      "external_urls": ["https://platform.openai.com/docs/guides/embeddings"],
+      "topics": []
+    },
+    {
+      "id": "1951220099660000012",
+      "text": "Nielsen's ten usability heuristics, 1994, still undefeated. Most \"AI redesign\" mockups fail three of them at once.",
+      "author": { "name": "Jules Marchetti", "handle": "quietcraft" },
+      "url": "https://x.com/quietcraft/status/1951220099660000012",
+      "created_at": "2026-07-27T16:30:00.000Z",
+      "external_urls": ["https://www.nngroup.com/articles/ten-usability-heuristics/"],
+      "topics": ["UI/Design"]
+    },
+    {
+      "id": "1950118833770000013",
+      "text": "The utility-first mental model finally clicked for me reading this page rather than any of the hot takes about it.",
+      "author": { "name": "Rafa Okonkwo", "handle": "utilityfirst" },
+      "url": "https://x.com/utilityfirst/status/1950118833770000013",
+      "created_at": "2026-07-24T10:15:00.000Z",
+      "external_urls": ["https://tailwindcss.com/docs/styling-with-utility-classes"],
+      "topics": []
+    },
+    {
+      "id": "1949005566880000014",
+      "text": "Copy-paste components you actually own, instead of a dependency you fight. This is the right default for small products.",
+      "author": { "name": "Hana Brandt", "handle": "componentdiet" },
+      "url": "https://x.com/componentdiet/status/1949005566880000014",
+      "created_at": "2026-07-21T19:48:00.000Z",
+      "external_urls": ["https://ui.shadcn.com/docs"],
+      "topics": []
+    },
+    {
+      "id": "1947881122990000015",
+      "text": "Still the flexbox reference I open every single time. No amount of grid enthusiasm has changed that.",
+      "author": { "name": "Elif Sayin", "handle": "cssdailies" },
+      "url": "https://x.com/cssdailies/status/1947881122990000015",
+      "created_at": "2026-07-18T07:26:00.000Z",
+      "external_urls": ["https://css-tricks.com/snippets/css/a-guide-to-flexbox/"],
+      "topics": []
+    },
+    {
+      "id": "1946770044110000016",
+      "text": "Building components that are accessible by construction rather than by audit. Every chapter has changed how I write markup.",
+      "author": { "name": "Dev Patel", "handle": "a11ynotes" },
+      "url": "https://x.com/a11ynotes/status/1946770044110000016",
+      "created_at": "2026-07-15T14:02:00.000Z",
+      "external_urls": ["https://inclusive-components.design/"],
+      "topics": []
+    },
+    {
+      "id": "1945661188220000017",
+      "text": "Pick a type scale before you pick a color palette. This tool makes the tradeoff obvious in about ten seconds.",
+      "author": { "name": "Ana Beltrán", "handle": "typeandspace" },
+      "url": "https://x.com/typeandspace/status/1945661188220000017",
+      "created_at": "2026-07-12T21:41:00.000Z",
+      "external_urls": ["https://type-scale.com/"],
+      "topics": []
+    },
+    {
+      "id": "1944550022330000018",
+      "text": "A whole page about interaction details most teams never get to. The kind of craft that reads as \"expensive\" without any extra pixels.",
+      "author": { "name": "Owen Reid", "handle": "detailsmatter" },
+      "url": "https://x.com/detailsmatter/status/1944550022330000018",
+      "created_at": "2026-07-09T05:19:00.000Z",
+      "external_urls": ["https://rauno.me/craft"],
+      "topics": []
+    },
+    {
+      "id": "1943442266440000019",
+      "text": "LCP checklist that's actually actionable: what to preload, what to defer, and which \"optimizations\" are noise.",
+      "author": { "name": "Mei Watanabe", "handle": "perfbudget" },
+      "url": "https://x.com/perfbudget/status/1943442266440000019",
+      "created_at": "2026-07-06T11:58:00.000Z",
+      "external_urls": ["https://web.dev/articles/optimize-lcp"],
+      "topics": []
+    },
+    {
+      "id": "1942331100550000020",
+      "text": "App Router mental model in one sitting. Server components stop feeling weird once the request boundary is explicit in your head.",
+      "author": { "name": "Bruno Alves", "handle": "rscbrain" },
+      "url": "https://x.com/rscbrain/status/1942331100550000020",
+      "created_at": "2026-07-03T08:33:00.000Z",
+      "external_urls": ["https://nextjs.org/docs"],
+      "topics": []
+    },
+    {
+      "id": "1941220044660000021",
+      "text": "The dev-server-vs-bundler split is the whole insight. Worth reading the guide rather than cargo-culting a config.",
+      "author": { "name": "Katya Sorokina", "handle": "buildstepbuild" },
+      "url": "https://x.com/buildstepbuild/status/1941220044660000021",
+      "created_at": "2026-06-30T15:07:00.000Z",
+      "external_urls": ["https://vite.dev/guide/"],
+      "topics": []
+    },
+    {
+      "id": "1940118822770000022",
+      "text": "Reading the esbuild architecture notes did more for my understanding of build performance than a year of config tweaking. Pair it with the tsx docs.",
+      "author": { "name": "Jonas Krüger", "handle": "fastbuilds" },
+      "url": "https://x.com/fastbuilds/status/1940118822770000022",
+      "created_at": "2026-06-27T20:22:00.000Z",
+      "external_urls": ["https://esbuild.github.io/", "https://tsx.is/"],
+      "topics": []
+    },
+    {
+      "id": "1939004466880000023",
+      "text": "One toolchain for lint + format, in Rust, with a migration path off the old setup. Ran it on a 40k-line repo and the diff was boringly correct.",
+      "author": { "name": "Sasha Iyer", "handle": "lintfast" },
+      "url": "https://x.com/lintfast/status/1939004466880000023",
+      "created_at": "2026-06-24T09:44:00.000Z",
+      "external_urls": ["https://biomejs.dev/"],
+      "topics": []
+    },
+    {
+      "id": "1937882200990000024",
+      "text": "The runtime is interesting but the built-in test runner and bundler are the parts I keep reaching for.",
+      "author": { "name": "Théo Rossi", "handle": "runtimewars" },
+      "url": "https://x.com/runtimewars/status/1937882200990000024",
+      "created_at": "2026-06-21T17:16:00.000Z",
+      "external_urls": ["https://bun.sh/docs"],
+      "topics": []
+    },
+    {
+      "id": "1936771144110000025",
+      "text": "Rebase docs, bookmarked forever, because I will absolutely need --onto again at the worst possible moment.",
+      "author": { "name": "Grace Mbeki", "handle": "gitplumbing" },
+      "url": "https://x.com/gitplumbing/status/1936771144110000025",
+      "created_at": "2026-06-18T06:51:00.000Z",
+      "external_urls": ["https://git-scm.com/docs/git-rebase"],
+      "topics": ["DevTools"]
+    },
+    {
+      "id": "1935662088220000026",
+      "text": "Islands architecture explained without the marketing. Good reminder that most content sites ship far too much JavaScript.",
+      "author": { "name": "Liam Doyle", "handle": "shipless_js" },
+      "url": "https://x.com/shipless_js/status/1935662088220000026",
+      "created_at": "2026-06-15T13:28:00.000Z",
+      "external_urls": ["https://docs.astro.build/en/getting-started/"],
+      "topics": []
+    },
+    {
+      "id": "1934551022330000027",
+      "text": "Serverless vector database with a REST API and a free tier. Exactly the amount of infrastructure a side project should own.",
+      "author": { "name": "Nadia Rossi", "handle": "smallstack" },
+      "url": "https://x.com/smallstack/status/1934551022330000027",
+      "created_at": "2026-06-12T10:05:00.000Z",
+      "external_urls": ["https://upstash.com/docs/vector/overall/getstarted"],
+      "topics": []
+    },
+    {
+      "id": "1933440066440000028",
+      "text": "If you only read one page of the Kubernetes docs, read the concepts overview. Most \"k8s is complex\" pain is skipping this and copying YAML.",
+      "author": { "name": "Marc Delgado", "handle": "yamlwrangler" },
+      "url": "https://x.com/yamlwrangler/status/1933440066440000028",
+      "created_at": "2026-06-09T18:37:00.000Z",
+      "external_urls": ["https://kubernetes.io/docs/concepts/overview/"],
+      "topics": []
+    },
+    {
+      "id": "1932331100550000029",
+      "text": "Container fundamentals refresher. Layer caching is the single highest-leverage thing to understand about your build times.",
+      "author": { "name": "Zoe Ashford", "handle": "layercache" },
+      "url": "https://x.com/layercache/status/1932331100550000029",
+      "created_at": "2026-06-06T07:12:00.000Z",
+      "external_urls": ["https://docs.docker.com/get-started/"],
+      "topics": []
+    },
+    {
+      "id": "1931220044660000030",
+      "text": "Error budgets are the only on-call idea that survived contact with every team I've been on. The whole book is free online.",
+      "author": { "name": "Ruth Nakamura", "handle": "errorbudget" },
+      "url": "https://x.com/errorbudget/status/1931220044660000030",
+      "created_at": "2026-06-03T14:49:00.000Z",
+      "external_urls": ["https://sre.google/sre-book/table-of-contents/"],
+      "topics": ["Infra"]
+    },
+    {
+      "id": "1930118822770000031",
+      "text": "Clearest plain-English explanation of what a CDN actually does. I send this instead of explaining edge caching for the tenth time.",
+      "author": { "name": "Ben Arocha", "handle": "edgecached" },
+      "url": "https://x.com/edgecached/status/1930118822770000031",
+      "created_at": "2026-05-31T21:23:00.000Z",
+      "external_urls": ["https://www.cloudflare.com/learning/cdn/what-is-a-cdn/"],
+      "topics": []
+    },
+    {
+      "id": "1929004466880000032",
+      "text": "Custom domains, preview deploys, and edge functions in one place. Reference for when I inevitably forget the DNS steps.",
+      "author": { "name": "Ines Duarte", "handle": "shipfriday" },
+      "url": "https://x.com/shipfriday/status/1929004466880000032",
+      "created_at": "2026-05-28T09:58:00.000Z",
+      "external_urls": ["https://vercel.com/docs"],
+      "topics": []
+    },
+    {
+      "id": "1927882200990000033",
+      "text": "Postgres with branching, so preview environments get their own database. Changes how you think about migrations in PRs.",
+      "author": { "name": "Omar Tahir", "handle": "branchmydb" },
+      "url": "https://x.com/branchmydb/status/1927882200990000033",
+      "created_at": "2026-05-25T16:31:00.000Z",
+      "external_urls": ["https://neon.com/docs/introduction"],
+      "topics": []
+    },
+    {
+      "id": "1926771144110000034",
+      "text": "Running containers close to users without becoming a full-time platform engineer. The networking docs are unusually honest about tradeoffs.",
+      "author": { "name": "Sara Lindqvist", "handle": "regionsplit" },
+      "url": "https://x.com/regionsplit/status/1926771144110000034",
+      "created_at": "2026-05-22T05:14:00.000Z",
+      "external_urls": ["https://fly.io/docs/"],
+      "topics": []
+    },
+    {
+      "id": "1925662088220000035",
+      "text": "Nine pages that started all of it. Re-reading the double-spend section is a good antidote to most timeline discourse.",
+      "author": { "name": "Yusuf Kaya", "handle": "ninepages" },
+      "url": "https://x.com/ninepages/status/1925662088220000035",
+      "created_at": "2026-05-19T12:47:00.000Z",
+      "external_urls": ["https://bitcoin.org/bitcoin.pdf"],
+      "topics": []
+    },
+    {
+      "id": "1924551022330000036",
+      "text": "The developer docs are the only onboarding path I'd recommend now. Accounts, gas, and the EVM in the right order.",
+      "author": { "name": "Cora Nilsen", "handle": "evmnotes" },
+      "url": "https://x.com/evmnotes/status/1924551022330000036",
+      "created_at": "2026-05-16T20:02:00.000Z",
+      "external_urls": ["https://ethereum.org/en/developers/docs/"],
+      "topics": []
+    },
+    {
+      "id": "1923440066440000037",
+      "text": "The incomplete guide to rollups is still the best single explanation of the data availability tradeoff. Everything since is a footnote.",
+      "author": { "name": "Devi Ramesh", "handle": "rollupmaxi" },
+      "url": "https://x.com/rollupmaxi/status/1923440066440000037",
+      "created_at": "2026-05-13T08:26:00.000Z",
+      "external_urls": ["https://vitalik.eth.limo/general/2021/01/05/rollup.html"],
+      "topics": ["Crypto"]
+    },
+    {
+      "id": "1922331100550000038",
+      "text": "Concentrated liquidity explained by the people who shipped it. The math notation is worth the effort exactly once.",
+      "author": { "name": "Paulo Ferrari", "handle": "ammreader" },
+      "url": "https://x.com/ammreader/status/1922331100550000038",
+      "created_at": "2026-05-10T15:51:00.000Z",
+      "external_urls": ["https://uniswap.org/whitepaper-v3.pdf"],
+      "topics": []
+    },
+    {
+      "id": "1921220044660000039",
+      "text": "Dashboard I actually trust for L2 activity and risk assumptions. The \"stage\" framing did more for the discourse than any thread.",
+      "author": { "name": "Hugo Meier", "handle": "l2watcher" },
+      "url": "https://x.com/l2watcher/status/1921220044660000039",
+      "created_at": "2026-05-07T22:09:00.000Z",
+      "external_urls": ["https://l2beat.com/scaling/summary"],
+      "topics": []
+    },
+    {
+      "id": "1920118822770000040",
+      "text": "\"How to do great work\" — the section on choosing what to work on is the part I keep coming back to when a project stops being interesting.",
+      "author": { "name": "Alice Duong", "handle": "essaydiet" },
+      "url": "https://x.com/essaydiet/status/1920118822770000040",
+      "created_at": "2026-05-04T11:35:00.000Z",
+      "external_urls": ["https://paulgraham.com/greatwork.html"],
+      "topics": ["Reading"]
+    },
+    {
+      "id": "1919004466880000041",
+      "text": "The instant-gratification monkey is a better model of my Tuesday afternoons than any productivity framework I've tried.",
+      "author": { "name": "Ravi Menon", "handle": "monkeymind" },
+      "url": "https://x.com/monkeymind/status/1919004466880000041",
+      "created_at": "2026-05-01T18:04:00.000Z",
+      "external_urls": [
+        "https://waitbutwhy.com/2013/10/why-procrastinators-procrastinate.html"
+      ],
+      "topics": []
+    },
+    {
+      "id": "1917882200990000042",
+      "text": "Mental models list to skim when a decision feels stuck. Inversion and second-order thinking earn their keep every time.",
+      "author": { "name": "Nina Costa", "handle": "modelsofthought" },
+      "url": "https://x.com/modelsofthought/status/1917882200990000042",
+      "created_at": "2026-04-28T07:19:00.000Z",
+      "external_urls": ["https://fs.blog/mental-models/"],
+      "topics": []
+    },
+    {
+      "id": "1916771144110000043",
+      "text": "Programmer moneyball: the market for engineering talent is far less efficient than people assume, and the data backs it up.",
+      "author": { "name": "Ada Whitfield", "handle": "hiringdata" },
+      "url": "https://x.com/hiringdata/status/1916771144110000043",
+      "created_at": "2026-04-25T14:42:00.000Z",
+      "external_urls": ["https://danluu.com/programmer-moneyball/"],
+      "topics": []
+    },
+    {
+      "id": "1915662088220000044",
+      "text": "Disagree with a third of it and still re-read it yearly. The compounding section is the durable part.",
+      "author": { "name": "Kai Lindberg", "handle": "compounders" },
+      "url": "https://x.com/compounders/status/1915662088220000044",
+      "created_at": "2026-04-22T21:58:00.000Z",
+      "external_urls": ["https://blog.samaltman.com/how-to-be-successful"],
+      "topics": []
+    },
+    {
+      "id": "1914551022330000045",
+      "text": "Evergreen notes should be concept-oriented. This is the idea that finally made my note-taking survive more than a month.",
+      "author": { "name": "Wren Baptiste", "handle": "notesthatlast" },
+      "url": "https://x.com/notesthatlast/status/1914551022330000045",
+      "created_at": "2026-04-19T09:11:00.000Z",
+      "external_urls": ["https://notes.andymatuschak.org/Evergreen_notes"],
+      "topics": []
+    },
+    {
+      "id": "1913440066440000046",
+      "text": "Is it worth the time? The automation decision table I mentally consult before writing any script.",
+      "author": { "name": "Felix Moreau", "handle": "sunkcostxkcd" },
+      "url": "https://x.com/sunkcostxkcd/status/1913440066440000046",
+      "created_at": "2026-04-16T16:28:00.000Z",
+      "external_urls": ["https://xkcd.com/1205/"],
+      "topics": []
+    },
+    {
+      "id": "1912331100550000047",
+      "text": "Bloom filters: the data structure that makes \"probably not in the set\" the most useful answer in the system.",
+      "author": { "name": "Lucia Serrano", "handle": "probabilistic" },
+      "url": "https://x.com/probabilistic/status/1912331100550000047",
+      "created_at": "2026-04-13T05:47:00.000Z",
+      "external_urls": ["https://en.wikipedia.org/wiki/Bloom_filter"],
+      "topics": []
+    },
+    {
+      "id": "1911220044660000048",
+      "text": "Great post on archiving your own reading list before the links rot. Ironically, this one is already gone.",
+      "author": { "name": "Marta Kowalski", "handle": "linkrotwatch" },
+      "url": "https://x.com/linkrotwatch/status/1911220044660000048",
+      "created_at": "2026-04-10T12:03:00.000Z",
+      "external_urls": [
+        "https://blog.this-domain-is-gone-9182734.dev/archive-your-reading-list"
+      ],
+      "topics": []
+    },
+    {
+      "id": "1910118822770000049",
+      "text": "Reminder that a personal search index over your own saved links beats any algorithmic feed. Building mine this weekend.",
+      "author": { "name": "Sean Geng", "handle": "seangeng" },
+      "url": "https://x.com/seangeng/status/1910118822770000049",
+      "created_at": "2026-04-07T19:26:00.000Z",
+      "external_urls": [],
+      "topics": []
+    },
+    {
+      "id": "1909004466880000050",
+      "text": "Semantic search is mostly a data problem: chunk boundaries, metadata filters, and hybrid scoring do more than swapping embedding models.",
+      "author": { "name": "Yara Salim", "handle": "hybridsearch" },
+      "url": "https://x.com/hybridsearch/status/1909004466880000050",
+      "created_at": "2026-04-04T08:52:00.000Z",
+      "external_urls": ["https://www.pinecone.io/learn/hybrid-search-intro/"],
+      "topics": []
+    }
+  ]
+}

@@ -117,6 +117,7 @@ crawl summary, a search blob, precomputed related ids) and an embedding vector.
 | `npm run crawl` | Fetch every unique external URL, write artifacts to `data/crawls/` |
 | `npm run index` | Enrich + auto-tag + embed, write `data/index/`, optionally upsert to Upstash |
 | `npm run sync` | `crawl` then `index` |
+| `npm run check:seed` | Validate the seed parses and looks sane, without running the pipeline |
 | `npm test` | Pipeline tests (`node:test` via tsx) |
 | `npm run lint` / `npm run typecheck` | ESLint / `tsc --noEmit` |
 
@@ -296,9 +297,26 @@ That is the whole loop. Details worth knowing:
   configured, and commits the artifacts — so pushing a new export is enough to ship an updated
   site. It can also be run manually with a `force_recrawl` option.
 
-If a deploy ever lands with the seed updated but the index stale, `prebuild` notices the missing
-or absent artifacts and rebuilds them from the seed with local embeddings, so the site ships
-current content rather than failing the build.
+### When the export upload goes wrong
+
+The seed is written by an external job, so "the file is there but the contents are wrong" is a
+real failure mode — an upload step has committed the literal string `<file>` in place of the
+export. The pipeline treats a broken seed and an absent seed as different problems, because they
+deserve opposite responses:
+
+| Situation | Behaviour |
+| --- | --- |
+| Artifacts committed, seed fine | Build uses the committed index |
+| Artifacts missing, seed fine | `prebuild` rebuilds the index from the seed with local embeddings |
+| Artifacts missing, no seed at all | `prebuild` writes empty stubs; the site renders its empty state |
+| Seed present but unusable | `npm run check:seed` fails, and `prebuild` **fails the build** rather than deploying an empty library |
+| Artifacts committed, seed unusable | Build proceeds on the last known-good index, with a loud warning that it no longer matches the seed |
+
+`npm run check:seed` reports the count of bookmarks, links, domains, and authors, and warns when
+a suspicious share of records have no resolvable author, no date, or empty text — the usual sign
+that a new export uses field names the adapter does not read yet. It runs first in CI and again
+in the sync workflow before anything is crawled, so a bad upload fails fast instead of quietly
+rebuilding the committed artifacts from garbage.
 
 ---
 
