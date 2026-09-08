@@ -117,6 +117,7 @@ crawl summary, a search blob, precomputed related ids) and an embedding vector.
 | `npm run crawl` | Fetch every unique external URL, write artifacts to `data/crawls/` |
 | `npm run index` | Enrich + auto-tag + embed, write `data/index/`, optionally upsert to Upstash |
 | `npm run sync` | `crawl` then `index` |
+| `npm run seed:assemble` | Build the seed from the chunked export in `data/seed-parts/` |
 | `npm run check:seed` | Validate the seed parses and looks sane, without running the pipeline |
 | `npm test` | Pipeline tests (`node:test` via tsx) |
 | `npm run lint` / `npm run typecheck` | ESLint / `tsc --noEmit` |
@@ -297,6 +298,26 @@ That is the whole loop. Details worth knowing:
   configured, and commits the artifacts — so pushing a new export is enough to ship an updated
   site. It can also be run manually with a `force_recrawl` option.
 
+### Chunked exports
+
+The export can also arrive split across `data/seed-parts/`, alongside a `manifest.json` that
+records the expected total and, for each part, its record count, byte size, and line count:
+
+```json
+{
+  "count": 196,
+  "last_id": "2044341633119084609",
+  "parts": [{ "file": "part-00.json", "n": 12, "bytes": 7292, "lines": 156 }]
+}
+```
+
+`npm run seed:assemble` verifies every part against all three numbers before writing anything,
+then concatenates them into `data/bookmarks-seed.json`, de-duplicating by id and checking the
+total against `count` and that `last_id` is present. A part that is short by even a few bytes is
+reported with the exact shortfall and nothing is written. `--if-complete` makes it a no-op while
+parts are still arriving — that is the form the sync workflow uses, so pushing the final part is
+what triggers assembly, crawl, and indexing.
+
 ### When the export upload goes wrong
 
 The seed is written by an external job, so "the file is there but the contents are wrong" is a
@@ -363,6 +384,7 @@ controls the `seangeng.com` zone.
 ```
 data/
   bookmarks-seed.json     source of truth — replace with a fresh X export
+  seed-parts/             chunked export + manifest, assembled into the seed
   prune-stats.json        upstream link-prune report for the current seed
   crawls/                 one JSON artifact per unique URL + index.json rollup
   index/                  generated read model: bookmarks.json, vectors.json, meta.json

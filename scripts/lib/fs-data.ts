@@ -6,7 +6,15 @@ import { fileURLToPath } from "node:url";
 const here = path.dirname(fileURLToPath(import.meta.url));
 
 export const ROOT = path.resolve(here, "..", "..");
-export const DATA_DIR = path.join(ROOT, "data");
+
+/**
+ * `ROOT` always points at the repo (the scripts need it to find node_modules),
+ * but the data directory is overridable so tests can drive the CLIs against a
+ * fixture tree instead of the committed artifacts.
+ */
+export const DATA_DIR = process.env.BOOKMARKS_DATA_DIR
+  ? path.resolve(process.env.BOOKMARKS_DATA_DIR)
+  : path.join(ROOT, "data");
 export const SEED_FILE = path.join(DATA_DIR, "bookmarks-seed.json");
 export const CRAWL_DIR = path.join(DATA_DIR, "crawls");
 export const CRAWL_INDEX_FILE = path.join(CRAWL_DIR, "index.json");

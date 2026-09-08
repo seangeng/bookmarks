@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -215,6 +216,142 @@ test("readSeed accepts a valid seed and reports skipped entries", async () => {
 test("the committed seed is valid", async () => {
   const result = await readSeed();
   assert.equal(result.ok, true, result.ok ? "" : result.message);
+});
+
+/* --------------------------------------------------- seed part assembly */
+
+/**
+ * The assembler is a CLI, so these drive it as a subprocess against a fixture
+ * tree — that also covers its exit codes, which is what CI depends on.
+ */
+async function partsFixture(
+  parts: { name: string; records: unknown[]; corrupt?: "bytes" | "json" | "count" }[],
+  manifestOverrides: Record<string, unknown> = {},
+): Promise<string> {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "parts-"));
+  const dir = path.join(root, "data", "seed-parts");
+  await fs.mkdir(dir, { recursive: true });
+
+  const entries = [];
+  for (const part of parts) {
+    let body = `${JSON.stringify(part.records, null, 2)}\n`;
+    const bytes = Buffer.byteLength(body, "utf8");
+    const lines = body.split("\n").length - 1;
+    const entry = { file: part.name, n: part.records.length, bytes, lines };
+
+    if (part.corrupt === "bytes") body = body.slice(0, Math.floor(body.length / 2));
+    if (part.corrupt === "json") body = `${body.slice(0, -3)}`;
+    if (part.corrupt === "count") entry.n = part.records.length + 5;
+
+    await fs.writeFile(path.join(dir, part.name), body, "utf8");
+    entries.push(entry);
+  }
+
+  const declared = parts.reduce((total, part) => total + part.records.length, 0);
+  await fs.writeFile(
+    path.join(dir, "manifest.json"),
+    JSON.stringify({ count: declared, source: "x-bookmarks", parts: entries, ...manifestOverrides }),
+    "utf8",
+  );
+  return root;
+}
+
+function makeRecords(from: number, howMany: number): unknown[] {
+  return Array.from({ length: howMany }, (_, offset) => ({
+    id: String(from + offset),
+    text: `record ${from + offset}`,
+    author_username: "seangeng",
+    post_url: `https://x.com/seangeng/status/${from + offset}`,
+    created_at: "2026-09-01T00:00:00.000Z",
+    external_urls: [],
+  }));
+}
+
+function runAssemble(cwd: string, extra: string[] = []) {
+  return spawnSync(
+    process.execPath,
+    [
+      path.join(process.cwd(), "node_modules", "tsx", "dist", "cli.mjs"),
+      path.join(process.cwd(), "scripts", "assemble-seed.ts"),
+      ...extra,
+    ],
+    {
+      cwd,
+      encoding: "utf8",
+      env: { ...process.env, BOOKMARKS_DATA_DIR: path.join(cwd, "data") },
+    },
+  );
+}
+
+test("assembling every part produces the declared bookmark count", async () => {
+  const root = await partsFixture([
+    { name: "part-00.json", records: makeRecords(1, 12) },
+    { name: "part-01.json", records: makeRecords(13, 12) },
+    { name: "part-02.json", records: makeRecords(25, 4) },
+  ]);
+
+  const result = runAssemble(root);
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /Wrote 28 bookmarks/);
+
+  const seed = JSON.parse(
+    await fs.readFile(path.join(root, "data", "bookmarks-seed.json"), "utf8"),
+  );
+  assert.equal(seed.count, 28);
+  assert.equal(seed.bookmarks.length, 28);
+  assert.equal(seed.bookmarks[0].id, "1");
+  assert.equal(seed.bookmarks.at(-1).id, "28");
+});
+
+test("a part short of its manifest byte count is rejected, writing nothing", async () => {
+  const root = await partsFixture([
+    { name: "part-00.json", records: makeRecords(1, 12) },
+    { name: "part-01.json", records: makeRecords(13, 12), corrupt: "bytes" },
+  ]);
+
+  const result = runAssemble(root, ["--if-complete"]);
+  assert.equal(result.status, 1, "a truncated part must fail even with --if-complete");
+  assert.match(result.stdout + result.stderr, /BROKEN\s+part-01\.json[\s\S]*bytes/);
+
+  await assert.rejects(() => fs.readFile(path.join(root, "data", "bookmarks-seed.json"), "utf8"));
+});
+
+test("a part whose record count disagrees with the manifest is rejected", async () => {
+  const root = await partsFixture([
+    { name: "part-00.json", records: makeRecords(1, 12), corrupt: "count" },
+  ]);
+
+  const result = runAssemble(root);
+  assert.equal(result.status, 1);
+  assert.match(result.stdout + result.stderr, /12 records, manifest says 17/);
+});
+
+test("--if-complete is a quiet no-op while parts are still arriving", async () => {
+  const root = await partsFixture([{ name: "part-00.json", records: makeRecords(1, 12) }]);
+
+  // Announce a second part in the manifest without writing it, leaving the
+  // first part's real numbers intact so it still verifies.
+  const manifestFile = path.join(root, "data", "seed-parts", "manifest.json");
+  const manifest = JSON.parse(await fs.readFile(manifestFile, "utf8"));
+  manifest.count = 24;
+  manifest.parts.push({ file: "part-01.json", n: 12, bytes: 999, lines: 99 });
+  await fs.writeFile(manifestFile, JSON.stringify(manifest), "utf8");
+
+  const result = runAssemble(root, ["--if-complete"]);
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /Waiting on 1 part\(s\): part-01\.json/);
+  await assert.rejects(() => fs.readFile(path.join(root, "data", "bookmarks-seed.json"), "utf8"));
+});
+
+test("a manifest last_id absent from the parts is rejected", async () => {
+  const root = await partsFixture(
+    [{ name: "part-00.json", records: makeRecords(1, 12) }],
+    { last_id: "9999999" },
+  );
+
+  const result = runAssemble(root);
+  assert.equal(result.status, 1);
+  assert.match(result.stdout + result.stderr, /last_id 9999999 is not in the assembled set/);
 });
 
 /* ------------------------------------------------------------------ urls */
