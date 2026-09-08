@@ -1,0 +1,11 @@
+{
+  "key": "ea98f9f3c1e4da58",
+  "url": "https://cloudflare.com/learning/cdn/what-is-a-cdn",
+  "fetched_at": "2026-09-08T02:32:54.748Z",
+  "final_url": "https://www.cloudflare.com/learning/cdn/what-is-a-cdn",
+  "http_status": 403,
+  "content_type": "text/html; charset=UTF-8",
+  "status": "http_error",
+  "error": "HTTP 403 Forbidden",
+  "duration_ms": 117
+}

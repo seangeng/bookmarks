@@ -1,0 +1,13 @@
+{
+  "key": "84eef97f06514e6e",
+  "url": "https://esbuild.github.io/",
+  "fetched_at": "2026-09-08T02:32:54.987Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "status": "ok",
+  "title": "esbuild - An extremely fast bundler for the web",
+  "site_name": "esbuild.github.io",
+  "text": "An extremely fast bundler for the web\n\nOur current build tools for the web are 10-100x slower than they could be. The main goal of the esbuild bundler project is to bring about a new era of build tool performance, and create an easy-to-use modern bundler along the way.\n\nExtreme speed without needing a cache\n\nJavaScript, CSS, TypeScript, and JSX built-in\n\nA straightforward API for CLI, JS, and Go\n\nBundles ESM and CommonJS modules\n\nBundles CSS including CSS modules\n\nTree shaking, minification, and source maps\n\nLocal server, watch mode, and plugins\n\nCheck out the getting started instructions if you want to give esbuild a try.",
+  "word_count": 105,
+  "duration_ms": 46
+}

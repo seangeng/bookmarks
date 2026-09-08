@@ -1,0 +1,168 @@
+/**
+ * Crawl every unique external URL referenced by the bookmark seed.
+ *
+ *   npm run crawl                 # crawl anything not yet cached
+ *   npm run crawl -- --force      # re-crawl everything
+ *   npm run crawl -- --max-age=7  # re-crawl artifacts older than 7 days
+ *   npm run crawl -- --limit=20 --concurrency=3 --timeout=15000
+ *   npm run crawl -- --retry-failed
+ *
+ * Artifacts land in data/crawls/<key>.json with a rollup in data/crawls/index.json.
+ */
+import fs from "node:fs/promises";
+import path from "node:path";
+
+import { crawlAll, DEFAULT_CRAWL_OPTIONS } from "./lib/crawler";
+import {
+  CRAWL_DIR,
+  CRAWL_INDEX_FILE,
+  SEED_FILE,
+  loadEnv,
+  numberArg,
+  parseArgs,
+  readJson,
+  relative,
+  urlKey,
+  writeJson,
+} from "./lib/fs-data";
+import { normalizeExport } from "../src/lib/normalize";
+import { domainOf } from "../src/lib/text";
+import type { CrawlRecord, CrawlStatus } from "../src/lib/types";
+
+type CrawlIndex = {
+  generated_at: string;
+  counts: Record<string, number>;
+  entries: {
+    key: string;
+    url: string;
+    status: CrawlStatus;
+    http_status?: number;
+    title?: string;
+    word_count?: number;
+    fetched_at: string;
+  }[];
+};
+
+const RETRYABLE: CrawlStatus[] = ["timeout", "network_error", "http_error", "empty"];
+
+async function loadExistingRecords(): Promise<Map<string, CrawlRecord>> {
+  const records = new Map<string, CrawlRecord>();
+  let files: string[] = [];
+  try {
+    files = await fs.readdir(CRAWL_DIR);
+  } catch {
+    return records;
+  }
+
+  for (const file of files) {
+    if (!file.endsWith(".json") || file === "index.json") continue;
+    const record = await readJson<CrawlRecord>(path.join(CRAWL_DIR, file));
+    if (record?.url) records.set(record.key ?? urlKey(record.url), record);
+  }
+  return records;
+}
+
+async function main(): Promise<void> {
+  await loadEnv();
+  const args = parseArgs();
+
+  const seed = await readJson<unknown>(SEED_FILE);
+  if (!seed) {
+    console.error(`No seed found at ${relative(SEED_FILE)}. Add the X export first.`);
+    process.exit(1);
+  }
+
+  const { bookmarks } = normalizeExport(seed);
+  const urls = [...new Set(bookmarks.flatMap((bookmark) => bookmark.external_urls))].sort();
+
+  const existing = await loadExistingRecords();
+  const force = args.flags.has("force");
+  const retryFailed = args.flags.has("retry-failed");
+  const maxAgeDays = numberArg(args, "max-age", Number.POSITIVE_INFINITY);
+  const maxAgeMs = maxAgeDays * 86_400_000;
+
+  const shouldCrawl = (url: string): boolean => {
+    if (force) return true;
+    const record = existing.get(urlKey(url));
+    if (!record) return true;
+    if (retryFailed && RETRYABLE.includes(record.status)) return true;
+    if (Number.isFinite(maxAgeMs)) {
+      return Date.now() - new Date(record.fetched_at).getTime() > maxAgeMs;
+    }
+    return false;
+  };
+
+  const limit = numberArg(args, "limit", Number.POSITIVE_INFINITY);
+  const queue = urls.filter(shouldCrawl).slice(0, Number.isFinite(limit) ? limit : undefined);
+
+  const options = {
+    ...DEFAULT_CRAWL_OPTIONS,
+    timeoutMs: numberArg(args, "timeout", Number(process.env.CRAWL_TIMEOUT_MS ?? 10_000)),
+    concurrency: Math.min(
+      5,
+      Math.max(1, numberArg(args, "concurrency", Number(process.env.CRAWL_CONCURRENCY ?? 5))),
+    ),
+    respectRobots: !args.flags.has("ignore-robots"),
+  };
+
+  console.log(
+    `${bookmarks.length} bookmarks · ${urls.length} unique links · ` +
+      `${existing.size} cached · crawling ${queue.length} ` +
+      `(concurrency ${options.concurrency}, timeout ${options.timeoutMs}ms)`,
+  );
+
+  if (queue.length > 0) {
+    const fresh = await crawlAll(queue, options, (record, done, total) => {
+      const marker = record.status === "ok" ? "ok  " : record.status.slice(0, 4).padEnd(4);
+      const detail = record.status === "ok" ? `${record.word_count ?? 0}w` : (record.error ?? "");
+      console.log(
+        `[${String(done).padStart(3)}/${total}] ${marker} ${domainOf(record.url).padEnd(28)} ` +
+          `${detail}`.trim(),
+      );
+    });
+
+    for (const record of fresh) {
+      await writeJson(path.join(CRAWL_DIR, `${record.key}.json`), record);
+      existing.set(record.key, record);
+    }
+  }
+
+  // Drop artifacts for links that no longer appear in the seed.
+  const live = new Set(urls.map(urlKey));
+  for (const key of [...existing.keys()]) {
+    if (live.has(key)) continue;
+    existing.delete(key);
+    await fs.rm(path.join(CRAWL_DIR, `${key}.json`), { force: true });
+  }
+
+  const records = [...existing.values()].sort((a, b) => a.url.localeCompare(b.url));
+  const counts: Record<string, number> = {};
+  for (const record of records) counts[record.status] = (counts[record.status] ?? 0) + 1;
+
+  const index: CrawlIndex = {
+    generated_at: new Date().toISOString(),
+    counts,
+    entries: records.map((record) => ({
+      key: record.key,
+      url: record.url,
+      status: record.status,
+      http_status: record.http_status,
+      title: record.title,
+      word_count: record.word_count,
+      fetched_at: record.fetched_at,
+    })),
+  };
+  await writeJson(CRAWL_INDEX_FILE, index);
+
+  const summary = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([status, count]) => `${status}=${count}`)
+    .join(" ");
+  console.log(`\nWrote ${records.length} artifacts to ${relative(CRAWL_DIR)} (${summary})`);
+  console.log("Next: npm run index");
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

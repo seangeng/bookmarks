@@ -1,0 +1,12 @@
+{
+  "key": "c8ce524e1a5ab627",
+  "url": "https://bitcoin.org/bitcoin.pdf",
+  "fetched_at": "2026-09-08T02:32:54.675Z",
+  "http_status": 200,
+  "content_type": "application/pdf",
+  "status": "unsupported_type",
+  "title": "bitcoin.pdf",
+  "site_name": "bitcoin.org",
+  "error": "Skipped non-HTML content (application/pdf)",
+  "duration_ms": 192
+}
