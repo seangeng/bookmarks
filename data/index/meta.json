@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-08T03:50:26.213Z",
+  "generated_at": "2026-09-08T03:51:56.419Z",
   "bookmark_count": 196,
-  "crawled_link_count": 62,
+  "crawled_link_count": 63,
   "embedding": {
     "provider": "local",
     "model": "hashed-ngram-v1",

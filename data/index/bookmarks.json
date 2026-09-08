@@ -31,8 +31,8 @@
       "2050579689249333722",
       "2043381172646920237",
       "2058522652764230135",
-      "2076284369883615555",
-      "2065039972483182708"
+      "2065039972483182708",
+      "2065821179810644410"
     ],
     "crawled_words": 0
   },
@@ -333,8 +333,8 @@
       "2050323883950313980",
       "2096692234196283511",
       "2061909932870414533",
-      "2076284369883615555",
-      "2066203836814143712"
+      "2066203836814143712",
+      "2065039972483182708"
     ],
     "crawled_words": 65
   },
@@ -946,9 +946,9 @@
       "2050697067882746209",
       "2051293308937458144",
       "2063559592316141685",
-      "2076284369883615555",
       "2050887478404644932",
-      "2050584578755346939"
+      "2050584578755346939",
+      "2082048566005313631"
     ],
     "crawled_words": 0
   },
@@ -1898,37 +1898,42 @@
       "https://t.co/getc4FXfoS"
     ],
     "topics": [
-      "ai-ml",
-      "ui-design"
+      "ui-design",
+      "ai-ml"
     ],
     "media": [],
     "topic_scores": {
-      "ai-ml": 1,
-      "ui-design": 0.75
+      "ui-design": 1,
+      "ai-ml": 0.591,
+      "devtools": 0.119
     },
     "links": [
       {
         "url": "https://namethatui.com/",
         "domain": "namethatui.com",
         "crawl": {
-          "status": "http_error",
-          "http_status": 403,
-          "fetched_at": "2026-09-08T03:50:22.762Z",
-          "error": "HTTP 403 Forbidden"
+          "status": "ok",
+          "http_status": 200,
+          "title": "NameThatUI — What Is This UI Element Called?",
+          "description": "See the UI element, learn its real name and API symbol, and copy a precise prompt for your coding agent.",
+          "site_name": "NameThatUI",
+          "excerpt": "NewestStepsAvatar GroupMulti-select What’s this UI element called? The visual dictionary of UI. Describe the thing in your own sloppy words; you get the real name, the API symbol, and a paste-ready prompt for your coding agent. Nothing matched that description Try what it looks like or where it sits — “the dots under the slideshow”, “the bar that stays when I scroll”. newCan’t name the look either? Try Name That Vibe Double-press any word on the site for a plain-English definition. The numbered circles across the top of a checkout or wizard, one per stage Overlapping profile circles with a ring between them and a +N at the end One control holding several values: the checkbox dropdown, the…",
+          "word_count": 805,
+          "fetched_at": "2026-09-08T03:51:46.587Z"
         }
       }
     ],
     "summary": "introducing a dictionary for ui things you can see but can't name made it because i'm primarily a designer, and my biggest resistance was always knowing what things are called when prompting my agents it learns as people use it: every search teaches the",
-    "search_text": "introducing https://t.co/Xedkx0mOii\n\na dictionary for ui things you can see but can't name\n\nmade it because i'm primarily a designer, and my biggest resistance was always knowing what things are called when prompting my agents\n\nit learns as people use it: every search teaches the https://t.co/getc4FXfoS\n@argofowl 🥔🥔🥔\nnamethatui.com\nai ml ui design",
+    "search_text": "introducing https://t.co/Xedkx0mOii\n\na dictionary for ui things you can see but can't name\n\nmade it because i'm primarily a designer, and my biggest resistance was always knowing what things are called when prompting my agents\n\nit learns as people use it: every search teaches the https://t.co/getc4FXfoS\n@argofowl 🥔🥔🥔\nnamethatui.com\nNameThatUI — What Is This UI Element Called?\nSee the UI element, learn its real name and API symbol, and copy a precise prompt for your coding agent.\nNewestStepsAvatar GroupMulti-select\n\nWhat’s this UI element called?\n\nThe visual dictionary of UI. Describe the thing in your own sloppy words; you get the real name, the API symbol, and a paste-ready prompt for your coding agent.\n\nNothing matched that description\n\nTry what it looks like or where it sits — “the dots under the slideshow”, “the bar that stays when I scroll”.\n\nnewCan’t name the look either? Try Name That Vibe\n\nDouble-press any word on the site for a plain-English definition.\n\nThe numbered circles across the top of a checkout or wizard, one per stage\n\nOverlapping profile circles with a ring between them and a +N at the end\n\nOne control holding several values: the checkbox dropdown, the chip field, and the two-pane transfer list\n\nThe On this page list whose current link follows what you're reading\n\nInline Alert vs. Callout vs. Bannerweb\n\n<Alert severity=\"warning\">\n\nThree in-page notices named by where they sit, and none of them is a toast\n\nautocomplete=\"current-password\"\n\nThe login form's nameable parts — the eye, the OR line, and the Continue-with buttons\n\n<nav aria-label=\"pagination\">\n\nThe numbered page buttons under a list — and the dot version, the page control\n\nThe little calendar that pops up on a date field — and the highlighted stripe of a range\n\nanimation-timeline: scroll()\n\nLayers that scroll at different speeds — the background lags and depth appears\n\naria-roledescription=\"carousel\"\n\nA strip of slides you page through with arrows or the little dots\n\nSite Header vs. Navigation Barweb\n\nThe whole top strip is the header; the row of page links inside it is the nav\n\nThe rectangle with media, title, body, and a footer — every part has a name\n\nThe export button is hard to find…\n\nResize Handle (Size Grip)web\n\nThe three diagonal lines in a text box's corner that you drag to make it bigger\n\nInsertion Caret (Insertion Point)macos\n\nNSTextView.insertionPointColor\n\nThe blinking line inside text that marks where the next character will appear\n\nHamburger Menu (Nav Drawer)web\n\naria-expanded + aria-controls\n\nThe three-line button and the navigation panel it slides open\n\ndisplay: grid + grid-column: span 2\n\nOne grid, mixed tile sizes — a layout packed like a bento box\n\nMasonry Layout (Pinterest Grid)web\n\nCards of different heights packed into columns with no row gaps\n\nEasing (Timing Function)web\n\ntransition-timing-function\n\nThe speed curve of an animation — why motion feels smooth or robotic\n\ntransition={{ type: \"spring\", stiffness, damping }}\n\nPhysics-based motion that overshoots the target and settles\n\nText Scramble (Decode Effect)web\n\nRandom characters churn and settle into the real text\n\nThe click-to-enlarge image overlay that dims the page behind it\n\nanimation + @keyframes translateX\n\nContent that auto-scrolls sideways in an endless loop\n\nEvery shape the mouse pointer takes — and the real name of each one\n\nYou can’t undo this action.\n\nThe small centered window with a badged icon, a bold line, and Cancel/OK buttons\n\nThe round knob you drag along a track to pick a value from a range\n\nThe little swatch button that shows the current color and opens the picker\n\nWe’ll only use this to sign you in.\n\nEvery part of a labeled input — label, placeholder, helper text, and the red error line\n\nTruncation (Ellipsis & Line Clamp)web\n\nText cut short with … — at the end of the line, after N lines, or in the middle\n\nThe grips, handles, previews, and landing cues around a drag interaction\n\nDivider vs. Separator vs. Ruleweb\n\nThe same thin line can mark a topic break, separate controls, or be decoration\n\nProgress Ring vs. Spinner vs. Progress Barweb\n\nA spinner means wait; a ring or bar can show how much work is complete\n\nThe movable Mac app frame, from its title bar and toolbar to its resize edges\n\nResizable panes separated by a draggable divider inside a Mac window\n\nScroll View (Scroller)macos\n\nA viewport whose AppKit scrollbar is called a scroller\n\nA Mac text field with built-in search, clearing, and recent-query controls\n\nThe standard Mac dialog for naming a file and choosing where to save it\n\nA text input that turns recognized values into removable rounded tokens\n\nA primary action joined to a separate arrow that opens related actions\n\nA Mac gauge rendered as a capacity bar, rating stars, or relevance meter\n\nColumn View (Browser)macos\n\nFinder-style columns that reveal each successive level of a hierarchy\n\nAn indented tree of rows that expand to reveal nested children\n\nThe Three Dots (Overflow Menu)web\n\nHorizontal dots, vertical dots, three lines, and an ellipsis mean different things\n\nThe strip along the top of the Mac screen — every part, labeled\n\nThe menu opened at the pointer by right-clicking or Control-clicking an item\n\nDisclosure Trianglemacos\n\nThe small rotating control that reveals or hides nested content\n\nThe red count or status label overlaid on an app's Dock icon\n\nThe accent-colored glow that identifies the control receiving keyboard input\n\nView.inspector(isPresented:content:)\n\nThe right-hand panel for view\nui design ai ml",
     "related": [
-      "2043381172646920237",
-      "2050697067882746209",
-      "2086757844544811485",
-      "2050887478404644932",
+      "2046556609585795084",
+      "2066160513969537470",
       "2048386869910777912",
-      "2050579689249333722"
+      "2043381172646920237",
+      "2062180504649257322",
+      "2095761539735416975"
     ],
-    "crawled_words": 0
+    "crawled_words": 805
   },
   {
     "id": "2075899582723313791",
@@ -2485,8 +2490,8 @@
       "2063987602873598444",
       "2063783031769580010",
       "2079624265528475975",
-      "2061493283839459590",
-      "2081519697657270620"
+      "2076284369883615555",
+      "2061493283839459590"
     ],
     "crawled_words": 0
   },
@@ -2718,7 +2723,7 @@
           "title": "Gradient shimmer — multi-stop text shimmer for React",
           "site_name": "gradient-shimmer.vercel.app",
           "word_count": 0,
-          "fetched_at": "2026-09-08T03:50:20.860Z",
+          "fetched_at": "2026-09-08T03:51:46.586Z",
           "error": "No extractable text"
         }
       }
@@ -2896,7 +2901,7 @@
       "2057469407534952546",
       "2063524629571064128",
       "2077803066800103846",
-      "2045960021171945693"
+      "2076284369883615555"
     ],
     "crawled_words": 107
   },
@@ -3710,7 +3715,7 @@
       "2050887478404644932",
       "2062202706882883696",
       "2054586614781997490",
-      "2076284369883615555"
+      "2050584578755346939"
     ],
     "crawled_words": 0
   },
@@ -4187,12 +4192,12 @@
     "summary": "Introducing ai-sdk-heal, a small companion library for @aisdk. For cases where long conversations + tool calls + reasoning models drift out of provider spec, it repairs the message array before the request goes out: - Pairs orphan tool calls with results - Drops reasoning",
     "search_text": "Introducing ai-sdk-heal, a small companion library for @aisdk.\n\nFor cases where long conversations + tool calls + reasoning models drift out of provider spec, it repairs the message array before the request goes out:\n\n- Pairs orphan tool calls with results\n- Drops reasoning https://t.co/KOE2FQuFKY\n@pontusab Pontus Abrahamsson\nai ml devtools",
     "related": [
-      "2076284369883615555",
       "2076538724985582039",
       "2058858809670688834",
       "2051662847130869780",
       "2063371983300300886",
-      "2085394318005846411"
+      "2085394318005846411",
+      "2046197453272080571"
     ],
     "crawled_words": 0
   },
@@ -4595,7 +4600,7 @@
           "title": "Reelcode - animate code snippets",
           "site_name": "reelcode.fayaz.workers.dev",
           "word_count": 0,
-          "fetched_at": "2026-09-08T03:50:23.509Z",
+          "fetched_at": "2026-09-08T03:51:46.588Z",
           "error": "No extractable text"
         }
       }
@@ -5702,12 +5707,12 @@
     "summary": "there's definitely a before-river and after-river shopify. a lot of people talk about having fully accessible agents in their organization, but i wish they could sit in and see just how effective it is at shopify. a couple things that made it instantly magical at shopify: 1.",
     "search_text": "there's definitely a before-river and after-river shopify.\n\na lot of people talk about having fully accessible agents in their organization, but i wish they could sit in and see just how effective it is at shopify.\n\na couple things that made it instantly magical at shopify:\n\n1. https://t.co/wqib32uh5p\n@rousseaukazi Rousseau Kazi\nai ml",
     "related": [
-      "2076284369883615555",
       "2047628164088877411",
       "2070183773774508375",
       "2086757844544811485",
       "2081448512911290768",
-      "2049524831235035143"
+      "2049524831235035143",
+      "2085394318005846411"
     ],
     "crawled_words": 0
   },
@@ -7371,12 +7376,12 @@
     "summary": "TIL you can pull the backlinks to any domain for free (instead of using a service that charges hundreds a month) using Common Crawl's web graph. Wrote a tiny bash script:",
     "search_text": "TIL you can pull the backlinks to any domain for free (instead of using a service that charges hundreds a month) using Common Crawl's web graph. Wrote a tiny bash script:\n\nhttps://t.co/KDVhYMjhq8 https://t.co/gq5mq99ya0\n@retlehs Ben Word\ngist.github.com\nBacklinks for any domain via Common Crawl\nBacklinks for any domain via Common Crawl. GitHub Gist: instantly share code, notes, and snippets.\nInstantly share code, notes, and snippets.\n\nStar (314) You must be signed in to star a gist\n\nFork (78) You must be signed in to fork a gist\n\nSelect an option No results found Learn more about clone URLs Clone this repository at &lt;script src=&quot;https://gist.github.com/retlehs/cf0ac6c74476e766fba2f14076fff501.js&quot;&gt;&lt;/script&gt;\n\nSave retlehs/cf0ac6c74476e766fba2f14076fff501 to your computer and use it in GitHub Desktop.\n\nDOMAIN=\"${1:-example.com}\"\n\nRELEASE=\"${CC_RELEASE:-cc-main-2026-jan-feb-mar}\"\n\nCACHE=\"${HOME}/.cache/cc-backlinks/${RELEASE}\"\n\nBASE=\"https://data.commoncrawl.org/projects/hyperlinkgraph/${RELEASE}/domain\"\n\nVERTICES=\"${CACHE}/domain-vertices.txt.gz\"\n\nEDGES=\"${CACHE}/domain-edges.txt.gz\"\n\nif ! command -v duckdb >/dev/null; then\n\necho \"error: duckdb not installed. Run: brew install duckdb\" >&2\n\n# Reverse domain: roots.io -> io.roots\n\nREV_DOMAIN=$(awk -F. '{for(i=NF;i>0;i--) printf \"%s%s\", $i, (i>1?\".\":\"\")}' <<<\"$DOMAIN\")\n\nlocal url=\"$1\" dest=\"$2\"\n\nif [[ -f \"$dest\" ]]; then return; fi\n\necho \">> downloading $(basename \"$dest\") ...\" >&2\n\ncurl -L --fail -C - -o \"$dest\" \"$url\"\n\ndownload \"${BASE}/${RELEASE}-domain-vertices.txt.gz\" \"$VERTICES\"\n\ndownload \"${BASE}/${RELEASE}-domain-edges.txt.gz\" \"$EDGES\"\n\necho \">> querying backlinks to ${DOMAIN} (reversed: ${REV_DOMAIN}) ...\" >&2\n\necho \">> first run scans ~16 GB of gzipped edges; expect several minutes\" >&2\n\nSELECT * FROM read_csv('${VERTICES}', delim='\\t', header=false,\n\ncolumns={'id':'BIGINT','rev_domain':'VARCHAR','num_hosts':'BIGINT'})\n\nSELECT id FROM vertices WHERE rev_domain = '${REV_DOMAIN}'\n\nSELECT from_id FROM read_csv('${EDGES}', delim='\\t', header=false,\n\ncolumns={'from_id':'BIGINT','to_id':'BIGINT'})\n\nWHERE to_id = (SELECT id FROM target)\n\narray_to_string(list_reverse(string_split(v.rev_domain, '.')), '.') AS linking_domain,\n\nJOIN vertices v ON v.id = i.from_id\n\nORDER BY v.num_hosts DESC, linking_domain;\n\nRead more about Common Crawl\n\nsujay1599 commented Apr 19, 2026\n\n#!/usr/bin/env bash set -euo pipefail # ────────────────────────────────────────────────────────────── # cc-backlinks.sh – query Common Crawl domain-level backlinks # # Usage: ./cc-backlinks.sh [domain] [top_n] # domain – domain to look up (default: example.com) # top_n – max linking domains to show (default: 100) # # Env vars: # CC_RELEASE – crawl release slug (default: cc-main-2026-jan-feb-mar) # CC_THREADS – DuckDB thread count (default: all cores) # ────────────────────────────────────────────────────────────── DOMAIN=\"${1:-example.com}\" TOP_N=\"${2:-100}\" RELEASE=\"${CC_RELEASE:-cc-main-2026-jan-feb-mar}\" THREADS=\"${CC_THREADS:-0}\" # 0 = DuckDB default (all cores) CACHE=\"${HOME}/.cache/cc-backlinks/${RELEASE}\" BASE=\"https://data.commoncrawl.org/projects/hyperlinkgraph/${RELEASE}/domain\" VERTICES=\"${CACHE}/domain-vertices.txt.gz\" EDGES=\"${CACHE}/domain-edges.txt.gz\" mkdir -p \"$CACHE\" # ── Preflight checks ────────────────────────────────────────── if ! command -v duckdb >/dev/null 2>&1; then echo \"error: duckdb not installed.\" >&2 echo \" macOS: brew install duckdb\" >&2 echo \" Linux: https://duckdb.org/docs/installation\" >&2 exit 1 fi if ! command -v curl >/dev/null 2>&1; then echo \"error: curl not installed.\" >&2 exit 1 fi # ── Reverse domain notation (io.roots for roots.io) ────────── REV_DOMAIN=$( awk -F. '{ for (i=NF; i>0; i--) printf \"%s%s\", $i, (i>1 ? \".\" : \"\") }' <<<\"$DOMAIN\" ) echo \">> domain: ${DOMAIN} (reversed: ${REV_DOMAIN})\" >&2 echo \">> release: ${RELEASE}\" >&2 echo \">> cache: ${CACHE}\" >&2 # ── Download helper (resume-safe, skips if already present) ── download() { local url=\"$1\" dest=\"$2\" label label=$(basename \"$dest\") if [[ -f \"$dest\" ]]; then echo \">> [skip] ${label} already cached\" >&2 return fi echo \">> downloading ${label} ...\" >&2 curl -L --fail --progress-bar -C - -o \"$dest\" \"$url\" \\ || { echo \"error: failed to download ${url}\" >&2; rm -f \"$dest\"; exit 1; } } download \"${BASE}/${RELEASE}-domain-vertices.txt.gz\" \"$VERTICES\" download \"${BASE}/${RELEASE}-domain-edges.txt.gz\" \"$EDGES\" # ── Early exit: confirm domain exists in the graph ─────────── echo \">> checking domain exists in vertices ...\" >&2 VERTEX_COUNT=$(duckdb -csv <<SQL SELECT COUNT(*) FROM read_csv( '${VERTICES}', delim='\\t', header=false, columns={'id':'BIGINT','rev_domain':'VARCHAR','num_hosts':'BIGINT'} ) WHERE rev_domain = '${REV_DOMAIN}'; SQL ) if [[ \"$VERTEX_COUNT\" -eq 0 ]]; then echo \"error: '${DOMAIN}' not found in the ${RELEASE} vertex file.\" >&2 echo \" The domain may be too small to appear in Common Crawl, or\" >&2 echo \" the reversed form '${REV_DOMAIN}' may not match.\" >&2 exit 1 fi # ── Main query ──────────────────────────────────────────────── echo \">> querying backlinks for ${DOMAIN} ...\" >&2 echo \">> NOTE: first run scans ~16 GB of gzipped edges — expect several minutes\" >&2 duckdb <<SQL PRAGMA threads=${THREADS}; .mode box WITH vertices AS ( SELECT * FROM read_csv( '${VERTICES}', delim='\\t', header=false, columns={'id':'BIGINT','rev_domain':'VARCHAR','num_hosts':'B\ninfra devtools",
     "related": [
+      "2076284369883615555",
       "2057258197249884589",
       "2063524629571064128",
       "2063783031769580010",
       "2065462041440108853",
-      "2061909932870414533",
-      "2050649456878743596"
+      "2061909932870414533"
     ],
     "crawled_words": 584
   },
@@ -7456,7 +7461,7 @@
         "domain": "3pxgrid.com",
         "crawl": {
           "status": "network_error",
-          "fetched_at": "2026-09-08T03:50:07.334Z",
+          "fetched_at": "2026-09-08T03:51:46.562Z",
           "error": "fetch failed"
         }
       }
@@ -7789,7 +7794,7 @@
         "crawl": {
           "status": "http_error",
           "http_status": 404,
-          "fetched_at": "2026-09-08T03:50:22.358Z",
+          "fetched_at": "2026-09-08T03:51:46.587Z",
           "error": "HTTP 404 Not Found"
         }
       }
