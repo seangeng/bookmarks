@@ -10,7 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function TopicsPage() {
-  const topics = getTopicSummaries({ includeEmpty: true }).sort((a, b) => b.count - a.count);
+  // Only topics that actually hold something — an empty topic here is a link
+  // to an empty page. The home grid and the search filters already work this
+  // way; a taxonomy slug with nothing filed under it is not worth a row.
+  const topics = getTopicSummaries().sort((a, b) => b.count - a.count);
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-10">
