@@ -126,11 +126,15 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
               key={result.bookmark.id}
               bookmark={result.bookmark}
               query={query}
-              snippet={result.snippet}
+              evidence={result.matchedIn === "link" ? result.snippet : undefined}
+              evidenceSource={
+                result.matchedIn === "link"
+                  ? (result.bookmark.links[0]?.domain ?? "crawled page")
+                  : undefined
+              }
               badge={
                 <span className="font-mono text-[0.65rem] text-muted-foreground">
                   {MATCH_LABELS[result.matchedIn] ?? result.matchedIn}
-                  {result.vectorScore !== undefined && ` · ${result.vectorScore.toFixed(2)}`}
                 </span>
               }
             />

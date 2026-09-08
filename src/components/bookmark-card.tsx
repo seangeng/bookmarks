@@ -43,8 +43,13 @@ function LinkRow({ link }: { link: BookmarkLink }) {
 type BookmarkCardProps = {
   bookmark: IndexedBookmark;
   query?: string;
-  snippet?: string;
-  /** Rendered on the right of the meta row, e.g. the search score badge. */
+  /**
+   * Matched text from a crawled page. Shown *below* the post rather than in
+   * place of it, so a result still reads as "what Sean saved" first.
+   */
+  evidence?: string;
+  evidenceSource?: string;
+  /** Rendered on the right of the meta row, e.g. the search match badge. */
   badge?: React.ReactNode;
   className?: string;
   compact?: boolean;
@@ -53,12 +58,13 @@ type BookmarkCardProps = {
 export function BookmarkCard({
   bookmark,
   query,
-  snippet,
+  evidence,
+  evidenceSource,
   badge,
   className,
   compact = false,
 }: BookmarkCardProps) {
-  const body = snippet ?? bookmark.text ?? bookmark.summary;
+  const body = bookmark.text || bookmark.summary;
   const links = compact ? bookmark.links.slice(0, 1) : bookmark.links.slice(0, 2);
 
   return (
@@ -89,9 +95,22 @@ export function BookmarkCard({
             compact ? "text-[0.95rem]" : "text-[1.05rem]",
           )}
         >
-          <Highlight text={compact ? truncate(body, 180) : body} query={query} />
+          <Highlight text={compact ? truncate(body, 180) : truncate(body, 420)} query={query} />
         </p>
       </Link>
+
+      {evidence && (
+        <div className="mt-3 border-l-2 border-primary/30 pl-3">
+          {evidenceSource && (
+            <p className="font-mono text-[0.62rem] uppercase tracking-wider text-muted-foreground/80">
+              matched in {evidenceSource}
+            </p>
+          )}
+          <p className="mt-0.5 text-[0.82rem] leading-relaxed text-muted-foreground">
+            <Highlight text={evidence} query={query} />
+          </p>
+        </div>
+      )}
 
       {links.length > 0 && (
         <div className="mt-3 flex flex-col gap-1.5">

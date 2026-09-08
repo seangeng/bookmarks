@@ -60,7 +60,7 @@ export function getTopicSummaries({ includeEmpty = false } = {}): TopicSummary[]
       count: entries.length,
       domains: [...counts.entries()]
         .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-        .slice(0, 4)
+        .slice(0, 3)
         .map(([domain]) => domain),
       latest: entries[0],
     };

@@ -1,8 +1,10 @@
 /**
- * Applies the saved theme before first paint so there is no light-mode flash.
- * Dark is the default; `localStorage.theme` overrides it.
+ * Applies the theme before first paint so there is no flash.
+ *
+ * The library is designed dark-first, so dark is the default regardless of the
+ * system preference; the header toggle stores an explicit choice that wins.
  */
-const script = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":!window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.classList.toggle("dark",d);document.documentElement.style.colorScheme=d?"dark":"light";}catch(e){document.documentElement.classList.add("dark");}})();`;
+const script = `(function(){var d=true;try{d=localStorage.getItem("theme")!=="light";}catch(e){}document.documentElement.classList.toggle("dark",d);document.documentElement.style.colorScheme=d?"dark":"light";})();`;
 
 export function ThemeScript() {
   return <script dangerouslySetInnerHTML={{ __html: script }} />;
