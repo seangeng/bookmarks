@@ -1,0 +1,160 @@
+[
+  {
+    "id": "2079628240944263565",
+    "text": "Steal this clean UI blueprint:\n\n- Use SF Pro in regular and medium with -0.15px letter spacing\n- Keep type to 12px, 13px, 14px, and 24px\n- Build hierarchy with #292929, #5D5D5D, and #9E9E9E\n- Size icons at 14px for navigation and 20px for cards\n- Use 8px navigation, 16px cards, https://t.co/yDTr8DLKV4 https://t.co/yjK14cBphe",
+    "title": "@_heyrico: Steal this clean UI blueprint: - Use SF Pro in regular and medium with -0.15px l",
+    "post_url": "https://x.com/_heyrico/status/2079628240944263565",
+    "created_at": "2026-07-21T18:03:04.000Z",
+    "author_username": "_heyrico",
+    "author_name": "rico",
+    "conversation_id": "2079628240944263565",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2079624265528475975",
+    "text": "Have you built a language model? You should. It's so much fun to chat with something you made.\n\nAnyone can do it, too. I made an app that teaches the fundamentals and gives you everything you need to build your own: https://t.co/nLjFfpczbV https://t.co/akIMnTzOEG",
+    "title": "@felixrieseberg: Have you built a language model? You should. It's so much fun to chat with somet",
+    "post_url": "https://x.com/felixrieseberg/status/2079624265528475975",
+    "created_at": "2026-07-21T17:47:17.000Z",
+    "author_username": "felixrieseberg",
+    "author_name": "Felix Rieseberg",
+    "conversation_id": "2079624265528475975",
+    "is_reply": false,
+    "external_urls": [
+      "https://languagemodelbuilder.com/"
+    ]
+  },
+  {
+    "id": "2079416686508142660",
+    "text": "Introducing Yellowcake Analytics v2.\n\nYellowcake Analytics is a free research platform I\u2019ve been building for the uranium sector.\n\nIt started as a simple tracker for resource estimates pulled from SEC filings. These updates make it a full research stack and one of the most https://t.co/5FHV9NAxVu",
+    "title": "@patfscott: Introducing Yellowcake Analytics v2. Yellowcake Analytics is a free research pla",
+    "post_url": "https://x.com/patfscott/status/2079416686508142660",
+    "created_at": "2026-07-21T04:02:26.000Z",
+    "author_username": "patfscott",
+    "author_name": "Patrick Scott",
+    "conversation_id": "2079416686508142660",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2078447867795238999",
+    "text": "Introducing Amicro.\n\nA curated library of premium micro-interactions and transition components for React.\n\nAdd beautiful card hovers, button interactions, and seamless transitions to your app with a single CLI command. \u2728\n\nOpen source.\n\nTry it: https://t.co/2QtGnxtcZb https://t.co/RNQnnoJZHa",
+    "title": "@SubhanHQ: Introducing Amicro. A curated library of premium micro-interactions and transiti",
+    "post_url": "https://x.com/SubhanHQ/status/2078447867795238999",
+    "created_at": "2026-07-18T11:52:42.000Z",
+    "author_username": "SubhanHQ",
+    "author_name": "Kiyotaka",
+    "conversation_id": "2078447867795238999",
+    "is_reply": false,
+    "external_urls": [
+      "https://amicro.vercel.app/"
+    ]
+  },
+  {
+    "id": "2077754163853693192",
+    "text": "For a long time, we struggled to capture what our light actually feels like in person.\n\nThis is the closest we\u2019ve come. https://t.co/M99UqY0FNU",
+    "title": "@natmartin: For a long time, we struggled to capture what our light actually feels like in p",
+    "post_url": "https://x.com/natmartin/status/2077754163853693192",
+    "created_at": "2026-07-16T13:56:10.000Z",
+    "author_username": "natmartin",
+    "author_name": "Nat Martin",
+    "conversation_id": "2077754163853693192",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2076328529604612467",
+    "text": "In a recent article, I wrote about using skills to encode judgement and understanding into agents.\n\nI put together a set of skills that each focus on a different part of a product and help make it better.\n\n/better-ui\n/better-typography\n/better-colors\n\nMore skills are coming soon. https://t.co/9hEnr9q9rv",
+    "title": "@jakubkrehel: In a recent article, I wrote about using skills to encode judgement and understa",
+    "post_url": "https://x.com/jakubkrehel/status/2076328529604612467",
+    "created_at": "2026-07-12T15:31:12.000Z",
+    "author_username": "jakubkrehel",
+    "author_name": "Jakub Krehel",
+    "conversation_id": "2076328529604612467",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2077130366230639022",
+    "text": "Today we're shipping screen-aware dictation.\n\nFirst, we built a speedy speech-to-text (very fast, ~450ms).\n\nBut, many products do this!\n\nSo we went further. Now dictate using your screen as context. In Claude Code, it writes the prompt. In G-Mail, it replies in your voice.\n\nDemo: https://t.co/N5EZKJR5iR",
+    "title": "@FarzaTV: Today we're shipping screen-aware dictation. First, we built a speedy speech-to-",
+    "post_url": "https://x.com/FarzaTV/status/2077130366230639022",
+    "created_at": "2026-07-14T20:37:25.000Z",
+    "author_username": "FarzaTV",
+    "author_name": "Farza \ud83c\uddf5\ud83c\uddf0\ud83c\uddfa\ud83c\uddf8",
+    "conversation_id": "2077130366230639022",
+    "is_reply": false,
+    "external_urls": []
+  },
+  {
+    "id": "2076538724985582039",
+    "text": "https://t.co/iZGmR8PCEp\n\nuse responsibly lol https://t.co/Ldx4e4oEgR",
+    "title": "@undefined_void: use responsibly lol",
+    "post_url": "https://x.com/undefined_void/status/2076538724985582039",
+    "created_at": "2026-07-13T05:26:26.000Z",
+    "author_username": "undefined_void",
+    "author_name": "divy",
+    "conversation_id": "2076538724985582039",
+    "is_reply": false,
+    "external_urls": [
+      "https://github.com/littledivy/mimic"
+    ]
+  },
+  {
+    "id": "2075899582723313791",
+    "text": "Introducing Amicro,  \n\nA curated library of premium micro-transitions and interaction components for React.  \n\nNow you can add beautiful micro-interactions and seamless transitions to your website with just one CLI command \u2728 \n\nOpen source.  \n\nTry it: https://t.co/2QtGnxtcZb https://t.co/Gct8Ic6a6P",
+    "title": "@SubhanHQ: Introducing Amicro, A curated library of premium micro-transitions and interacti",
+    "post_url": "https://x.com/SubhanHQ/status/2075899582723313791",
+    "created_at": "2026-07-11T11:06:43.000Z",
+    "author_username": "SubhanHQ",
+    "author_name": "Kiyotaka",
+    "conversation_id": "2075899582723313791",
+    "is_reply": false,
+    "external_urls": [
+      "https://amicro.vercel.app/"
+    ]
+  },
+  {
+    "id": "2076284369883615555",
+    "text": "introducing https://t.co/Xedkx0mOii\n\na dictionary for ui things you can see but can't name\n\nmade it because i'm primarily a designer, and my biggest resistance was always knowing what things are called when prompting my agents\n\nit learns as people use it: every search teaches the https://t.co/getc4FXfoS",
+    "title": "@argofowl: introducing a dictionary for ui things you can see but can't name made it becaus",
+    "post_url": "https://x.com/argofowl/status/2076284369883615555",
+    "created_at": "2026-07-12T12:35:43.000Z",
+    "author_username": "argofowl",
+    "author_name": "\ud83e\udd54\ud83e\udd54\ud83e\udd54",
+    "conversation_id": "2076284369883615555",
+    "is_reply": false,
+    "external_urls": [
+      "https://namethatui.com/"
+    ]
+  },
+  {
+    "id": "2075780400199446966",
+    "text": "introducing dither-kit\n\na library of gorgeous dithered charts built from the ground up, \n\nno dependencies, they're built on top of a tiny &lt;canvas&gt; engine\n\ninstall it today at https://t.co/VDuqFXY4jX https://t.co/MNY6iRp1FV",
+    "title": "@grimcodes: introducing dither-kit a library of gorgeous dithered charts built from the grou",
+    "post_url": "https://x.com/grimcodes/status/2075780400199446966",
+    "created_at": "2026-07-11T03:13:08.000Z",
+    "author_username": "grimcodes",
+    "author_name": "grim",
+    "conversation_id": "2075780400199446966",
+    "is_reply": false,
+    "external_urls": [
+      "https://www.tripwire.sh/dither-kit"
+    ]
+  },
+  {
+    "id": "2075259224255349234",
+    "text": "Neural CAs are amazing, but they've never scaled past low resolution. \n\nWe propose a simple solution that allows an ~8x resolution boost with minimal extra parameters.\n\nThe core idea: Treat cells as local neural fields instead of pixels.\n\nTry the demo: https://t.co/Nnq8VFOGbB\n\n\ud83e\uddf5 https://t.co/PuJLx9p0Wd",
+    "title": "@Esychology: Neural CAs are amazing, but they've never scaled past low resolution. We propose",
+    "post_url": "https://x.com/Esychology/status/2075259224255349234",
+    "created_at": "2026-07-09T16:42:10.000Z",
+    "author_username": "Esychology",
+    "author_name": "Ehsan Pajouheshgar",
+    "conversation_id": "2075259224255349234",
+    "is_reply": false,
+    "external_urls": [
+      "https://cells2pixels.github.io/"
+    ]
+  }
+]
