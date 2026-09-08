@@ -12,12 +12,9 @@
  *   data/index/vectors.json    local vector store (also the Upstash payload)
  *   data/index/meta.json       provider/store/topic stats
  */
-import fs from "node:fs/promises";
-import path from "node:path";
-
+import { loadCrawlRecords } from "./lib/artifacts";
 import {
   BOOKMARKS_INDEX_FILE,
-  CRAWL_DIR,
   INDEX_DIR,
   META_FILE,
   SEED_FILE,
@@ -54,22 +51,6 @@ const EXCERPT_CHARS = 700;
 /** How much crawl text feeds the embedding for each link. */
 const EMBED_CRAWL_CHARS = 1200;
 const RELATED_COUNT = 6;
-
-async function loadCrawls(): Promise<Map<string, CrawlRecord>> {
-  const byKey = new Map<string, CrawlRecord>();
-  let files: string[] = [];
-  try {
-    files = await fs.readdir(CRAWL_DIR);
-  } catch {
-    return byKey;
-  }
-  for (const file of files) {
-    if (!file.endsWith(".json") || file === "index.json") continue;
-    const record = await readJson<CrawlRecord>(path.join(CRAWL_DIR, file));
-    if (record?.url) byKey.set(record.key ?? urlKey(record.url), record);
-  }
-  return byKey;
-}
 
 function toLink(url: string, crawl?: CrawlRecord): BookmarkLink {
   return {
@@ -141,7 +122,10 @@ async function main(): Promise<void> {
   }
   if (skipped > 0) console.warn(`Skipped ${skipped} malformed seed entries.`);
 
-  const crawls = await loadCrawls();
+  const { records: crawls, invalid } = await loadCrawlRecords();
+  if (invalid.length > 0) {
+    console.warn(`Ignoring ${invalid.length} malformed artifact(s): ${invalid.join(", ")}`);
+  }
   const crawledLinks = [...crawls.values()].filter((record) => record.status === "ok").length;
   console.log(
     `${bookmarks.length} bookmarks · ${crawls.size} crawl artifacts (${crawledLinks} with content)`,

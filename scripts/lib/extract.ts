@@ -48,7 +48,10 @@ function meta($: cheerio.CheerioAPI, ...names: string[]): string | undefined {
   return undefined;
 }
 
-function blockText($: cheerio.CheerioAPI, scope: cheerio.Cheerio<never>): string {
+function blockText($: cheerio.CheerioAPI, selector: string): string {
+  const scope = $(selector).first();
+  if (scope.length === 0) return "";
+
   const parts: string[] = [];
   const seen = new Set<string>();
 
@@ -60,11 +63,7 @@ function blockText($: cheerio.CheerioAPI, scope: cheerio.Cheerio<never>): string
     parts.push(raw);
   });
 
-  if (parts.length === 0) {
-    const fallback = collapseWhitespace(scope.text());
-    return fallback;
-  }
-  return parts.join("\n\n");
+  return parts.length > 0 ? parts.join("\n\n") : collapseWhitespace(scope.text());
 }
 
 /**
@@ -97,9 +96,7 @@ export function extractArticle(
 
   let best = "";
   for (const selector of CONTENT_SELECTORS) {
-    const scope = $(selector).first() as unknown as cheerio.Cheerio<never>;
-    if (scope.length === 0) continue;
-    const candidate = blockText($, scope);
+    const candidate = blockText($, selector);
     if (candidate.length > best.length) best = candidate;
     // Enough signal to stop hunting through weaker containers.
     if (best.length > 1200) break;

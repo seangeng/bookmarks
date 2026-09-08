@@ -12,6 +12,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+import { loadCrawlRecords } from "./lib/artifacts";
 import { crawlAll, DEFAULT_CRAWL_OPTIONS } from "./lib/crawler";
 import {
   CRAWL_DIR,
@@ -27,7 +28,7 @@ import {
 } from "./lib/fs-data";
 import { normalizeExport } from "../src/lib/normalize";
 import { domainOf } from "../src/lib/text";
-import type { CrawlRecord, CrawlStatus } from "../src/lib/types";
+import type { CrawlStatus } from "../src/lib/types";
 
 type CrawlIndex = {
   generated_at: string;
@@ -45,23 +46,6 @@ type CrawlIndex = {
 
 const RETRYABLE: CrawlStatus[] = ["timeout", "network_error", "http_error", "empty"];
 
-async function loadExistingRecords(): Promise<Map<string, CrawlRecord>> {
-  const records = new Map<string, CrawlRecord>();
-  let files: string[] = [];
-  try {
-    files = await fs.readdir(CRAWL_DIR);
-  } catch {
-    return records;
-  }
-
-  for (const file of files) {
-    if (!file.endsWith(".json") || file === "index.json") continue;
-    const record = await readJson<CrawlRecord>(path.join(CRAWL_DIR, file));
-    if (record?.url) records.set(record.key ?? urlKey(record.url), record);
-  }
-  return records;
-}
-
 async function main(): Promise<void> {
   await loadEnv();
   const args = parseArgs();
@@ -75,7 +59,10 @@ async function main(): Promise<void> {
   const { bookmarks } = normalizeExport(seed);
   const urls = [...new Set(bookmarks.flatMap((bookmark) => bookmark.external_urls))].sort();
 
-  const existing = await loadExistingRecords();
+  const { records: existing, invalid } = await loadCrawlRecords();
+  if (invalid.length > 0) {
+    console.warn(`Ignoring ${invalid.length} malformed artifact(s): ${invalid.join(", ")}`);
+  }
   const force = args.flags.has("force");
   const retryFailed = args.flags.has("retry-failed");
   const maxAgeDays = numberArg(args, "max-age", Number.POSITIVE_INFINITY);
