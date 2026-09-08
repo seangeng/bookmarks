@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BookmarkCard } from "@/components/bookmark-card";
+import { PostText } from "@/components/post-text";
 import { TopicChip } from "@/components/topic-chip";
 import { XEmbed } from "@/components/x-embed";
 import { getBookmark, getRelatedBookmarks, getAllBookmarks } from "@/lib/library";
@@ -57,7 +58,8 @@ function LinkArchive({ link }: { link: BookmarkLink }) {
             <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground" />
           </a>
           <p className="mt-1 font-mono text-[0.68rem] text-muted-foreground">
-            {crawl?.site_name && crawl.site_name !== link.domain
+            {crawl?.site_name &&
+            crawl.site_name.toLowerCase() !== link.domain.toLowerCase()
               ? `${crawl.site_name} · ${link.domain}`
               : link.domain}
           </p>
@@ -153,7 +155,7 @@ export default async function BookmarkPage({ params }: { params: Params }) {
         </div>
 
         <p className="mt-4 font-heading text-2xl leading-snug tracking-tight whitespace-pre-wrap">
-          {bookmark.text || bookmark.summary}
+          <PostText text={bookmark.text || bookmark.summary} />
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-1.5">
