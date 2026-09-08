@@ -6,7 +6,7 @@ export default function NotFound() {
       <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">404</p>
       <h1 className="mt-3 font-heading text-3xl tracking-tight">Not in the library</h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        That bookmark or topic doesn’t exist — it may have dropped out of the latest export.
+        That page or topic isn’t in the library — it may have dropped out of the latest export.
       </p>
       <div className="mt-6 flex gap-3 text-sm">
         <Link

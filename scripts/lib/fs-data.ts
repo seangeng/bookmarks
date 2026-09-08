@@ -19,7 +19,7 @@ export const SEED_FILE = path.join(DATA_DIR, "bookmarks-seed.json");
 export const CRAWL_DIR = path.join(DATA_DIR, "crawls");
 export const CRAWL_INDEX_FILE = path.join(CRAWL_DIR, "index.json");
 export const INDEX_DIR = path.join(DATA_DIR, "index");
-export const BOOKMARKS_INDEX_FILE = path.join(INDEX_DIR, "bookmarks.json");
+export const LINKS_INDEX_FILE = path.join(INDEX_DIR, "links.json");
 export const VECTORS_FILE = path.join(INDEX_DIR, "vectors.json");
 export const META_FILE = path.join(INDEX_DIR, "meta.json");
 

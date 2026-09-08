@@ -1,6 +1,10 @@
 /**
- * Build the search index: enrich bookmarks with crawl content, auto-tag topics,
- * embed everything, compute related bookmarks, and persist vectors.
+ * Build the search index.
+ *
+ * The library's unit is an external site, not a bookmark: bookmarks supply
+ * URLs and nothing else. Every unique external URL becomes one entry, enriched
+ * with its crawled title/description/body, auto-tagged from that content, and
+ * embedded. Posts with no external link produce nothing.
  *
  *   npm run index                    # auto-detect provider + store from env
  *   npm run index -- --provider=local --store=local
@@ -8,14 +12,14 @@
  *   npm run index -- --dry-run       # report only, write nothing
  *
  * Outputs:
- *   data/index/bookmarks.json  read model rendered by the site
+ *   data/index/links.json      read model rendered by the site
  *   data/index/vectors.json    local vector store (also the Upstash payload)
  *   data/index/meta.json       provider/store/topic stats
  */
 import { loadCrawlRecords } from "./lib/artifacts";
 import {
-  BOOKMARKS_INDEX_FILE,
   INDEX_DIR,
+  LINKS_INDEX_FILE,
   META_FILE,
   VECTORS_FILE,
   loadEnv,
@@ -26,17 +30,21 @@ import {
   writeJson,
 } from "./lib/fs-data";
 import { readSeedOrExit } from "./lib/seed";
-import { loadShortLinks } from "./lib/shortlinks";
+import { loadShortLinks, resolvedDestinations } from "./lib/shortlinks";
 import { classifyWithLlm } from "./lib/classify";
 import { cosineSimilarity, resolveEmbeddingProvider } from "../src/lib/embeddings";
-import { domainOf, truncate } from "../src/lib/text";
+import {
+  domainOf,
+  isExternalContentUrl,
+  titleFromUrl,
+  truncate,
+} from "../src/lib/text";
 import { DEFAULT_TOPIC, TOPICS, pickTopics, scoreTopics, toTopicSlug } from "../src/lib/topics";
 import type {
-  BookmarkLink,
   CrawlRecord,
   EmbeddingProviderName,
   IndexMeta,
-  IndexedBookmark,
+  LibraryLink,
   StoredVectors,
   VectorStoreName,
 } from "../src/lib/types";
@@ -46,64 +54,57 @@ import {
   resolveVectorStoreName,
 } from "../src/lib/vector-store";
 
-const EXCERPT_CHARS = 700;
-/** How much crawl text feeds the embedding for each link. */
-const EMBED_CRAWL_CHARS = 1200;
+/** Body text kept on each entry for the detail page. */
+const EXCERPT_CHARS = 2400;
+/** Body text fed to the embedding. */
+const EMBED_CHARS = 1600;
 const RELATED_COUNT = 6;
 
-function toLink(url: string, crawl?: CrawlRecord, via?: string): BookmarkLink {
-  return {
-    url,
-    // A redirect chain should be labelled by where it landed, not by the
-    // shortener or tracker it passed through.
-    domain: domainOf(crawl?.final_url ?? url),
-    ...(via ? { via } : {}),
-    ...(crawl
-      ? {
-          crawl: {
-            status: crawl.status,
-            http_status: crawl.http_status,
-            title: crawl.title,
-            description: crawl.description,
-            site_name: crawl.site_name,
-            excerpt: crawl.text ? truncate(crawl.text, EXCERPT_CHARS) : undefined,
-            word_count: crawl.word_count,
-            fetched_at: crawl.fetched_at,
-            error: crawl.error,
-          },
-        }
-      : {}),
-  };
+type Candidate = {
+  url: string;
+  /** Earliest bookmark date referencing this URL. */
+  savedAt: string;
+  saves: number;
+};
+
+/** Collapses every bookmark's links into one entry per unique external URL. */
+function collectCandidates(
+  bookmarks: { created_at: string; external_urls: string[]; short_urls: string[] }[],
+  shortLinks: Awaited<ReturnType<typeof loadShortLinks>>,
+): Candidate[] {
+  const byUrl = new Map<string, Candidate>();
+
+  for (const bookmark of bookmarks) {
+    const urls = [
+      ...bookmark.external_urls,
+      ...resolvedDestinations(bookmark.short_urls, shortLinks),
+    ].filter(isExternalContentUrl);
+
+    for (const url of new Set(urls)) {
+      const existing = byUrl.get(url);
+      if (existing) {
+        existing.saves += 1;
+        if (bookmark.created_at < existing.savedAt) existing.savedAt = bookmark.created_at;
+        continue;
+      }
+      byUrl.set(url, { url, savedAt: bookmark.created_at, saves: 1 });
+    }
+  }
+
+  return [...byUrl.values()].sort((a, b) => (a.savedAt < b.savedAt ? 1 : -1));
 }
 
-/** The document we embed: post text, then link titles/descriptions/body, then topics. */
-function embeddingDocument(
-  bookmark: { text: string; author: { handle: string } },
-  links: BookmarkLink[],
-  crawls: (CrawlRecord | undefined)[],
-  topics: string[],
-): string {
-  const parts = [bookmark.text, `by @${bookmark.author.handle}`];
-  links.forEach((link, position) => {
-    const crawl = crawls[position];
-    parts.push(link.domain);
-    if (crawl?.title) parts.push(crawl.title);
-    if (crawl?.description) parts.push(crawl.description);
-    if (crawl?.text) parts.push(crawl.text.slice(0, EMBED_CRAWL_CHARS));
-  });
-  parts.push(topics.map((topic) => topic.replace(/-/g, " ")).join(" "));
-  return parts.filter(Boolean).join("\n");
-}
-
-function buildSummary(
-  text: string,
-  links: BookmarkLink[],
-): string {
-  const described = links.find((link) => link.crawl?.description)?.crawl?.description;
-  const titled = links.find((link) => link.crawl?.title)?.crawl?.title;
-  const excerpt = links.find((link) => link.crawl?.excerpt)?.crawl?.excerpt;
-  const candidate = text.replace(/https?:\/\/\S+/g, "").trim();
-  return truncate(candidate.length > 60 ? candidate : (described ?? titled ?? excerpt ?? candidate), 280);
+/** Text the classifier and the embedding see: the page, never the post. */
+function pageText(url: string, crawl: CrawlRecord | undefined, limit: number): string {
+  return [
+    crawl?.title,
+    crawl?.description,
+    crawl?.site_name,
+    domainOf(url).replace(/\./g, " "),
+    crawl?.text?.slice(0, limit),
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
 async function main(): Promise<void> {
@@ -112,15 +113,28 @@ async function main(): Promise<void> {
   const dryRun = args.flags.has("dry-run");
 
   const { bookmarks } = await readSeedOrExit();
-
   const { records: crawls, invalid } = await loadCrawlRecords();
   if (invalid.length > 0) {
     console.warn(`Ignoring ${invalid.length} malformed artifact(s): ${invalid.join(", ")}`);
   }
-  const crawledLinks = [...crawls.values()].filter((record) => record.status === "ok").length;
+
+  const shortLinks = await loadShortLinks();
+  const candidates = collectCandidates(bookmarks, shortLinks);
+  const linkless = bookmarks.filter(
+    (bookmark) =>
+      [...bookmark.external_urls, ...resolvedDestinations(bookmark.short_urls, shortLinks)].filter(
+        isExternalContentUrl,
+      ).length === 0,
+  ).length;
+
   console.log(
-    `${bookmarks.length} bookmarks · ${crawls.size} crawl artifacts (${crawledLinks} with content)`,
+    `${bookmarks.length} source bookmarks -> ${candidates.length} unique external links ` +
+      `(${linkless} bookmarks had none)`,
   );
+  if (candidates.length === 0) {
+    console.error("No external links to index.");
+    process.exit(1);
+  }
 
   /* ------------------------------------------------------------- topics */
 
@@ -129,45 +143,13 @@ async function main(): Promise<void> {
     Boolean(process.env.OPENAI_API_KEY) &&
     (args.values.get("classifier") ?? "auto") !== "heuristic";
 
-  const shortLinks = await loadShortLinks();
-
-  const prepared = bookmarks.map((bookmark) => {
-    // Direct links first, then anything recovered from a shortener.
-    const sources: { url: string; via?: string }[] = [
-      ...bookmark.external_urls.map((url) => ({ url })),
-      ...bookmark.short_urls.flatMap((shortUrl) => {
-        const destination = shortLinks[shortUrl]?.url;
-        return destination ? [{ url: destination, via: shortUrl }] : [];
-      }),
-    ];
-
-    const seenUrls = new Set<string>();
-    const unique = sources.filter((source) => {
-      if (seenUrls.has(source.url)) return false;
-      seenUrls.add(source.url);
-      return true;
-    });
-
-    const linkCrawls = unique.map((source) => crawls.get(urlKey(source.url)));
-    const links = unique.map((source, position) =>
-      toLink(source.url, linkCrawls[position], source.via),
-    );
-    const classifierText = [
-      bookmark.text,
-      ...links.map((link) => link.domain),
-      ...linkCrawls.flatMap((crawl) => [crawl?.title, crawl?.description, crawl?.text?.slice(0, 1500)]),
-    ]
-      .filter(Boolean)
-      .join("\n");
-    return { bookmark, links, linkCrawls, classifierText };
+  const prepared = candidates.map((candidate) => {
+    const crawl = crawls.get(urlKey(candidate.url));
+    return { candidate, crawl, classifierText: pageText(candidate.url, crawl, 1500) };
   });
 
-  const heuristicScores = prepared.map(({ bookmark, links, classifierText }) =>
-    scoreTopics({
-      text: classifierText,
-      urls: links.map((link) => link.url),
-      hints: bookmark.topics,
-    }),
+  const heuristicScores = prepared.map(({ candidate, classifierText }) =>
+    scoreTopics({ text: classifierText, urls: [candidate.url] }),
   );
 
   let llmTopics: (string[] | null)[] = prepared.map(() => null);
@@ -175,8 +157,8 @@ async function main(): Promise<void> {
     console.log("Classifying topics with LLM…");
     try {
       llmTopics = await classifyWithLlm(
-        prepared.map(({ bookmark, classifierText }) => ({
-          id: bookmark.id,
+        prepared.map(({ candidate, classifierText }) => ({
+          id: candidate.url,
           text: truncate(classifierText, 1400),
         })),
       );
@@ -190,41 +172,51 @@ async function main(): Promise<void> {
     }
   }
 
-  const enriched: IndexedBookmark[] = prepared.map(
-    ({ bookmark, links, linkCrawls }, position) => {
-      const scores = heuristicScores[position];
-      const fromLlm = (llmTopics[position] ?? [])
-        .map(toTopicSlug)
-        .filter((slug): slug is NonNullable<typeof slug> => Boolean(slug));
-      const fromSeed = bookmark.topics
-        .map(toTopicSlug)
-        .filter((slug): slug is NonNullable<typeof slug> => Boolean(slug));
+  /* -------------------------------------------------------------- build */
 
-      const chosen = [...new Set([...fromSeed, ...fromLlm])];
-      const topics = chosen.length > 0 ? chosen.slice(0, 3) : pickTopics(scores);
+  const links: LibraryLink[] = prepared.map(({ candidate, crawl }, position) => {
+    const scores = heuristicScores[position];
+    const fromLlm = (llmTopics[position] ?? [])
+      .map(toTopicSlug)
+      .filter((slug): slug is NonNullable<typeof slug> => Boolean(slug));
+    const topics = fromLlm.length > 0 ? fromLlm.slice(0, 3) : pickTopics(scores);
 
-      const searchText = [
-        bookmark.text,
-        `@${bookmark.author.handle} ${bookmark.author.name}`,
-        ...links.map((link) => link.domain),
-        ...linkCrawls.flatMap((crawl) => [crawl?.title, crawl?.description, crawl?.text]),
-        topics.map((topic) => topic.replace(/-/g, " ")).join(" "),
-      ]
-        .filter(Boolean)
-        .join("\n");
+    const title = crawl?.title?.trim() || titleFromUrl(candidate.url);
+    const excerpt = crawl?.text ? truncate(crawl.text, EXCERPT_CHARS) : undefined;
 
-      return {
-        ...bookmark,
-        topics,
-        topic_scores: scores,
-        links,
-        summary: buildSummary(bookmark.text, links),
-        search_text: searchText,
-        related: [],
-        crawled_words: linkCrawls.reduce((total, crawl) => total + (crawl?.word_count ?? 0), 0),
-      };
-    },
-  );
+    const searchText = [
+      title,
+      crawl?.description,
+      crawl?.site_name,
+      domainOf(candidate.url),
+      crawl?.text,
+      topics.map((topic) => topic.replace(/-/g, " ")).join(" "),
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    return {
+      id: urlKey(candidate.url),
+      url: candidate.url,
+      domain: domainOf(candidate.url),
+      title,
+      description: crawl?.description,
+      site_name: crawl?.site_name,
+      excerpt,
+      word_count: crawl?.word_count ?? 0,
+      published_at: crawl?.published_at,
+      status: crawl?.status ?? "not_crawled",
+      http_status: crawl?.http_status,
+      error: crawl?.error,
+      fetched_at: crawl?.fetched_at,
+      saved_at: candidate.savedAt,
+      saves: candidate.saves,
+      topics,
+      topic_scores: scores,
+      search_text: searchText,
+      related: [],
+    };
+  });
 
   /* --------------------------------------------------------- embeddings */
 
@@ -236,13 +228,8 @@ async function main(): Promise<void> {
       `${provider.name === "local" ? " — set OPENAI_API_KEY for true semantic search" : ""}`,
   );
 
-  const documents = enriched.map((bookmark, position) =>
-    embeddingDocument(
-      bookmark,
-      bookmark.links,
-      prepared[position].linkCrawls,
-      bookmark.topics,
-    ),
+  const documents = prepared.map(({ candidate, crawl }, position) =>
+    [pageText(candidate.url, crawl, EMBED_CHARS), links[position].topics.join(" ")].join("\n"),
   );
 
   const batchSize = numberArg(args, "batch", provider.name === "local" ? 512 : 64);
@@ -257,8 +244,8 @@ async function main(): Promise<void> {
 
   /* ------------------------------------------------------------ related */
 
-  enriched.forEach((bookmark, position) => {
-    const scored = enriched
+  links.forEach((link, position) => {
+    link.related = links
       .map((candidate, other) =>
         other === position
           ? null
@@ -267,15 +254,15 @@ async function main(): Promise<void> {
       .filter((entry): entry is { id: string; score: number } => entry !== null)
       .sort((a, b) => b.score - a.score)
       .filter((entry) => entry.score > 0.02)
-      .slice(0, RELATED_COUNT);
-    bookmark.related = scored.map((entry) => entry.id);
+      .slice(0, RELATED_COUNT)
+      .map((entry) => entry.id);
   });
 
   /* -------------------------------------------------------------- write */
 
   const topicCounts = TOPICS.map((topic) => ({
     slug: topic.slug,
-    count: enriched.filter((bookmark) => bookmark.topics.includes(topic.slug)).length,
+    count: links.filter((link) => link.topics.includes(topic.slug)).length,
   })).filter((entry) => entry.count > 0 || entry.slug === DEFAULT_TOPIC);
 
   const storeName: VectorStoreName = resolveVectorStoreName(
@@ -287,8 +274,8 @@ async function main(): Promise<void> {
     provider: provider.name,
     model: provider.model,
     vectors: Object.fromEntries(
-      enriched.map((bookmark, position) => [
-        bookmark.id,
+      links.map((link, position) => [
+        link.id,
         vectors[position].map((value) => Math.round(value * 1e5) / 1e5),
       ]),
     ),
@@ -296,8 +283,9 @@ async function main(): Promise<void> {
 
   const meta: IndexMeta = {
     generated_at: new Date().toISOString(),
-    bookmark_count: enriched.length,
-    crawled_link_count: crawledLinks,
+    link_count: links.length,
+    source_bookmark_count: bookmarks.length,
+    crawled_link_count: links.filter((link) => link.status === "ok").length,
     embedding: {
       provider: provider.name,
       model: provider.model,
@@ -314,7 +302,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  await writeJson(BOOKMARKS_INDEX_FILE, enriched);
+  await writeJson(LINKS_INDEX_FILE, links);
   await writeJson(VECTORS_FILE, stored, false);
   await writeJson(META_FILE, meta);
 
@@ -326,17 +314,17 @@ async function main(): Promise<void> {
       const store = await createUpstashVectorStore();
       if (!args.flags.has("no-reset")) await store.reset();
       await store.upsert(
-        enriched.map((bookmark, position) => ({
-          id: bookmark.id,
+        links.map((link, position) => ({
+          id: link.id,
           vector: vectors[position],
-          metadata: { topics: bookmark.topics },
+          metadata: { topics: link.topics },
         })),
       );
-      console.log(`Upserted ${enriched.length} vectors.`);
+      console.log(`Upserted ${links.length} vectors.`);
     }
   }
 
-  console.log(`\nWrote ${relative(INDEX_DIR)}/{bookmarks,vectors,meta}.json`);
+  console.log(`\nWrote ${relative(INDEX_DIR)}/{links,vectors,meta}.json`);
   console.log(
     `Topics: ${meta.topics.map((topic) => `${topic.slug}=${topic.count}`).join(" ")} ` +
       `· classifier=${meta.classifier} · store=${meta.vector_store}`,

@@ -87,37 +87,42 @@ export const CrawlRecordSchema = z.object({
 
 export type CrawlRecord = z.infer<typeof CrawlRecordSchema>;
 
-/** A post link plus whatever the crawler managed to learn about it. */
-export type BookmarkLink = {
+/**
+ * The unit of the library.
+ *
+ * Bookmarks are only the *source* of URLs — the rendered library is the set of
+ * unique external sites behind them. Nothing from X survives into this shape:
+ * no post text, no author, no post URL, no `t.co`. A post with no external
+ * link produces no entry, and a post with three links produces three.
+ */
+export type LibraryLink = {
+  /** Stable id derived from the canonical URL. */
+  id: string;
   url: string;
   domain: string;
-  /** The shortener this link was resolved from, when it came via one. */
-  via?: string;
-  crawl?: {
-    status: CrawlStatus;
-    http_status?: number;
-    title?: string;
-    description?: string;
-    site_name?: string;
-    /** First ~600 chars of extracted body text, for cards and search snippets. */
-    excerpt?: string;
-    word_count?: number;
-    fetched_at?: string;
-    error?: string;
-  };
-};
-
-export type IndexedBookmark = Bookmark & {
+  /** Crawled page title, or a readable fallback derived from the URL. */
+  title: string;
+  description?: string;
+  site_name?: string;
+  /** Trimmed body text from the crawl, shown on the detail page. */
+  excerpt?: string;
+  word_count: number;
+  published_at?: string;
+  /** Crawl outcome, so unreachable pages stay visible instead of vanishing. */
+  status: CrawlStatus | "not_crawled";
+  http_status?: number;
+  error?: string;
+  fetched_at?: string;
+  /** Earliest date this URL was bookmarked. */
+  saved_at: string;
+  /** How many bookmarks pointed at this URL. */
+  saves: number;
   topics: string[];
   topic_scores: Record<string, number>;
-  links: BookmarkLink[];
-  /** One-line gist used in cards: crawl description, else the post text. */
-  summary: string;
-  /** Concatenated post text + crawl content + topics. Feeds keyword search. */
+  /** Title + description + crawl body + domain + topics. Feeds keyword search. */
   search_text: string;
   /** Nearest neighbours by embedding distance, computed at index time. */
   related: string[];
-  crawled_words: number;
 };
 
 export type EmbeddingProviderName = "openai" | "local";
@@ -125,7 +130,10 @@ export type VectorStoreName = "upstash" | "local";
 
 export type IndexMeta = {
   generated_at: string;
-  bookmark_count: number;
+  /** Entries in the rendered library: unique external URLs. */
+  link_count: number;
+  /** Bookmarks in the source export, including those with no external link. */
+  source_bookmark_count: number;
   crawled_link_count: number;
   embedding: {
     provider: EmbeddingProviderName;

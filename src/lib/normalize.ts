@@ -1,5 +1,5 @@
 import { BookmarkSchema, type Bookmark } from "./types";
-import { isShortenerUrl, normalizeUrl } from "./text";
+import { isExternalContentUrl, isShortenerUrl, normalizeUrl } from "./text";
 
 /**
  * Adapter between "whatever the X export produced" and our canonical Bookmark.
@@ -68,10 +68,6 @@ function extractAuthor(record: Loose): { name: string; handle: string; avatar_ur
   };
 }
 
-function isSelfLink(url: string): boolean {
-  return /^https?:\/\/(x|twitter)\.com\//.test(url);
-}
-
 function extractUrls(record: Loose, text: string): string[] {
   const found = new Set<string>();
 
@@ -95,7 +91,7 @@ function extractUrls(record: Loose, text: string): string[] {
     if (normalized) found.add(normalized);
   }
 
-  return [...found].filter((url) => !isShortenerUrl(url) && !isSelfLink(url));
+  return [...found].filter(isExternalContentUrl);
 }
 
 /** Shortener links found in the post, for the opt-in resolver in the crawler. */

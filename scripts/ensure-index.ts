@@ -17,7 +17,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import {
-  BOOKMARKS_INDEX_FILE,
+  LINKS_INDEX_FILE,
   META_FILE,
   ROOT,
   VECTORS_FILE,
@@ -31,7 +31,8 @@ import type { IndexMeta, StoredVectors } from "../src/lib/types";
 async function writeEmptyIndex(): Promise<void> {
   const meta: IndexMeta = {
     generated_at: new Date().toISOString(),
-    bookmark_count: 0,
+    link_count: 0,
+    source_bookmark_count: 0,
     crawled_link_count: 0,
     embedding: { provider: "local", model: LOCAL_MODEL, dimensions: LOCAL_DIMENSIONS },
     vector_store: "local",
@@ -45,13 +46,13 @@ async function writeEmptyIndex(): Promise<void> {
     vectors: {},
   };
 
-  await writeJson(BOOKMARKS_INDEX_FILE, []);
+  await writeJson(LINKS_INDEX_FILE, []);
   await writeJson(VECTORS_FILE, vectors);
   await writeJson(META_FILE, meta);
 }
 
 async function main(): Promise<void> {
-  const required = [BOOKMARKS_INDEX_FILE, VECTORS_FILE, META_FILE];
+  const required = [LINKS_INDEX_FILE, VECTORS_FILE, META_FILE];
   const missing = required.filter((file) => !fs.existsSync(file));
 
   // Even when artifacts exist, a broken seed means the committed index no

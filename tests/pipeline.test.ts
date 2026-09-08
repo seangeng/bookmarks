@@ -10,7 +10,14 @@ import { extractArticle } from "../scripts/lib/extract";
 import { readSeed } from "../scripts/lib/seed";
 import { cosineSimilarity, localEmbed } from "../src/lib/embeddings";
 import { normalizeBookmark, normalizeExport } from "../src/lib/normalize";
-import { normalizeUrl, postBody, snippetFor, stripShortenerUrls, terms } from "../src/lib/text";
+import {
+  isExternalContentUrl,
+  normalizeUrl,
+  prettyUrl,
+  snippetFor,
+  terms,
+  titleFromUrl,
+} from "../src/lib/text";
 import { pickTopics, scoreTopics, toTopicSlug } from "../src/lib/topics";
 
 /* ------------------------------------------------------- export adapter */
@@ -91,6 +98,43 @@ test("normalizeExport de-duplicates, sorts newest first, and counts junk", () =>
   assert.equal(skipped, 2);
 });
 
+test("isExternalContentUrl admits only sites, not X or shorteners", () => {
+  for (const url of [
+    "https://example.com/post",
+    "http://sub.example.co.uk/a/b?c=1",
+    "https://gist.github.com/x/y",
+  ]) {
+    assert.equal(isExternalContentUrl(url), true, url);
+  }
+
+  // Most t.co links unwrap to x.com, so this filter runs on resolved
+  // destinations too — otherwise the library fills up with links into X.
+  for (const url of [
+    "https://x.com/someone/status/1",
+    "https://twitter.com/someone",
+    "https://mobile.twitter.com/someone",
+    "https://pbs.twimg.com/media/abc.jpg",
+    "https://t.co/abc123",
+    "https://bit.ly/abc",
+    "mailto:a@b.com",
+    "ftp://example.com/x",
+  ]) {
+    assert.equal(isExternalContentUrl(url), false, url);
+  }
+});
+
+test("titleFromUrl gives a readable fallback when a page cannot be crawled", () => {
+  assert.equal(titleFromUrl("https://example.com/the-post-slug"), "The Post Slug");
+  assert.equal(titleFromUrl("https://example.com/docs/getting_started.html"), "Getting Started");
+  assert.equal(titleFromUrl("https://example.com/"), "example.com");
+  assert.equal(titleFromUrl("https://example.com/12345"), "example.com");
+});
+
+test("prettyUrl drops the scheme and trailing slash", () => {
+  assert.equal(prettyUrl("https://example.com/a/"), "example.com/a");
+  assert.equal(prettyUrl("http://example.com/"), "example.com");
+});
+
 test("shortener links are kept separately, not as crawlable externals", () => {
   const result = normalizeBookmark({
     id: "7",
@@ -121,7 +165,7 @@ test("an expanded url wins and the shortener is still recorded", () => {
   assert.deepEqual(result?.short_urls, ["https://t.co/xyz"]);
 });
 
-test("self-referential x.com links are not treated as external", () => {
+test("links back into X never become library entries", () => {
   const result = normalizeBookmark({
     id: "5",
     text: "quoting https://x.com/someone/status/9 and https://example.com/post",
@@ -408,34 +452,6 @@ test("tokenizer keeps compounds whole and split, and drops stop words", () => {
 test("light stemming folds plurals so index and query agree", () => {
   assert.deepEqual(terms("embeddings"), terms("embedding"));
   assert.deepEqual(terms("budgets"), terms("budget"));
-});
-
-test("stripShortenerUrls removes shorteners but keeps real links", () => {
-  assert.equal(
-    stripShortenerUrls("This is crazyyy https://t.co/3pbQ9Le18j"),
-    "This is crazyyy",
-  );
-  assert.equal(
-    stripShortenerUrls("read https://example.com/post and https://bit.ly/x"),
-    "read https://example.com/post and",
-  );
-  assert.equal(stripShortenerUrls("no links here"), "no links here");
-});
-
-test("postBody falls back to the summary, then flags link-only posts", () => {
-  assert.deepEqual(postBody("This is crazyyy https://t.co/abc", "ignored"), {
-    body: "This is crazyyy",
-    linkOnly: false,
-  });
-
-  // Nothing but a shortener: fall back to what the crawl learned.
-  assert.deepEqual(postBody("https://t.co/abc", "Taste-Skill — gives your AI good taste"), {
-    body: "Taste-Skill — gives your AI good taste",
-    linkOnly: false,
-  });
-
-  // Nothing but a shortener and nothing crawled: the card must say so.
-  assert.equal(postBody("https://t.co/abc", "").linkOnly, true);
 });
 
 test("snippetFor centres on the query terms", () => {

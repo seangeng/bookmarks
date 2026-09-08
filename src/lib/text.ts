@@ -81,27 +81,59 @@ export function isShortenerUrl(url: string): boolean {
   }
 }
 
-/**
- * Removes shortener URLs from text meant for display. An unexpanded t.co link
- * is unreadable and unclickable-to-anywhere-useful, and X puts one in almost
- * every post — 96% of this library's posts contain at least one. The raw text
- * is preserved in the seed and the index; this only affects rendering.
- */
-export function stripShortenerUrls(text: string): string {
-  return collapseWhitespace(
-    text.replace(/https?:\/\/\S+/g, (match) => (isShortenerUrl(match) ? " " : match)),
-  );
+const X_HOSTS = new Set(["x.com", "twitter.com", "mobile.twitter.com", "pbs.twimg.com", "t.co"]);
+
+/** X's own surfaces. This library is about the sites behind the bookmarks. */
+export function isXUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    return X_HOSTS.has(host) || host.endsWith(".twimg.com");
+  } catch {
+    return false;
+  }
 }
 
-/** What to render as a post's body, and whether it turned out to have none. */
-export function postBody(text: string, summary = ""): { body: string; linkOnly: boolean } {
-  const stripped = stripShortenerUrls(text);
-  if (stripped.length >= 12) return { body: stripped, linkOnly: false };
+/**
+ * True for URLs that can stand on their own as a library entry: an http(s)
+ * address that is neither a shortener nor a link back into X. Most `t.co`
+ * links unwrap to x.com rather than to a site, so this filter is applied to
+ * resolved destinations too, not just to what the export handed us.
+ */
+export function isExternalContentUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
+    return !isShortenerUrl(url) && !isXUrl(url);
+  } catch {
+    return false;
+  }
+}
 
-  const fallback = collapseWhitespace(summary);
-  if (fallback.length >= 12) return { body: fallback, linkOnly: false };
+/** Readable form of a URL for display: no scheme, no trailing slash. */
+export function prettyUrl(url: string, max = 72): string {
+  const clean = url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  return truncate(clean, max);
+}
 
-  return { body: stripped || fallback, linkOnly: true };
+/**
+ * Fallback title for a page the crawler could not read: the last meaningful
+ * path segment, humanised, else the domain.
+ */
+export function titleFromUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    const segment = parsed.pathname.split("/").filter(Boolean).pop();
+    if (!segment) return parsed.hostname.replace(/^www\./, "");
+    const words = decodeURIComponent(segment)
+      .replace(/\.(html?|php|aspx?|pdf|md)$/i, "")
+      .replace(/[-_+]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!words || /^\d+$/.test(words)) return parsed.hostname.replace(/^www\./, "");
+    return words.replace(/\b\w/g, (character) => character.toUpperCase());
+  } catch {
+    return url;
+  }
 }
 
 export function domainOf(url: string): string {

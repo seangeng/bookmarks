@@ -6,6 +6,7 @@
  *   npm run crawl -- --max-age=7  # re-crawl artifacts older than 7 days
  *   npm run crawl -- --limit=20 --concurrency=3 --timeout=15000
  *   npm run crawl -- --retry-failed
+ *   npm run crawl -- --no-expand-short-links   # skip t.co resolution
  *
  * Artifacts land in data/crawls/<key>.json with a rollup in data/crawls/index.json.
  */
@@ -31,7 +32,7 @@ import {
   resolvedDestinations,
   saveShortLinks,
 } from "./lib/shortlinks";
-import { domainOf } from "../src/lib/text";
+import { domainOf, isExternalContentUrl } from "../src/lib/text";
 import type { CrawlStatus } from "../src/lib/types";
 
 type CrawlIndex = {
@@ -59,7 +60,10 @@ async function main(): Promise<void> {
   /* Optionally resolve link shorteners so their destinations get crawled. */
   const shortUrls = [...new Set(bookmarks.flatMap((bookmark) => bookmark.short_urls))];
   const shortLinks = await loadShortLinks();
-  const expand = args.flags.has("expand-short-links");
+  // The library is the set of sites behind the bookmarks, and most of those
+  // sites are only reachable through a t.co redirect, so unwrapping is on by
+  // default. Resolved destinations that turn out to be x.com are dropped.
+  const expand = !args.flags.has("no-expand-short-links");
 
   if (expand) {
     const pending = shortUrls.filter(
@@ -87,15 +91,20 @@ async function main(): Promise<void> {
     const known = shortUrls.filter((url) => shortLinks[url]?.url).length;
     console.log(
       `${shortUrls.length} shortened link(s) in the seed, ${known} already resolved. ` +
-        "Pass --expand-short-links to resolve the rest (see README).",
+        "Skipping resolution (--no-expand-short-links).",
     );
   }
 
+  // Most t.co links unwrap to x.com rather than to a site, so resolved
+  // destinations go through the same external-content filter as the export's
+  // own URLs — otherwise the queue fills with links back into X.
   const urls = [
-    ...new Set([
-      ...bookmarks.flatMap((bookmark) => bookmark.external_urls),
-      ...bookmarks.flatMap((bookmark) => resolvedDestinations(bookmark.short_urls, shortLinks)),
-    ]),
+    ...new Set(
+      [
+        ...bookmarks.flatMap((bookmark) => bookmark.external_urls),
+        ...bookmarks.flatMap((bookmark) => resolvedDestinations(bookmark.short_urls, shortLinks)),
+      ].filter(isExternalContentUrl),
+    ),
   ].sort();
 
   const { records: existing, invalid } = await loadCrawlRecords();

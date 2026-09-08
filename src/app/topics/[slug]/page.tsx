@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { BookmarkList } from "@/components/bookmark-list";
+import { LinkList } from "@/components/link-list";
 import { SearchBox } from "@/components/search-box";
-import { getBookmarksByTopic, getTopic } from "@/lib/library";
+import { getLinksByTopic, getTopic } from "@/lib/library";
 import { TOPICS } from "@/lib/topics";
 
 type Params = Promise<{ slug: string }>;
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!topic) return { title: "Topic not found" };
   return {
     title: topic.label,
-    description: `${topic.count} bookmarks filed under ${topic.label}. ${topic.blurb}`,
+    description: `${topic.count} saved sites filed under ${topic.label}. ${topic.blurb}`,
   };
 }
 
@@ -28,7 +28,7 @@ export default async function TopicPage({ params }: { params: Params }) {
   const topic = getTopic(slug);
   if (!topic) notFound();
 
-  const bookmarks = getBookmarksByTopic(slug);
+  const links = getLinksByTopic(slug);
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-10">
@@ -66,8 +66,8 @@ export default async function TopicPage({ params }: { params: Params }) {
       </div>
 
       <div className="mt-6">
-        <BookmarkList
-          bookmarks={bookmarks}
+        <LinkList
+          links={links}
           emptyMessage={`Nothing filed under ${topic.label} yet. The next sync may change that.`}
         />
       </div>

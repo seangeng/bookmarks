@@ -23,8 +23,11 @@ export async function loadCrawlRecords(): Promise<{
     return { records, invalid };
   }
 
+  // Sibling bookkeeping files live in the same directory but are not artifacts.
+  const notArtifacts = new Set(["index.json", "short-links.json"]);
+
   for (const file of files) {
-    if (!file.endsWith(".json") || file === "index.json") continue;
+    if (!file.endsWith(".json") || notArtifacts.has(file)) continue;
     const raw = await readJson<unknown>(path.join(CRAWL_DIR, file));
     const parsed = CrawlRecordSchema.safeParse(raw);
     if (!parsed.success) {

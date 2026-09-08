@@ -23,7 +23,7 @@ export function TopicNav({ topics }: { topics: string[] }) {
       </Link>
       <Link
         href="/search"
-        aria-label="Search bookmarks"
+        aria-label="Search saved sites"
         className="flex items-center gap-1.5 rounded-md px-2 py-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
       >
         <Search className="size-3.5" />

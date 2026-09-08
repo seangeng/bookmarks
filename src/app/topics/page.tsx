@@ -6,7 +6,7 @@ import { relativeDate } from "@/lib/text";
 
 export const metadata: Metadata = {
   title: "Topics",
-  description: "Browse the bookmark library by topic.",
+  description: "Browse the library of saved sites by topic.",
 };
 
 export default function TopicsPage() {
@@ -16,9 +16,9 @@ export default function TopicsPage() {
     <div className="mx-auto max-w-3xl px-5 py-10">
       <h1 className="font-heading text-2xl tracking-tight">Topics</h1>
       <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-        Topics are assigned during indexing from the post text, the crawled page behind each link,
-        and the link domain — by LLM when an API key is configured, otherwise by a weighted keyword
-        classifier. A bookmark can sit in up to three.
+        Topics are assigned during indexing from each page&rsquo;s own crawled title, description,
+        body text, and domain — by LLM when an API key is configured, otherwise by a weighted
+        keyword classifier. A site can sit in up to three.
       </p>
 
       <div className="mt-6 flex flex-col divide-y divide-border/70 border-y border-border/70">
@@ -37,11 +37,11 @@ export default function TopicsPage() {
               <span className="flex items-baseline gap-2">
                 <span className="font-heading text-lg">{topic.label}</span>
                 <span className="font-mono text-xs text-muted-foreground">
-                  {topic.count} bookmark{topic.count === 1 ? "" : "s"}
+                  {topic.count} site{topic.count === 1 ? "" : "s"}
                 </span>
                 {topic.latest && (
                   <span className="ml-auto shrink-0 font-mono text-[0.65rem] text-muted-foreground">
-                    updated {relativeDate(topic.latest.created_at)}
+                    updated {relativeDate(topic.latest.saved_at)}
                   </span>
                 )}
               </span>

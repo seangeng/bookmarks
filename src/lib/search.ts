@@ -2,9 +2,9 @@ import "server-only";
 
 import vectorsJson from "../../data/index/vectors.json";
 import { resolveEmbeddingProvider } from "./embeddings";
-import { bookmarks, indexMeta } from "./library";
-import { snippetFor, stripShortenerUrls, terms } from "./text";
-import type { IndexedBookmark, StoredVectors } from "./types";
+import { indexMeta, links } from "./library";
+import { snippetFor, terms } from "./text";
+import type { LibraryLink, StoredVectors } from "./types";
 import {
   createLocalVectorStore,
   createUpstashVectorStore,
@@ -68,14 +68,14 @@ function prefixKey(token: string): string | null {
 export type SearchMode = "hybrid" | "keyword" | "recent";
 
 export type SearchResult = {
-  bookmark: IndexedBookmark;
+  link: LibraryLink;
   score: number;
   keywordRank?: number;
   vectorRank?: number;
   vectorScore?: number;
   snippet: string;
   /** Where the strongest evidence for this hit came from. */
-  matchedIn: "post" | "link" | "topic" | "semantic";
+  matchedIn: "title" | "page" | "topic" | "semantic";
 };
 
 export type SearchResponse = {
@@ -99,25 +99,21 @@ type KeywordIndex = {
 };
 
 /**
- * BM25F-style field weights. A term in the post itself or in a linked page's
- * title matters much more than the same term buried in crawled body text.
+ * BM25F-style field weights. A term in the page title or its meta description
+ * matters far more than the same term buried deep in the crawled body.
  */
 const FIELD_WEIGHTS = {
-  post: 3.2,
-  headline: 2.4,
+  title: 3.4,
+  description: 2.4,
+  domain: 2.2,
   topics: 2,
-  author: 1.4,
   body: 1,
 } as const;
 
 let keywordIndex: KeywordIndex | null = null;
 
-function headlineOf(bookmark: IndexedBookmark): string {
-  return bookmark.links
-    .map((link) =>
-      [link.crawl?.title, link.crawl?.description, link.domain].filter(Boolean).join(" "),
-    )
-    .join(" ");
+function headlineOf(link: LibraryLink): string {
+  return [link.title, link.description, link.domain, link.site_name].filter(Boolean).join(" ");
 }
 
 function buildKeywordIndex(): KeywordIndex {
@@ -125,18 +121,17 @@ function buildKeywordIndex(): KeywordIndex {
   const lengths: number[] = [];
   const headlines: string[] = [];
 
-  bookmarks.forEach((bookmark, position) => {
-    const headline = headlineOf(bookmark);
-    headlines[position] = `${bookmark.text} ${headline}`;
+  links.forEach((link, position) => {
+    headlines[position] = headlineOf(link);
 
     // `search_text` already contains every field, so it acts as the body
     // baseline and the rest are additive boosts on top of it.
     const fields: [string, number][] = [
-      [bookmark.search_text, FIELD_WEIGHTS.body],
-      [bookmark.text, FIELD_WEIGHTS.post],
-      [headline, FIELD_WEIGHTS.headline],
-      [bookmark.topics.join(" ").replace(/-/g, " "), FIELD_WEIGHTS.topics],
-      [`${bookmark.author.name} ${bookmark.author.handle}`, FIELD_WEIGHTS.author],
+      [link.search_text, FIELD_WEIGHTS.body],
+      [link.title, FIELD_WEIGHTS.title],
+      [link.description ?? "", FIELD_WEIGHTS.description],
+      [link.domain.replace(/\./g, " "), FIELD_WEIGHTS.domain],
+      [link.topics.join(" ").replace(/-/g, " "), FIELD_WEIGHTS.topics],
     ];
 
     const add = (key: string, weight: number) => {
@@ -166,7 +161,7 @@ function buildKeywordIndex(): KeywordIndex {
     postings,
     lengths,
     headlines,
-    averageLength: bookmarks.length > 0 ? total / bookmarks.length : 1,
+    averageLength: links.length > 0 ? total / links.length : 1,
   };
 }
 
@@ -180,7 +175,7 @@ function keywordSearch(query: string): { position: number; score: number }[] {
   const queryTerms = terms(query);
   if (queryTerms.length === 0) return [];
 
-  const documentCount = bookmarks.length;
+  const documentCount = links.length;
   const scores = new Map<number, number>();
 
   const scoreTerm = (key: string, factor: number) => {
@@ -206,13 +201,13 @@ function keywordSearch(query: string): { position: number; score: number }[] {
   }
 
   // Exact-phrase hits are worth more than the sum of their terms, and a phrase
-  // in the post or a page title is worth more than one in the body.
+  // in the title or description is worth more than one in the body.
   const phrase = query.trim().toLowerCase();
   if (phrase.length > 4) {
     for (const [position, score] of scores) {
       if (index.headlines[position].toLowerCase().includes(phrase)) {
         scores.set(position, score * 1.6);
-      } else if (bookmarks[position].search_text.toLowerCase().includes(phrase)) {
+      } else if (links[position].search_text.toLowerCase().includes(phrase)) {
         scores.set(position, score * 1.25);
       }
     }
@@ -229,7 +224,7 @@ let storePromise: Promise<VectorStore> | null = null;
 
 function localStore(): VectorStore {
   const data = vectorsJson as unknown as StoredVectors;
-  const topicsById = new Map(bookmarks.map((bookmark) => [bookmark.id, bookmark.topics]));
+  const topicsById = new Map(links.map((link) => [link.id, link.topics]));
   return createLocalVectorStore(data, topicsById);
 }
 
@@ -277,38 +272,36 @@ async function vectorSearch(
 
 /* ----------------------------------------------------------------- fusion */
 
-function bestSnippet(bookmark: IndexedBookmark, query: string): {
+function bestSnippet(link: LibraryLink, query: string): {
   snippet: string;
   matchedIn: SearchResult["matchedIn"];
 } {
   const queryTerms = new Set(terms(query));
-  // Snippets are display text, so unexpanded shorteners are stripped the same
-  // way they are in cards — otherwise a result reads as a wall of t.co URLs.
   const candidates: { text: string; source: SearchResult["matchedIn"] }[] = [
-    { text: stripShortenerUrls(bookmark.text), source: "post" },
+    { text: [link.title, link.description].filter(Boolean).join(" — "), source: "title" },
+    { text: link.excerpt ?? "", source: "page" },
   ];
-  for (const link of bookmark.links) {
-    const crawl = link.crawl;
-    if (!crawl) continue;
-    const text = [crawl.title, crawl.description, crawl.excerpt].filter(Boolean).join(" — ");
-    if (text) candidates.push({ text: stripShortenerUrls(text), source: "link" });
-  }
 
-  let best = { snippet: bookmark.summary, matchedIn: "semantic" as SearchResult["matchedIn"] };
+  let best = {
+    snippet: link.description ?? link.excerpt ?? link.title,
+    matchedIn: "semantic" as SearchResult["matchedIn"],
+  };
   let bestHits = -1;
   for (const candidate of candidates) {
+    if (!candidate.text) continue;
     const hits = terms(candidate.text).filter((token) => queryTerms.has(token)).length;
     if (hits > bestHits) {
       bestHits = hits;
       best = { snippet: snippetFor(candidate.text, query), matchedIn: candidate.source };
     }
   }
+
   if (bestHits <= 0) {
-    const topicHit = bookmark.topics.some((topic) =>
+    const topicHit = link.topics.some((topic) =>
       queryTerms.has(topic.replace(/-/g, " ").split(" ")[0]),
     );
     return {
-      snippet: snippetFor(stripShortenerUrls(bookmark.text) || bookmark.summary, query),
+      snippet: snippetFor(link.description || link.excerpt || link.title, query),
       matchedIn: topicHit ? "topic" : "semantic",
     };
   }
@@ -328,27 +321,27 @@ export async function search(
 ): Promise<SearchResponse> {
   const started = Date.now();
   const query = rawQuery.trim();
-  const inTopic = (bookmark: IndexedBookmark) => !topic || bookmark.topics.includes(topic);
+  const inTopic = (link: LibraryLink) => !topic || link.topics.includes(topic);
 
   if (query.length === 0) {
-    const results = bookmarks.filter(inTopic).slice(0, limit);
+    const matching = links.filter(inTopic);
     return {
       query,
       topic,
       mode: "recent",
-      total: bookmarks.filter(inTopic).length,
+      total: matching.length,
       tookMs: Date.now() - started,
-      results: results.map((bookmark) => ({
-        bookmark,
+      results: matching.slice(0, limit).map((link) => ({
+        link,
         score: 0,
-        snippet: bookmark.summary,
-        matchedIn: "post",
+        snippet: link.description ?? link.excerpt ?? "",
+        matchedIn: "title",
       })),
     };
   }
 
   const keywordHits = keywordSearch(query)
-    .filter((hit) => inTopic(bookmarks[hit.position]))
+    .filter((hit) => inTopic(links[hit.position]))
     .slice(0, candidates);
   const { matches: vectorHits, notice } = await vectorSearch(query, topic, candidates);
 
@@ -363,7 +356,7 @@ export async function search(
 
   const topKeywordScore = keywordHits[0]?.score ?? 0;
   keywordHits.forEach((hit, rank) => {
-    const id = bookmarks[hit.position].id;
+    const id = links[hit.position].id;
     const entry = fused.get(id) ?? { score: 0 };
     entry.score += topKeywordScore > 0 ? (KEYWORD_WEIGHT * hit.score) / topKeywordScore : 0;
     entry.keywordRank = rank + 1;
@@ -388,32 +381,32 @@ export async function search(
     fused.set(hit.id, entry);
   });
 
-  const byId = new Map(bookmarks.map((bookmark) => [bookmark.id, bookmark]));
+  const byId = new Map(links.map((link) => [link.id, link]));
 
   const ranked = [...fused.entries()]
     .map(([id, entry]) => {
-      const bookmark = byId.get(id);
-      if (!bookmark || !inTopic(bookmark)) return null;
+      const link = byId.get(id);
+      if (!link || !inTopic(link)) return null;
       // A vector-only hit needs real semantic confidence to earn a slot; below
-      // that it is just the nearest of fifty unrelated things.
+      // that it is just the nearest of however many unrelated pages.
       if (
         entry.keywordRank === undefined &&
         (entry.confidence ?? 0) < VECTOR_ONLY_MIN_CONFIDENCE
       ) {
         return null;
       }
-      return { bookmark, ...entry };
+      return { link, ...entry };
     })
     .filter((entry): entry is NonNullable<typeof entry> => entry !== null)
     .sort((a, b) => b.score - a.score);
 
   const results: SearchResult[] = ranked.slice(0, limit).map((entry) => ({
-    bookmark: entry.bookmark,
+    link: entry.link,
     score: entry.score,
     keywordRank: entry.keywordRank,
     vectorRank: entry.vectorRank,
     vectorScore: entry.vectorScore,
-    ...bestSnippet(entry.bookmark, query),
+    ...bestSnippet(entry.link, query),
   }));
 
   return {

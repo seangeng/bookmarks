@@ -1,11 +1,16 @@
 # Bookmarks
 
-Searchable personal library of Sean Geng's X bookmarks — crawled, topic-grouped, vector-indexed.
-Live at **[bookmarks.seangeng.com](https://bookmarks.seangeng.com)**.
+Searchable library of the **external sites** Sean Geng saves from X — crawled, topic-grouped,
+vector-indexed. Live at **[bookmarks.seangeng.com](https://bookmarks.seangeng.com)**.
 
-A saved post is only half the artifact; the page it links to is the other half. This project
-crawls the linked pages, archives what it finds, auto-tags everything into a small topic
-taxonomy, embeds it, and puts hybrid semantic + keyword search on top.
+The bookmark is not the artifact; the page it points at is. So X bookmarks are treated purely as
+a source of URLs, and the library is the set of unique external sites behind them: each page's own
+title, meta description, and crawled body text, auto-tagged into a small topic taxonomy, embedded,
+and searchable.
+
+**No X content appears anywhere in the product** — no post text, no author handles, no post URLs,
+no `t.co` or `x.com` links. A bookmark with no external link produces no entry; a bookmark with
+three links produces three, deduplicated by canonical URL across the whole export.
 
 ```bash
 npm install
@@ -36,15 +41,16 @@ flowchart TB
     end
 
     subgraph enrich["Index pipeline"]
-        topics["topic auto-tagging<br/>LLM or keyword scorer"]
+        dedupe["one entry per<br/>unique external URL"]
+        topics["topic auto-tagging<br/>from crawled page only"]
         embed["embeddings<br/>OpenAI or local hashed n-gram"]
-        related["related bookmarks<br/>cosine neighbours"]
+        related["related sites<br/>cosine neighbours"]
 
-        index --> topics --> embed --> related
+        index --> dedupe --> topics --> embed --> related
     end
 
     subgraph store["Read model"]
-        read["data/index/bookmarks.json"]
+        read["data/index/links.json"]
         vectors["data/index/vectors.json"]
         meta["data/index/meta.json"]
         upstash[("Upstash Vector<br/>optional")]
@@ -56,7 +62,7 @@ flowchart TB
     end
 
     subgraph app["Next.js App Router (Vercel)"]
-        pages["/ · /search · /topics/[slug] · /b/[id]"]
+        pages["/ · /search · /topics/[slug] · /s/[id]"]
         api["/api/search"]
         search["lib/search.ts<br/>BM25F + vector, score fusion"]
 
@@ -73,39 +79,58 @@ Everything left of the app is offline and committed to git, so a page render nee
 database, no network, and no cold-start warmup. The only runtime dependency is the embedding
 call for the search query itself — and with the local provider even that is in-process.
 
+### Two data models
+
+`data/bookmarks-seed.json` is the **source**: the raw X export, kept intact for provenance and
+re-processing. `data/index/links.json` is the **product**: one entry per unique external URL,
+built only from what the crawler found at that URL. The pipeline is the boundary between them,
+and nothing from the post survives it.
+
 ---
 
 ## Data model
 
-The seed is [`data/bookmarks-seed.json`](data/bookmarks-seed.json) — the real bookmarks of
-[@seangeng](https://x.com/seangeng). [`data/prune-stats.json`](data/prune-stats.json) is the
-upstream link-prune report that produced it: which outbound links were probed, which were kept,
-and which were already dead before this repo ever crawled them.
+The seed is [`data/bookmarks-seed.json`](data/bookmarks-seed.json) — the real X export of
+[@seangeng](https://x.com/seangeng), kept as source data.
+[`data/prune-stats.json`](data/prune-stats.json) is the upstream link-prune report that produced
+it: which outbound links were probed, which were kept, and which were already dead.
 
-A bookmark, as stored in the seed ([`src/lib/types.ts`](src/lib/types.ts)):
-
-| Field | Type | Notes |
-| --- | --- | --- |
-| `id` | `string` | X post id, and the site's URL key (`/b/<id>`) |
-| `text` | `string` | Post text |
-| `author` | `{ name, handle, avatar_url? }` | |
-| `url` | `string` | Canonical post URL |
-| `created_at` | `string` | ISO 8601 |
-| `bookmarked_at` | `string?` | When the export provides it |
-| `external_urls` | `string[]` | Outbound links, normalized and de-`t.co`'d |
-| `topics` | `string[]` | Hints from the export; treated as authoritative during indexing |
-| `media`, `metrics` | optional | Carried through if present |
+A source bookmark ([`src/lib/types.ts`](src/lib/types.ts)) carries `id`, `text`, `author`, `url`,
+`created_at`, `external_urls`, and `short_urls`. Only the last two are used downstream — the rest
+exists so the export stays faithful and re-processable.
 
 The seed loader ([`src/lib/normalize.ts`](src/lib/normalize.ts)) is deliberately forgiving: it
 accepts a bare array, `{ bookmarks: [...] }`, or `{ data: [...] }`, in snake_case or the shapes
-the X API v2 returns (`legacy.full_text`, `entities.urls[].expanded_url`, `core.screen_name`,
-Twitter's `"Wed Oct 10 20:19:24 +0000 2018"` dates, …). It de-duplicates by id and sorts newest
-first. Anything it cannot parse is counted and reported rather than silently dropped.
+the X API v2 returns (`legacy.full_text`, `entities.urls[].expanded_url`, `author_username`,
+`core.screen_name`, Twitter's `"Wed Oct 10 20:19:24 +0000 2018"` dates, …). Anything it cannot
+parse is counted and reported rather than silently dropped.
 
-Indexing produces two derived artifacts per bookmark: an enriched record (topics, per-link
-crawl summary, a search blob, precomputed related ids) and an embedding vector.
+### The library entry
 
----
+`npm run index` turns those URLs into the rendered library. One entry per unique external URL:
+
+| Field | Source |
+| --- | --- |
+| `id` | hash of the canonical URL |
+| `url`, `domain` | the URL itself, canonicalized (tracking params stripped) |
+| `title` | crawled `<title>`/`og:title`, else a readable fallback derived from the URL |
+| `description` | the page's own meta description |
+| `excerpt`, `word_count` | crawled body text |
+| `site_name`, `published_at` | page metadata |
+| `status`, `http_status`, `error` | crawl outcome, so unreachable pages stay visible |
+| `saved_at`, `saves` | earliest date bookmarked, and how many bookmarks pointed here |
+| `topics`, `topic_scores` | classified from the crawled page and its domain |
+| `search_text` | title + description + domain + crawled body + topics |
+| `related` | nearest neighbours by embedding distance |
+
+There is no author, no post text, and no post URL, by construction.
+
+### Which URLs qualify
+
+A URL enters the library only if it is `http(s)`, is not a link shortener, and is not an X
+surface (`x.com`, `twitter.com`, `*.twimg.com`). That filter runs on the export's own
+`external_urls` **and** on every destination resolved from a shortener, which matters more than it
+sounds: of 247 `t.co` links in this export, 177 unwrap to x.com rather than to a site.
 
 ## Scripts
 
@@ -175,89 +200,71 @@ disallowed by `robots.txt`, 2 JavaScript-only pages with no extractable text, 1 
 1 returning 404. The last two are the dead URLs [`data/prune-stats.json`](data/prune-stats.json)
 already flagged, and they stay in the index with their status rather than disappearing.
 
-### Unexpanded t.co links
+### t.co and why unwrapping is on by default
 
-Whether the crawler has anything to work with depends entirely on the export including expanded
-URLs. Many X posts are "look at this" plus a link, and when the export leaves that link as a bare
-`t.co` shortener there is no destination to crawl, nothing to classify beyond a few words of
-text, and nothing to search. In this library that is the common case, not the exception:
-**123 of 196 bookmarks (63%) carry only an unexpanded `t.co`**, and 96% of posts contain at least
-one shortener somewhere in their text. It shows up in the output — every one of the 50
-`misc`-only bookmarks is one with no crawled link, so the classifier is not the limiting factor.
+Whether a bookmark contributes anything depends on the export including a real URL. Many X posts
+are a sentence plus a link, and when the export leaves that link as a bare `t.co` shortener there
+is no destination to crawl. In this export that is the common case: **123 of 196 bookmarks carry
+only a shortener**, and 8 carry no link at all.
 
-Shorteners are also stripped from displayed post text, since an unexpanded `t.co` is unreadable
-and leads nowhere useful. Where that leaves a post with no text at all, the card falls back to
-the crawled page's summary, or says "Link-only post" outright. The raw text is untouched in the
-seed and the index; only rendering changes.
+Since the library *is* the set of destinations, `npm run crawl` unwraps shorteners by default. It
+requests only the redirect — never the shortener's body — follows up to four hops, caches every
+outcome in `data/crawls/short-links.json`, and then crawls each destination through the normal
+path with its own `robots.txt` check. Resolved destinations go through the same qualification
+filter as any other URL, which is how the 177 `t.co` links that unwrap to x.com get dropped.
 
-Those shortener URLs are preserved on each bookmark as `short_urls`, kept out of
-`external_urls` because a shortener is a redirect rather than content. `npm run check:seed`
-reports how many bookmarks are affected.
+Two caveats worth stating plainly:
 
-**The right fix is upstream:** have the export include `entities.urls[].expanded_url`, which the
-X API already returns. Then every link is a real URL and none of the following applies.
-
-Failing that, `npm run crawl -- --expand-short-links` resolves them: it requests only the
-redirect (never the shortener's body), follows up to four hops, caches every outcome in
-`data/crawls/short-links.json`, and then crawls each destination through the normal path with its
-own `robots.txt` check. Resolved links are labelled with the shortener they came from (`via
-t.co/…`) on the bookmark page, and are attributed to the destination's domain rather than to the
-shortener.
-
-It is **off by default and deliberately opt-in**, because `t.co/robots.txt` disallows every agent
-except Twitterbot. Dereferencing your own saved bookmarks is a defensible thing to do, but it is
-the repo owner's call to make, not a default this crawler should quietly assume — everything else
-here honours `robots.txt`, and that guarantee is worth keeping unambiguous.
-
----
+- `t.co/robots.txt` disallows every agent except Twitterbot. Only the redirect is requested, and
+  the product depends on it, but it is a deliberate exception to the "everything respects
+  robots.txt" rule that holds everywhere else here. `--no-expand-short-links` turns it off.
+- **The clean fix is upstream.** If the export includes `entities.urls[].expanded_url` — which the
+  X API already returns — no shortener is ever touched and this section stops mattering.
 
 ## Search
 
-[`src/lib/search.ts`](src/lib/search.ts) runs two legs and fuses them.
+[`src/lib/search.ts`](src/lib/search.ts) runs two legs and fuses them. Both rank on the page, never
+on anything said about it on X.
 
-**Keyword leg** — BM25 with BM25F-style field weights, so a term in the post itself (×3.2) or a
-linked page's title (×2.4) counts for more than the same term buried in crawl body text (×1).
-Exact phrases get a bonus, larger when the phrase appears in the post or a title. The tokenizer
-keeps compounds whole *and* split (`zero-knowledge` → `zero-knowledge`, `zero`, `knowledge`),
-and every long token is additionally indexed under a truncated prefix at reduced weight, so
-`accessibility` finds `accessible`.
+**Keyword leg** — BM25 with BM25F-style field weights: page title ×3.4, meta description ×2.4,
+domain ×2.2, topics ×2, crawled body ×1. Exact phrases get a bonus, larger when the phrase appears
+in the title or description. The tokenizer keeps compounds whole *and* split (`zero-knowledge` →
+`zero-knowledge`, `zero`, `knowledge`), and every long token is additionally indexed under a
+truncated prefix at reduced weight, so `accessibility` finds `accessible`.
 
 **Vector leg** — the query is embedded with the same provider that built the index (recorded in
 `data/index/meta.json`; a mismatch is detected and reported rather than silently returning
 garbage), then compared against the vector store.
 
-**Fusion** — normalized score fusion, not reciprocal rank fusion. RRF is deliberately
-insensitive to score magnitude, which is the wrong default here: a query like `error budgets`
-has one obviously correct answer and a long tail of pages that merely contain the word
-"error". Instead, keyword scores are normalized against the best hit for that query, and cosine
-similarity is mapped through a provider-calibrated confidence window. That window is what keeps
-the local provider honest — its hashed n-gram vectors are lexical, not semantic, so a 0.06
-cosine contributes a nudge; real embeddings clear the window and become a first-class ranking
-signal. Vector-only hits must clear a confidence floor to appear at all.
+**Fusion** — normalized score fusion, not reciprocal rank fusion. RRF is deliberately insensitive
+to score magnitude, which is the wrong default here: a query like `dithering` has one or two right
+answers and a long tail of pages that merely mention a related word. Instead, keyword scores are
+normalized against the best hit for that query, and cosine similarity is mapped through a
+provider-calibrated confidence window. That window is what keeps the local provider honest — its
+hashed n-gram vectors are lexical, not semantic, so a 0.06 cosine contributes a nudge; real
+embeddings clear the window and become a first-class ranking signal. Vector-only hits must clear a
+confidence floor to appear at all.
 
-If the embedding provider is unavailable at request time, the vector leg is skipped, the mode
-badge switches to "keyword only", and the UI says so.
+If the embedding provider is unavailable at request time, the vector leg is skipped, the mode badge
+switches to "keyword only", and the UI says so.
 
-`/api/search?q=…&topic=…&limit=…` returns the same results as JSON, including `keyword_rank`
-and `vector_rank` per hit so ranking decisions stay debuggable.
+`/api/search?q=…&topic=…&limit=…` returns the same results as JSON — `id`, `title`, `url`,
+`domain`, `topics`, `snippet`, plus `keyword_rank` and `vector_rank` so ranking stays debuggable.
 
 ### Topics
 
 Seven fixed buckets: **AI/ML, UI/Design, DevTools, Infra, Crypto, Reading, Misc**
-([`src/lib/topics.ts`](src/lib/topics.ts)). A bookmark can hold up to three.
+([`src/lib/topics.ts`](src/lib/topics.ts)). A site can hold up to three.
 
-Assignment during indexing, in priority order:
+Classification uses the crawled page only — its title, description, body text, and domain. Post
+text is never consulted, which turns out to be an improvement rather than a sacrifice: pages carry
+far more signal than a one-line comment about them. Classifying from page content puts just 5 of
+71 entries in `Misc`; the earlier post-text version left 50 of 196 bookmarks there.
 
-1. topics supplied by the export, if any
-2. LLM classification (`OPENAI_CHAT_MODEL`, default `gpt-4o-mini`) when `OPENAI_API_KEY` is set
-3. otherwise a weighted keyword + link-domain scorer, with diminishing returns per repeated
-   term so one word cannot dominate
-
-The scorer is the fallback but not a toy: on the sample seed it produces the same buckets a
-human would, and the classifier actually used is recorded in `data/index/meta.json` and shown
-in the site footer. Failures in step 2 fall back to step 3 rather than aborting the run.
-
----
+Assignment is by LLM (`OPENAI_CHAT_MODEL`, default `gpt-4o-mini`) when `OPENAI_API_KEY` is set,
+otherwise by a weighted keyword + domain scorer with diminishing returns per repeated term. The
+classifier actually used is recorded in `data/index/meta.json` and shown in the site footer.
+Failures in the LLM path fall back to the scorer rather than aborting the run.
 
 ## Vector backend
 
@@ -423,24 +430,24 @@ data/
   seed-parts/             chunked export + manifest, assembled into the seed
   prune-stats.json        upstream link-prune report for the current seed
   crawls/                 one JSON artifact per unique URL + index.json rollup
-  index/                  generated read model: bookmarks.json, vectors.json, meta.json
+  index/                  generated read model: links.json, vectors.json, meta.json
 scripts/
-  crawl.ts                polite crawler CLI
-  build-index.ts          enrich + tag + embed + persist
+  crawl.ts                polite crawler CLI (unwraps shorteners)
+  build-index.ts          dedupe URLs + tag + embed + persist
   ensure-index.ts         prebuild guard so a fresh clone always builds
   lib/                    crawler, HTML extraction, LLM classification, fs helpers
 tests/
   pipeline.test.ts        export adapter, tokenizer, robots, extraction, embeddings
 src/
-  app/                    routes: /, /search, /topics, /topics/[slug], /b/[id], /api/search
+  app/                    routes: /, /search, /topics, /topics/[slug], /s/[id], /api/search
   components/             cards, search box, topic chips, theme toggle, X embed
   lib/
-    types.ts              canonical data model (zod)
-    normalize.ts          X export → Bookmark adapter
+    types.ts              source Bookmark + LibraryLink models (zod)
+    normalize.ts          X export → Bookmark adapter (URL extraction)
     topics.ts             taxonomy + keyword classifier
     embeddings.ts         OpenAI + local hashed n-gram providers
     vector-store.ts       Upstash + local JSON stores
-    search.ts             BM25F + vector, score fusion
+    search.ts             BM25F over page fields + vector, score fusion
     library.ts            read model access
     text.ts               tokenizer, snippets, highlighting
 ```
@@ -452,8 +459,8 @@ without any backing service, and makes every pipeline change reviewable as a dif
 
 Worth stating plainly, since the shortcuts are deliberate rather than accidental. The read model
 is imported as a module, so it is loaded whole into each server bundle: fine for the hundreds-to
-low-thousands of bookmarks a person actually saves (the sample index is ~290 KB), uncomfortable
-somewhere past ~10k. The exit ramps, in the order they would be needed: move vectors to Upstash
+low-thousands of pages a person actually saves, uncomfortable somewhere past ~10k. The exit ramps,
+in the order they would be needed: move vectors to Upstash
 (already supported by a config change), then switch the read model from a static import to a
 traced `fs` read plus pagination, then move the enriched records into Postgres or SQLite and keep
 the JSON only as a build cache. Exact in-process cosine search is likewise linear in the corpus;

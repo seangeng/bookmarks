@@ -20,18 +20,18 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bookmarks.seangeng.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Sean Geng · Bookmarks",
-    template: "%s · Sean Geng Bookmarks",
+    default: "Sean Geng · Library",
+    template: "%s · Sean Geng Library",
   },
   description:
-    "A searchable library of Sean Geng's X bookmarks — crawled, topic-grouped, and vector-indexed.",
+    "A searchable library of the sites Sean Geng saves — crawled, topic-grouped, and vector-indexed.",
   openGraph: {
     type: "website",
     url: siteUrl,
-    siteName: "Sean Geng · Bookmarks",
-    title: "Sean Geng · Bookmarks",
+    siteName: "Sean Geng · Library",
+    title: "Sean Geng · Library",
     description:
-      "A searchable library of saved X posts and the pages behind them. Semantic search, topics, and full-text crawl archive.",
+      "A searchable library of saved sites: page titles, archived text, topics, and semantic search.",
   },
   twitter: { card: "summary_large_image", creator: "@seangeng" },
   robots: { index: true, follow: true },

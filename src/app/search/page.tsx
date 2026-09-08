@@ -2,7 +2,7 @@ import { Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { BookmarkCard } from "@/components/bookmark-card";
+import { LinkCard } from "@/components/link-card";
 import { SearchBox } from "@/components/search-box";
 import { getTopicSummaries } from "@/lib/library";
 import { search } from "@/lib/search";
@@ -20,15 +20,15 @@ export async function generateMetadata({
   return {
     title: q ? `“${q}”` : "Search",
     description: q
-      ? `Bookmarks matching “${q}” across post text, crawled pages, and topics.`
-      : "Search the bookmark library.",
+      ? `Saved sites matching “${q}” across page titles, archived text, and topics.`
+      : "Search the library of saved sites.",
     robots: { index: false, follow: true },
   };
 }
 
 const MATCH_LABELS: Record<string, string> = {
-  post: "post text",
-  link: "crawled page",
+  title: "title",
+  page: "page text",
   topic: "topic",
   semantic: "semantic",
 };
@@ -110,7 +110,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
         {response.results.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border px-4 py-12 text-center">
             <p className="text-sm text-muted-foreground">
-              No bookmarks matched {query ? `“${query}”` : "that filter"}.
+              No saved sites matched {query ? `“${query}”` : "that filter"}.
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
               Try a broader phrase, or{" "}
@@ -122,16 +122,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
           </div>
         ) : (
           response.results.map((result) => (
-            <BookmarkCard
-              key={result.bookmark.id}
-              bookmark={result.bookmark}
+            <LinkCard
+              key={result.link.id}
+              link={result.link}
               query={query}
-              evidence={result.matchedIn === "link" ? result.snippet : undefined}
-              evidenceSource={
-                result.matchedIn === "link"
-                  ? (result.bookmark.links[0]?.domain ?? "crawled page")
-                  : undefined
-              }
+              evidence={result.matchedIn === "page" ? result.snippet : undefined}
               badge={
                 <span className="font-mono text-[0.65rem] text-muted-foreground">
                   {MATCH_LABELS[result.matchedIn] ?? result.matchedIn}

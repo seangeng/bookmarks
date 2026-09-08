@@ -9,9 +9,10 @@ import { topicLabel } from "@/lib/topics";
 
 type InstantResult = {
   id: string;
-  author: { name: string; handle: string };
+  title: string;
+  url: string;
+  domain: string;
   topics: string[];
-  domain: string | null;
   snippet: string;
   matched_in: string;
 };
@@ -41,7 +42,7 @@ export function SearchBox({
   initialQuery = "",
   topic,
   size = "default",
-  placeholder = "Search bookmarks, links, and crawled pages…",
+  placeholder = "Search saved sites by title, text, or topic…",
   className,
   instant = true,
 }: SearchBoxProps) {
@@ -120,7 +121,7 @@ export function SearchBox({
     if (event.key === "Enter") {
       event.preventDefault();
       const chosen = open ? results[active] : undefined;
-      router.push(chosen ? `/b/${chosen.id}` : target(query));
+      router.push(chosen ? `/s/${chosen.id}` : target(query));
       setDismissed(true);
       return;
     }
@@ -169,7 +170,7 @@ export function SearchBox({
             placeholder={placeholder}
             autoComplete="off"
             role={instant ? "combobox" : undefined}
-            aria-label="Search bookmarks"
+            aria-label="Search saved sites"
             aria-expanded={instant ? open : undefined}
             aria-controls={instant ? listId : undefined}
             aria-autocomplete={instant ? "list" : undefined}
@@ -200,17 +201,23 @@ export function SearchBox({
           {results.map((result, index) => (
             <li key={result.id} role="option" aria-selected={index === active}>
               <a
-                href={`/b/${result.id}`}
+                href={`/s/${result.id}`}
                 onMouseEnter={() => setActive(index)}
                 className={cn(
                   "flex flex-col gap-1 border-b border-border/60 px-3.5 py-2.5 transition-colors last:border-b-0",
                   index === active ? "bg-muted" : "hover:bg-muted/60",
                 )}
               >
-                <span className="line-clamp-2 text-[0.82rem] leading-snug">{result.snippet}</span>
+                <span className="line-clamp-1 text-[0.85rem] leading-snug font-medium">
+                  {result.title}
+                </span>
+                {result.snippet && (
+                  <span className="line-clamp-1 text-[0.78rem] text-muted-foreground">
+                    {result.snippet}
+                  </span>
+                )}
                 <span className="flex items-center gap-2 font-mono text-[0.65rem] text-muted-foreground">
-                  <span>@{result.author.handle}</span>
-                  {result.domain && <span className="truncate">{result.domain}</span>}
+                  <span className="truncate">{result.domain}</span>
                   <span className="ml-auto shrink-0">
                     {result.topics.map(topicLabel).slice(0, 2).join(" · ")}
                   </span>

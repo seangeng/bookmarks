@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { getAllBookmarks, getTopicSummaries, indexMeta } from "@/lib/library";
+import { getAllLinks, getTopicSummaries, indexMeta } from "@/lib/library";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bookmarks.seangeng.com";
 
@@ -15,9 +15,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: indexedAt,
       priority: 0.7,
     })),
-    ...getAllBookmarks().map((bookmark) => ({
-      url: `${siteUrl}/b/${bookmark.id}`,
-      lastModified: new Date(bookmark.created_at),
+    ...getAllLinks().map((link) => ({
+      url: `${siteUrl}/s/${link.id}`,
+      lastModified: new Date(link.saved_at),
       priority: 0.5,
     })),
   ];

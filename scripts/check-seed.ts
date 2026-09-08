@@ -56,11 +56,19 @@ async function main(): Promise<void> {
   warn(empty, "have empty text");
   warn(
     linkless,
-    "carry only an unexpanded shortener, so there is nothing to crawl for them " +
-      "(fix upstream by including entities.urls[].expanded_url, or see " +
-      "`--expand-short-links` in the README)",
+    "carry only a shortener, so they contribute nothing until it is unwrapped " +
+      "(`npm run crawl` unwraps by default; upstream can avoid it entirely by " +
+      "including entities.urls[].expanded_url)",
   );
 
+  const noLinks = bookmarks.filter(
+    (bookmark) => bookmark.external_urls.length === 0 && bookmark.short_urls.length === 0,
+  ).length;
+  if (noLinks > 0) {
+    console.log(
+      `      ${noLinks} bookmarks have no link at all and never enter the library`,
+    );
+  }
   if (shortened.size > 0) {
     console.log(`      ${shortened.size} shortened link(s) referenced by the seed`);
   }

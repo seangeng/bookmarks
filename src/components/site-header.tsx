@@ -19,7 +19,7 @@ export function SiteHeader() {
             <Library className="size-3.5" />
           </span>
           <span className="font-heading text-base leading-none">
-            Bookmarks
+            Library
             <span className="hidden text-muted-foreground sm:inline"> · Sean Geng</span>
           </span>
         </Link>
