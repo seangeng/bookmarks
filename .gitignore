@@ -30,8 +30,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files — real values never get committed, the template always does
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel
@@ -42,6 +44,3 @@ next-env.d.ts
 
 # data artifacts are committed on purpose (see README) — ignore scratch only
 /data/**/*.tmp
-
-# local env
-.env*.local
