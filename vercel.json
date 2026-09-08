@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "headers": [
+    {
+      "source": "/api/search",
+      "headers": [
+        { "key": "cache-control", "value": "public, max-age=0, s-maxage=60, stale-while-revalidate=300" }
+      ]
+    }
+  ],
+  "redirects": [{ "source": "/topic/:slug", "destination": "/topics/:slug", "permanent": true }]
+}
