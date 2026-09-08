@@ -13,14 +13,25 @@ const STOP_WORDS = new Set([
 ]);
 
 export function tokenize(input: string): string[] {
-  return input
+  const raw = input
     .toLowerCase()
     .replace(/https?:\/\/\S+/g, " ")
     .replace(/[^a-z0-9+#.\-\s]/g, " ")
     .split(/\s+/)
     .map((token) => token.replace(/^[.\-]+|[.\-]+$/g, ""))
-    .filter((token) => token.length > 1 && token.length < 32)
-    .filter((token) => !STOP_WORDS.has(token));
+    .filter((token) => token.length > 1 && token.length < 32);
+
+  // Keep compounds whole *and* split them, so a search for "zero knowledge"
+  // still finds "zero-knowledge" (and vice versa).
+  const tokens: string[] = [];
+  for (const token of raw) {
+    if (!STOP_WORDS.has(token)) tokens.push(token);
+    if (!token.includes("-")) continue;
+    for (const part of token.split("-")) {
+      if (part.length > 1 && !STOP_WORDS.has(part)) tokens.push(part);
+    }
+  }
+  return tokens;
 }
 
 /** Light suffix folding so "embeddings" and "embedding" collide. */

@@ -21,9 +21,49 @@ import {
 
 const K1 = 1.4;
 const B = 0.75;
-const RRF_K = 60;
+
+/**
+ * Fusion.
+ *
+ * Rank-based fusion (RRF) is deliberately insensitive to score magnitude, which
+ * is wrong here: a query like "error budgets" has one obviously correct answer
+ * and a long tail of documents that merely contain the word "error". So each
+ * leg is normalized instead — keyword scores against the best hit in the same
+ * query, cosine similarity against a provider-calibrated window — and the two
+ * are added.
+ *
+ * The calibration window is what keeps the local provider honest: its hashed
+ * n-gram vectors are lexical rather than semantic, and a 0.06 cosine is weak
+ * evidence, so it contributes a nudge. Real embeddings clear the window and
+ * become a first-class ranking signal.
+ */
 const KEYWORD_WEIGHT = 1;
-const VECTOR_WEIGHT = 1.15;
+
+const VECTOR_CALIBRATION = {
+  local: { low: 0.04, high: 0.3, weight: 0.8 },
+  openai: { low: 0.22, high: 0.7, weight: 1.1 },
+} as const;
+
+/** Vector hits far weaker than the best one are noise, not recall. */
+const VECTOR_RELATIVE_FLOOR = 0.4;
+const VECTOR_ABSOLUTE_FLOOR = 0.02;
+/** Confidence a vector-only hit must clear to outrank nothing at all. */
+const VECTOR_ONLY_MIN_CONFIDENCE = 0.12;
+
+const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
+
+/**
+ * Light suffix folding only gets us so far: "accessible" and "accessibility"
+ * survive it as different terms. So every long token is additionally indexed
+ * under a truncated prefix at reduced weight, which buys morphological recall
+ * without the false positives of full prefix matching.
+ */
+const PREFIX_LENGTH = 6;
+const PREFIX_WEIGHT = 0.35;
+
+function prefixKey(token: string): string | null {
+  return token.length > PREFIX_LENGTH ? `~${token.slice(0, PREFIX_LENGTH)}` : null;
+}
 
 export type SearchMode = "hybrid" | "keyword" | "recent";
 
@@ -54,31 +94,78 @@ type KeywordIndex = {
   postings: Map<string, Map<number, number>>;
   lengths: number[];
   averageLength: number;
+  /** Text of the high-signal fields, for the phrase bonus. */
+  headlines: string[];
 };
 
+/**
+ * BM25F-style field weights. A term in the post itself or in a linked page's
+ * title matters much more than the same term buried in crawled body text.
+ */
+const FIELD_WEIGHTS = {
+  post: 3.2,
+  headline: 2.4,
+  topics: 2,
+  author: 1.4,
+  body: 1,
+} as const;
+
 let keywordIndex: KeywordIndex | null = null;
+
+function headlineOf(bookmark: IndexedBookmark): string {
+  return bookmark.links
+    .map((link) =>
+      [link.crawl?.title, link.crawl?.description, link.domain].filter(Boolean).join(" "),
+    )
+    .join(" ");
+}
 
 function buildKeywordIndex(): KeywordIndex {
   const postings = new Map<string, Map<number, number>>();
   const lengths: number[] = [];
+  const headlines: string[] = [];
 
   bookmarks.forEach((bookmark, position) => {
-    const tokens = terms(bookmark.search_text);
-    lengths[position] = tokens.length || 1;
-    for (const token of tokens) {
-      let posting = postings.get(token);
+    const headline = headlineOf(bookmark);
+    headlines[position] = `${bookmark.text} ${headline}`;
+
+    // `search_text` already contains every field, so it acts as the body
+    // baseline and the rest are additive boosts on top of it.
+    const fields: [string, number][] = [
+      [bookmark.search_text, FIELD_WEIGHTS.body],
+      [bookmark.text, FIELD_WEIGHTS.post],
+      [headline, FIELD_WEIGHTS.headline],
+      [bookmark.topics.join(" ").replace(/-/g, " "), FIELD_WEIGHTS.topics],
+      [`${bookmark.author.name} ${bookmark.author.handle}`, FIELD_WEIGHTS.author],
+    ];
+
+    const add = (key: string, weight: number) => {
+      let posting = postings.get(key);
       if (!posting) {
         posting = new Map();
-        postings.set(token, posting);
+        postings.set(key, posting);
       }
-      posting.set(position, (posting.get(position) ?? 0) + 1);
+      posting.set(position, (posting.get(position) ?? 0) + weight);
+    };
+
+    let length = 0;
+    for (const [text, weight] of fields) {
+      const tokens = terms(text);
+      if (weight === FIELD_WEIGHTS.body) length = tokens.length;
+      for (const token of tokens) {
+        add(token, weight);
+        const prefix = prefixKey(token);
+        if (prefix) add(prefix, weight * PREFIX_WEIGHT);
+      }
     }
+    lengths[position] = length || 1;
   });
 
-  const total = lengths.reduce((sum, length) => sum + length, 0);
+  const total = lengths.reduce((sum, value) => sum + value, 0);
   return {
     postings,
     lengths,
+    headlines,
     averageLength: bookmarks.length > 0 ? total / bookmarks.length : 1,
   };
 }
@@ -96,24 +183,37 @@ function keywordSearch(query: string): { position: number; score: number }[] {
   const documentCount = bookmarks.length;
   const scores = new Map<number, number>();
 
-  for (const term of queryTerms) {
-    const posting = index.postings.get(term);
-    if (!posting) continue;
+  const scoreTerm = (key: string, factor: number) => {
+    const posting = index.postings.get(key);
+    if (!posting) return;
     const idf = Math.log(1 + (documentCount - posting.size + 0.5) / (posting.size + 0.5));
 
     for (const [position, frequency] of posting) {
       const length = index.lengths[position];
       const denominator = frequency + K1 * (1 - B + (B * length) / index.averageLength);
-      scores.set(position, (scores.get(position) ?? 0) + idf * ((frequency * (K1 + 1)) / denominator));
+      const contribution = idf * ((frequency * (K1 + 1)) / denominator) * factor;
+      scores.set(position, (scores.get(position) ?? 0) + contribution);
     }
+  };
+
+  const seen = new Set<string>();
+  for (const term of queryTerms) {
+    if (seen.has(term)) continue;
+    seen.add(term);
+    scoreTerm(term, 1);
+    const prefix = prefixKey(term);
+    if (prefix) scoreTerm(prefix, PREFIX_WEIGHT);
   }
 
-  // Exact-phrase hits are worth more than the sum of their terms.
+  // Exact-phrase hits are worth more than the sum of their terms, and a phrase
+  // in the post or a page title is worth more than one in the body.
   const phrase = query.trim().toLowerCase();
   if (phrase.length > 4) {
     for (const [position, score] of scores) {
-      if (bookmarks[position].search_text.toLowerCase().includes(phrase)) {
-        scores.set(position, score * 1.35);
+      if (index.headlines[position].toLowerCase().includes(phrase)) {
+        scores.set(position, score * 1.6);
+      } else if (bookmarks[position].search_text.toLowerCase().includes(phrase)) {
+        scores.set(position, score * 1.25);
       }
     }
   }
@@ -250,33 +350,57 @@ export async function search(
     .slice(0, candidates);
   const { matches: vectorHits, notice } = await vectorSearch(query, topic, candidates);
 
-  const fused = new Map<
-    string,
-    { score: number; keywordRank?: number; vectorRank?: number; vectorScore?: number }
-  >();
+  type Fused = {
+    score: number;
+    keywordRank?: number;
+    vectorRank?: number;
+    vectorScore?: number;
+    confidence?: number;
+  };
+  const fused = new Map<string, Fused>();
 
+  const topKeywordScore = keywordHits[0]?.score ?? 0;
   keywordHits.forEach((hit, rank) => {
     const id = bookmarks[hit.position].id;
     const entry = fused.get(id) ?? { score: 0 };
-    entry.score += KEYWORD_WEIGHT / (RRF_K + rank + 1);
+    entry.score += topKeywordScore > 0 ? (KEYWORD_WEIGHT * hit.score) / topKeywordScore : 0;
     entry.keywordRank = rank + 1;
     fused.set(id, entry);
   });
 
+  const calibration =
+    VECTOR_CALIBRATION[indexMeta.embedding.provider] ?? VECTOR_CALIBRATION.openai;
+  const topVectorScore = vectorHits[0]?.score ?? 0;
+  const vectorCutoff = Math.max(VECTOR_ABSOLUTE_FLOOR, topVectorScore * VECTOR_RELATIVE_FLOOR);
+
   vectorHits.forEach((hit, rank) => {
-    // Near-zero cosine similarity is noise, not a match.
-    if (hit.score <= 0.05) return;
+    if (hit.score < vectorCutoff) return;
+    const confidence = clamp01(
+      (hit.score - calibration.low) / (calibration.high - calibration.low),
+    );
     const entry = fused.get(hit.id) ?? { score: 0 };
-    entry.score += VECTOR_WEIGHT / (RRF_K + rank + 1);
+    entry.score += calibration.weight * confidence;
     entry.vectorRank = rank + 1;
     entry.vectorScore = hit.score;
+    entry.confidence = confidence;
     fused.set(hit.id, entry);
   });
 
+  const byId = new Map(bookmarks.map((bookmark) => [bookmark.id, bookmark]));
+
   const ranked = [...fused.entries()]
     .map(([id, entry]) => {
-      const bookmark = bookmarks.find((candidate) => candidate.id === id);
-      return bookmark && inTopic(bookmark) ? { bookmark, ...entry } : null;
+      const bookmark = byId.get(id);
+      if (!bookmark || !inTopic(bookmark)) return null;
+      // A vector-only hit needs real semantic confidence to earn a slot; below
+      // that it is just the nearest of fifty unrelated things.
+      if (
+        entry.keywordRank === undefined &&
+        (entry.confidence ?? 0) < VECTOR_ONLY_MIN_CONFIDENCE
+      ) {
+        return null;
+      }
+      return { bookmark, ...entry };
     })
     .filter((entry): entry is NonNullable<typeof entry> => entry !== null)
     .sort((a, b) => b.score - a.score);

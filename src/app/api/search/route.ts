@@ -36,6 +36,8 @@ export async function GET(request: Request) {
         snippet: result.snippet,
         matched_in: result.matchedIn,
         score: Math.round(result.score * 1e4) / 1e4,
+        keyword_rank: result.keywordRank ?? null,
+        vector_rank: result.vectorRank ?? null,
         vector_score:
           result.vectorScore === undefined ? null : Math.round(result.vectorScore * 1e3) / 1e3,
       })),

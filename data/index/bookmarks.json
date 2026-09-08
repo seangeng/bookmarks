@@ -41,9 +41,9 @@
       "1959402277440000004",
       "1958771199550000005",
       "1953004411440000010",
-      "1960118822330000003",
       "1917882200990000042",
-      "1961205511220000002"
+      "1960118822330000003",
+      "1947881122990000015"
     ],
     "crawled_words": 294
   },
@@ -65,8 +65,8 @@
     "media": [],
     "topic_scores": {
       "ai-ml": 1,
-      "reading": 0.133,
-      "ui-design": 0.109
+      "reading": 0.118,
+      "ui-design": 0.098
     },
     "links": [
       {
@@ -90,9 +90,9 @@
       "1929004466880000032",
       "1932331100550000029",
       "1917882200990000042",
-      "1962011044880000001",
       "1931220044660000030",
-      "1949005566880000014"
+      "1962011044880000001",
+      "1951220099660000012"
     ],
     "crawled_words": 733
   },
@@ -138,10 +138,10 @@
     "related": [
       "1962011044880000001",
       "1953004411440000010",
-      "1958771199550000005",
       "1917882200990000042",
       "1956544778990000007",
-      "1909004466880000050"
+      "1909004466880000050",
+      "1929004466880000032"
     ],
     "crawled_words": 848
   },
@@ -163,8 +163,8 @@
     "media": [],
     "topic_scores": {
       "ai-ml": 1,
-      "reading": 0.07,
-      "ui-design": 0.062
+      "reading": 0.064,
+      "ui-design": 0.056
     },
     "links": [
       {
@@ -190,7 +190,7 @@
       "1956544778990000007",
       "1942331100550000020",
       "1917882200990000042",
-      "1953004411440000010"
+      "1931220044660000030"
     ],
     "crawled_words": 820
   },
@@ -212,7 +212,7 @@
     "media": [],
     "topic_scores": {
       "ai-ml": 1,
-      "reading": 0.22
+      "reading": 0.2
     },
     "links": [
       {
@@ -235,8 +235,8 @@
     "related": [
       "1962011044880000001",
       "1959402277440000004",
-      "1960118822330000003",
       "1929004466880000032",
+      "1943442266440000019",
       "1956544778990000007",
       "1947881122990000015"
     ],
@@ -280,12 +280,12 @@
     "summary": "Half the embedding cluster screenshots on this timeline are making exactly this mistake. Perplexity is a knob, not a truth.",
     "search_text": "Half the embedding cluster screenshots on this timeline are making exactly this mistake. Perplexity is a knob, not a truth.\n@distillfan Noor Haddad\ndistill.pub\nHow to Use t-SNE Effectively\nAlthough extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.\nHow to Use t-SNE Effectively\n\nAlthough extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading. By exploring how it behaves in simple cases, we can learn to use it more effectively.\n\nA popular method for exploring high-dimensional data is something called t-SNE, introduced by van der Maaten and Hinton in 2008 [1]. The technique has become widespread in the field of machine learning, since it has an almost magical ability to create compelling two-dimensonal “maps” from data with hundreds or even thousands of dimensions. Although impressive, these images can be tempting to misread. The purpose of this note is to prevent some common misreadings.\n\nWe’ll walk through a series of simple examples to illustrate what t-SNE diagrams can and cannot show. The t-SNE technique really is useful—but only if you know how to interpret it.\n\nBefore diving in: if you haven’t encountered t-SNE before, here’s what you need to know about the math behind it. The goal is to take a set of points in a high-dimensional space and find a faithful representation of those points in a lower-dimensional space, typically the 2D plane. The algorithm is non-linear and adapts to the underlying data, performing different transformations on different regions. Those differences can be a major source of confusion.\n\nA second feature of t-SNE is a tuneable parameter, “perplexity,” which says (loosely) how to balance attention between local and global aspects of your data. The parameter is, in a sense, a guess about the number of close neighbors each point has. The perplexity value has a complex effect on the resulting pictures. The original paper says, “The performance of SNE is fairly robust to changes in the perplexity, and typical values are between 5 and 50.” But the story is more nuanced than that. Getting the most from t-SNE may mean analyzing multiple plots with different perplexities.\n\nThat’s not the end of the complications. The t-SNE algorithm doesn’t always produce similar output on successive runs, for example, and there are additional hyperparameters related to the optimization process.\n\n1. Those hyperparameters really matter\n\nLet’s start with the “hello world” of t-SNE: a data set of two widely separated clusters. To make things as simple as possible, we’ll consider clusters in a 2D plane, as shown in the lefthand diagram. (For clarity, the two clusters are color coded.) The diagrams at right show t-SNE plots for five different perplexity values.\n\nWith perplexity values in the range (5 - 50) suggested by van der Maaten & Hinton, the diagrams do show these clusters, although with very different shapes. Outside that range, things get a little weird. With perplexity 2, local variations dominate. The image for perplexity 100, with merged clusters, illustrates a pitfall: for the algorithm to operate properly, the perplexity really should be smaller than the number of points. Implementations can give unexpected behavior otherwise.\n\nEach of the plots above was made with 5,000 iterations with a learning rate (often called “epsilon”) of 10, and had reached a point of stability by step 5,000. How much of a difference do those values make? In our experience, the most important thing is to iterate until reaching a stable configuration.\n\nThe images above show five different runs at perplexity 30. The first four were stopped before stability. After 10, 20, 60, and 120 steps you can see layouts with seeming 1-dimensional and even pointlike images of the clusters. If you see a t-SNE plot with strange “pinched” shapes, chances are the process was stopped too early. Unfortunately, there’s no fixed number of steps that yields a stable result. Different data sets can require different numbers of iterations to converge.\n\nAnother natural question is whether different runs with the same hyperparameters produce the same results. In this simple two-cluster example, and most of the others we discuss, multiple runs give the same global shape. Certain data sets, however, yield markedly different diagrams on different runs; we’ll give an example of one of these later.\n\nFrom now on, unless otherwise stated, we’ll show results from 5,000 iterations. That’s generally enough for convergence in the (relatively small) examples in this essay. We’ll keep showing a range of perplexities, however, since that seems to make a big difference in every case.\n\n2. Cluster sizes in a t-SNE plot mean nothing\n\nSo far, so good. But what if the two clusters have different standard deviations, and so different sizes? (By size we mean bounding box measurements, not number of points.) Below are t-SNE plots for a mixture of Gaussians in plane, where one is 10 times as dispersed as the other.\n\nSurprisingly, the two clusters look about same size in the t-SNE plots. What’s going on? The t-SNE algorithm adapts its notion of “distance” to regional density variations in the data set. As a result, it naturally expands dense clusters, and contrac\nai ml",
     "related": [
-      "1921220044660000039",
       "1909004466880000050",
+      "1921220044660000039",
+      "1945661188220000017",
       "1934551022330000027",
-      "1940118822770000022",
-      "1927882200990000033",
-      "1923440066440000037"
+      "1941220044660000021",
+      "1919004466880000041"
     ],
     "crawled_words": 808
   },
@@ -331,10 +331,10 @@
     "related": [
       "1917882200990000042",
       "1959402277440000004",
-      "1958771199550000005",
       "1955330112220000008",
+      "1962011044880000001",
       "1920118822770000040",
-      "1962011044880000001"
+      "1949005566880000014"
     ],
     "crawled_words": 907
   },
@@ -380,8 +380,8 @@
       "1953004411440000010",
       "1956544778990000007",
       "1962011044880000001",
-      "1934551022330000027",
-      "1958771199550000005"
+      "1912331100550000047",
+      "1934551022330000027"
     ],
     "crawled_words": 797
   },
@@ -405,8 +405,8 @@
       "ai-ml": 1,
       "infra": 0.167,
       "ui-design": 0.083,
-      "reading": 0.047,
-      "devtools": 0.028
+      "devtools": 0.047,
+      "reading": 0.047
     },
     "links": [
       {
@@ -428,10 +428,10 @@
     "related": [
       "1921220044660000039",
       "1951220099660000012",
-      "1958771199550000005",
-      "1960118822330000003",
       "1915662088220000044",
-      "1950118833770000013"
+      "1956544778990000007",
+      "1933440066440000028",
+      "1960118822330000003"
     ],
     "crawled_words": 205
   },
@@ -457,11 +457,11 @@
     "search_text": "Note to self: every RAG failure I've debugged this year was a chunking or retrieval-eval problem, not a model problem. Stop swapping models first.\n@seangeng Sean Geng\nai ml",
     "related": [
       "1962011044880000001",
-      "1960118822330000003",
       "1955330112220000008",
       "1917882200990000042",
-      "1959402277440000004",
-      "1914551022330000045"
+      "1960118822330000003",
+      "1914551022330000045",
+      "1959402277440000004"
     ],
     "crawled_words": 0
   },
@@ -483,7 +483,7 @@
     "media": [],
     "topic_scores": {
       "ai-ml": 1,
-      "devtools": 0.076,
+      "devtools": 0.075,
       "crypto": 0.036
     },
     "links": [
@@ -505,12 +505,12 @@
     "summary": "Cosine vs dot product for embeddings, and when normalization actually changes your rankings. Bookmarking because I re-derive this every six months.",
     "search_text": "Cosine vs dot product for embeddings, and when normalization actually changes your rankings. Bookmarking because I re-derive this every six months.\n@vectorpilled Ivy Chaudhry\nplatform.openai.com\nVector embeddings | OpenAI API\nLearn how to turn text into numbers, unlocking use cases like search, clustering, and more with OpenAI API embeddings.\nOpenAI’s text embeddings measure the relatedness of text strings. Embeddings are commonly used for:\n\nSearch (where results are ranked by relevance to a query string)\n\nClustering (where text strings are grouped by similarity)\n\nRecommendations (where items with related text strings are recommended)\n\nAnomaly detection (where outliers with little relatedness are identified)\n\nDiversity measurement (where similarity distributions are analyzed)\n\nClassification (where text strings are classified by their most similar label)\n\nAn embedding is a vector (list) of floating point numbers. The distance between two vectors measures their relatedness. Small distances suggest high relatedness and large distances suggest low relatedness.\n\nVisit our pricing page to learn about embeddings pricing. Requests are billed based on the number of tokens in the input.\n\nTo get an embedding, send your text string to the embeddings API endpoint along with the embedding model name (e.g., text-embedding-3-small):\n\nimport OpenAI from \"openai\"; const openai = new OpenAI(); const embedding = await openai.embeddings.create({ model: \"text-embedding-3-small\", input: \"Your text string goes here\", encoding_format: \"float\", }); console.log(embedding);\n\nfrom openai import OpenAI client = OpenAI() response = client.embeddings.create( input=\"Your text string goes here\", model=\"text-embedding-3-small\" ) print(response.data[0].embedding)\n\npackage main import ( \"context\" \"fmt\" \"github.com/openai/openai-go/v3\" ) func main() { client := openai.NewClient() embedding, err := client.Embeddings.New(context.Background(), openai.EmbeddingNewParams{ Model: openai.EmbeddingModelTextEmbedding3Small, Input: openai.EmbeddingNewParamsInputUnion{ OfString: openai.String(\"Your text string goes here.\"), }, }) if err != nil { panic(err) } fmt.Println(len(embedding.Data[0].Embedding)) }\n\nimport com.openai.client.OpenAIClient; import com.openai.client.okhttp.OpenAIOkHttpClient; import com.openai.models.embeddings.EmbeddingCreateParams; var embedding = client .embeddings() .create( EmbeddingCreateParams.builder() .model(\"text-embedding-3-small\") .input(\"The food was delicious and the waiter...\") .build()); System.out.println(embedding.data().get(0).embedding());\n\nusing OpenAI.Embeddings; string key = Environment.GetEnvironmentVariable(\"OPENAI_API_KEY\")!; string model = \"text-embedding-3-small\"; EmbeddingClient client = new(model, key); OpenAIEmbedding embedding = await client.GenerateEmbeddingAsync( \"The food was delicious and the waiter was friendly.\" ); Console.WriteLine($\"Dimensions: {embedding.ToFloats().Length}\");\n\nrequire \"openai\" client = OpenAI::Client.new response = client.embeddings.create( model: \"text-embedding-3-small\", input: \"The food was delicious and the waiter...\" ) puts(response.data.fetch(0).embedding)\n\ncurl https://api.openai.com/v1/embeddings \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer $OPENAI_API_KEY\" \\ -d '{ \"input\": \"Your text string goes here\", \"model\": \"text-embedding-3-small\" }'\n\nThe response contains the embedding vector (list of floating point numbers) along with some additional metadata. You can extract the embedding vector, save it in a vector database, and use for many different use cases.\n\n{ \"object\": \"list\", \"data\": [ { \"object\": \"embedding\", \"index\": 0, \"embedding\": [ -0.006929283495992422, -0.005336422007530928, -4.547132266452536e-5, -0.024047505110502243 ] } ], \"model\": \"text-embedding-3-small\", \"usage\": { \"prompt_tokens\": 5, \"total_tokens\": 5 } }\n\nBy default, the length of the embedding vector is 1536 for text-embedding-3-small or 3072 for text-embedding-3-large. To reduce the embedding’s dimensions without losing its concept-representing properties, pass in the dimensions parameter. Find more detail on embedding dimensions in the embedding use case section.\n\nOpenAI offers two powerful third-generation embedding model (denoted by -3 in the model ID). Read the embedding v3 announcement blog post for more details.\n\nUsage is priced per input token. Below is an example of pricing pages of text per US dollar (assuming ~800 tokens per page):\n\nHere we show some representative use cases, using the Amazon fine-food reviews dataset.\n\nObtaining the embeddings\n\nThe dataset contains a total of 568,454 food reviews left by Amazon users up to October 2012. We use a subset of the 1000 most recent reviews for illustration purposes. The reviews are in English and tend to be positive or negative. Each review has a ProductId, UserId, Score, review title (Summary) and review body (Text). For example:\n\nI have bought several of the Vitality canned…\n\nProduct arrived labeled as Jumbo Salted Peanut…\n\nBelow, we combine the review summary and review text into a single combined text. The model encodes this combined text and output a single vector embedding.\n\nimport { mkdir, writeFile } from \"node:fs/promises\"; import OpenAI from \"openai\"; const client = new OpenAI(); const reviews = [\"A rich cup of coffee.\", \"A bright herbal tea.\"]; const resp\nai ml",
     "related": [
+      "1950118833770000013",
       "1909004466880000050",
       "1956544778990000007",
-      "1943442266440000019",
-      "1917882200990000042",
       "1934551022330000027",
-      "1940118822770000022"
+      "1940118822770000022",
+      "1943442266440000019"
     ],
     "crawled_words": 621
   },
@@ -555,11 +555,11 @@
     "search_text": "Nielsen's ten usability heuristics, 1994, still undefeated. Most \"AI redesign\" mockups fail three of them at once.\n@quietcraft Jules Marchetti\nnngroup.com\n10 Usability Heuristics for User Interface Design\nJakob Nielsen's 10 principles for interaction design. They are called \"heuristics\" because they are broad rules of thumb and not specific usability guidelines.\n10 Usability Heuristics for User Interface Design\n\nApril 24, 1994 · Last reviewed Jan. 30, 2024\n\nThank you to Kelley Gordon for designing the visuals and posters included in this article.\n\nThank you to Kate Moran and Feifei Liu for updating the heuristic names, descriptions, and examples.\n\n1: Visibility of System Status\n\n2: Match Between the System and the Real World\n\n3: User Control and Freedom\n\n4: Consistency and Standards\n\n6: Recognition Rather than Recall\n\n7: Flexibility and Efficiency of Use\n\n8: Aesthetic and Minimalist Design\n\n9: Help Users Recognize, Diagnose, and Recover from Errors\n\n10: Help and Documentation\n\nFree 10 Heuristics Poster\n\nThe design should always keep users informed about what is going on, through appropriate feedback within a reasonable amount of time.\n\nWhen users know the current system status, they learn the outcome of their prior interactions and determine next steps. Predictable interactions create trust in the product as well as the brand.\n\nCommunicate clearly to users what the system’s state is — no action with consequences to users should be taken without informing them.\n\nPresent feedback to the user as quickly as possible (ideally, immediately).\n\nBuild trust through open and continuous communication.\n\nFull article: Visibility of System Status\n\n3-minute video about the Visibility Heuristic\n\nThe design should speak the users' language. Use words, phrases, and concepts familiar to the user, rather than internal jargon. Follow real-world conventions, making information appear in a natural and logical order.\n\nThe way you should design depends very much on your specific users. Terms, concepts, icons, and images that seem perfectly clear to you and your colleagues may be unfamiliar or confusing to your users.\n\nWhen a design’s controls follow real-world conventions and correspond to desired outcomes (called natural mapping), it’s easier for users to learn and remember how the interface works. This helps to build an experience that feels intuitive.\n\nEnsure that users can understand meaning without having to go look up a word’s definition.\n\nNever assume your understanding of words or concepts will match that of your users.\n\nUser research will uncover your users' familiar terminology, as well as their mental models around important concepts.\n\nFull article: Match Between the System and the Real World\n\n2-minute video: Match Between the System and the Real World\n\nUsers often perform actions by mistake. They need a clearly marked \"emergency exit\" to leave the unwanted action without having to go through an extended process.\n\nWhen it's easy for people to back out of a process or undo an action, it fosters a sense of freedom and confidence. Exits allow users to remain in control of the system and avoid getting stuck and feeling frustrated.\n\nShow a clear way to exit the current interaction, like a Cancel button.\n\nMake sure the exit is clearly labeled and discoverable.\n\nFull article: User Control and Freedom\n\n2-minute video: User Control and Freedom\n\nUsers should not have to wonder whether different words, situations, or actions mean the same thing. Follow platform and industry conventions.\n\nJakob's Law states that people spend most of their time using digital products other than yours. Users’ experiences with those other products set their expectations. Failing to maintain consistency may increase the users' cognitive load by forcing them to learn something new.\n\nImprove learnability by maintaining both types of consistency: internal and external.\n\nMaintain consistency within a single product or a family of products (internal consistency).\n\nFollow established industry conventions (external consistency).\n\nFull article: Consistency and Standards\n\n3-minute video: Consistency and Standards\n\nGood error messages are important, but the best designs carefully prevent problems from occurring in the first place. Either eliminate error-prone conditions, or check for them and present users with a confirmation option before they commit to the action.\n\nThere are two types of errors: slips and mistakes. Slips are unconscious errors caused by inattention. Mistakes are conscious errors based on a mismatch between the user’s mental model and the design.\n\nPrioritize your effort: Prevent high-cost errors first, then little frustrations.\n\nAvoid slips by providing helpful constraints and good defaults.\n\nPrevent mistakes by removing memory burdens, supporting undo, and warning your users.\n\nFull article: Preventing User Errors\n\n3-minute video: Error Prevention\n\nMinimize the user's memory load by making elements, actions, and options visible. The user should not have to remember information from one part of the interface to another. Information required to use the design (e.g. field labels or menu items) should be visible or easily retrievable when needed.\n\nHumans have limited short-term memories. Interfaces that promote recognition reduce the amount of cognitive effort required from users.\n\nLet people recognize info\nui design",
     "related": [
       "1950118833770000013",
-      "1961205511220000002",
       "1934551022330000027",
+      "1949005566880000014",
       "1937882200990000024",
-      "1915662088220000044",
-      "1941220044660000021"
+      "1961205511220000002",
+      "1915662088220000044"
     ],
     "crawled_words": 759
   },
@@ -601,12 +601,12 @@
     "summary": "The utility-first mental model finally clicked for me reading this page rather than any of the hot takes about it.",
     "search_text": "The utility-first mental model finally clicked for me reading this page rather than any of the hot takes about it.\n@utilityfirst Rafa Okonkwo\ntailwindcss.com\nStyling with utility classes - Core concepts\nBuilding complex components from a constrained set of primitive utilities.\nYou style things with Tailwind by combining many single-purpose presentational classes (utility classes) directly in your markup:\n\n<div class=\"mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10\"> <img class=\"size-12 shrink-0\" src=\"/img/logo.svg\" alt=\"ChitChat Logo\" /> <div> <div class=\"text-xl font-medium text-black dark:text-white\">ChitChat</div> <p class=\"text-gray-500 dark:text-gray-400\">You have a new message!</p> </div></div>\n\nFor example, in the UI above we've used:\n\nThe display and padding utilities (flex, shrink-0, and p-6) to control the overall layout\n\nThe max-width and margin utilities (max-w-sm and mx-auto) to constrain the card width and center it horizontally\n\nThe background-color, border-radius, and box-shadow utilities (bg-white, rounded-xl, and shadow-lg) to style the card's appearance\n\nThe width and height utilities (size-12) to set the width and height of the logo image\n\nThe gap utilities (gap-x-4) to handle the spacing between the logo and the text\n\nThe font-size, color, and font-weight utilities (text-xl, text-black, font-medium, etc.) to style the card text\n\nStyling things this way contradicts a lot of traditional best practices, but once you try it you'll quickly notice some really important benefits:\n\nYou get things done faster — you don't spend any time coming up with class names, making decisions about selectors, or switching between HTML and CSS files, so your designs come together very fast.\n\nMaking changes feels safer — adding or removing a utility class to an element only ever affects that element, so you never have to worry about accidentally breaking something another page that's using the same CSS.\n\nMaintaining old projects is easier — changing something just means finding that element in your project and changing the classes, not trying to remember how all of that custom CSS works that you haven't touched in six months.\n\nYour code is more portable — since both the structure and styling live in the same place, you can easily copy and paste entire chunks of UI around, even between different projects.\n\nYour CSS stops growing — since utility classes are so reusable, your CSS doesn't continue to grow linearly with every new feature you add to a project.\n\nThese benefits make a big difference on small projects, but they are even more valuable for teams working on long-running projects at scale.\n\nWhy not just use inline styles?\n\nA common reaction to this approach is wondering, “isn’t this just inline styles?” and in some ways it is — you’re applying styles directly to elements instead of assigning them a class name and then styling that class.\n\nBut using utility classes has many important advantages over inline styles, for example:\n\nDesigning with constraints — using inline styles, every value is a magic number. With utilities, you’re choosing styles from a predefined design system, which makes it much easier to build visually consistent UIs.\n\nHover, focus, and other states — inline styles can’t target states like hover or focus, but Tailwind’s state variants make it easy to style those states with utility classes.\n\nMedia queries — you can’t use media queries in inline styles, but you can use Tailwind’s responsive variants to build fully responsive interfaces easily.\n\nThis component is fully responsive and includes a button with hover and active styles, and is built entirely with utility classes:\n\n<div class=\"flex flex-col gap-2 p-8 sm:flex-row sm:items-center sm:gap-6 sm:py-4 ...\"> <img class=\"mx-auto block h-24 rounded-full sm:mx-0 sm:shrink-0\" src=\"/img/erin-lindford.jpg\" alt=\"\" /> <div class=\"space-y-2 text-center sm:text-left\"> <div class=\"space-y-0.5\"> <p class=\"text-lg font-semibold text-black\">Erin Lindford</p> <p class=\"font-medium text-gray-500\">Product Engineer</p> </div> <button class=\"border-purple-200 text-purple-600 hover:border-transparent hover:bg-purple-600 hover:text-white active:bg-purple-700 ...\"> Message </button> </div></div>\n\nThinking in utility classes\n\nStyling hover and focus states\n\nTo style an element on states like hover or focus, prefix any utility with the state you want to target, for example hover:bg-sky-700:\n\nHover over this button to see the background color change\n\n<button class=\"bg-sky-500 hover:bg-sky-700 ...\">Save changes</button>\n\nThese prefixes are called variants in Tailwind, and they only apply the styles from a utility class when the condition for that variant matches.\n\nHere's what the generated CSS looks like for the hover:bg-sky-700 class:\n\n.hover\\:bg-sky-700 { &:hover { background-color: var(--color-sky-700); }}\n\nNotice how this class does nothing unless the element is hovered? Its only job is to provide hover styles — nothing else.\n\nThis is different from how you'd write traditional CSS, where a single class would usually provide the styles for many states:\n\n<button class=\"btn\">Save changes</button><style>\nui design",
     "related": [
+      "1952661177550000011",
       "1951220099660000012",
       "1912331100550000047",
-      "1937882200990000024",
-      "1915662088220000044",
       "1947881122990000015",
-      "1954118844330000009"
+      "1915662088220000044",
+      "1960118822330000003"
     ],
     "crawled_words": 712
   },
@@ -628,8 +628,8 @@
     "media": [],
     "topic_scores": {
       "ui-design": 1,
-      "ai-ml": 0.151,
-      "devtools": 0.127
+      "ai-ml": 0.164,
+      "devtools": 0.123
     },
     "links": [
       {
@@ -655,7 +655,7 @@
       "1955330112220000008",
       "1942331100550000020",
       "1941220044660000021",
-      "1920118822770000040"
+      "1947881122990000015"
     ],
     "crawled_words": 545
   },
@@ -677,8 +677,8 @@
     "media": [],
     "topic_scores": {
       "ui-design": 1,
-      "infra": 0.164,
-      "reading": 0.1
+      "infra": 0.177,
+      "reading": 0.097
     },
     "links": [
       {
@@ -701,10 +701,10 @@
     "related": [
       "1962011044880000001",
       "1949005566880000014",
-      "1958771199550000005",
       "1943442266440000019",
-      "1930118822770000031",
-      "1946770044110000016"
+      "1931220044660000030",
+      "1927882200990000033",
+      "1917882200990000042"
     ],
     "crawled_words": 832
   },
@@ -752,7 +752,7 @@
       "1936771144110000025",
       "1942331100550000020",
       "1947881122990000015",
-      "1940118822770000022"
+      "1953004411440000010"
     ],
     "crawled_words": 14
   },
@@ -796,11 +796,11 @@
     "search_text": "Pick a type scale before you pick a color palette. This tool makes the tradeoff obvious in about ten seconds.\n@typeandspace Ana Beltrán\ntype-scale.com\nTypescale - Create stunning typography, generate CSS, and find inspiration.\nTypescale Login Typescale New Board My Boards Bookmarks Likes Explore Login Support Terms Privacy © Typescale\nui design",
     "related": [
       "1937882200990000024",
-      "1929004466880000032",
       "1951220099660000012",
+      "1929004466880000032",
+      "1934551022330000027",
       "1914551022330000045",
-      "1933440066440000028",
-      "1934551022330000027"
+      "1933440066440000028"
     ],
     "crawled_words": 16
   },
@@ -847,7 +847,7 @@
       "1951220099660000012",
       "1920118822770000040",
       "1952661177550000011",
-      "1939004466880000023"
+      "1929004466880000032"
     ],
     "crawled_words": 198
   },
@@ -892,9 +892,9 @@
       "1949005566880000014",
       "1946770044110000016",
       "1942331100550000020",
-      "1958771199550000005",
       "1947881122990000015",
-      "1920118822770000040"
+      "1920118822770000040",
+      "1958771199550000005"
     ],
     "crawled_words": 870
   },
@@ -937,12 +937,12 @@
     "summary": "App Router mental model in one sitting. Server components stop feeling weird once the request boundary is explicit in your head.",
     "search_text": "App Router mental model in one sitting. Server components stop feeling weird once the request boundary is explicit in your head.\n@rscbrain Bruno Alves\nnextjs.org\nNext.js Docs | Next.js\nWelcome to the Next.js Documentation.\nWelcome to the Next.js documentation!\n\nNext.js is a React framework for building full-stack web applications. You use React Components to build user interfaces, and Next.js for additional features and optimizations.\n\nIt also automatically configures lower-level tools like bundlers and compilers. You can instead focus on building your product and shipping quickly.\n\nWhether you're an individual developer or part of a larger team, Next.js can help you build interactive, dynamic, and fast React applications.\n\nThe docs are organized into 3 sections:\n\nGetting Started: Step-by-step tutorials to help you create a new application and learn the core Next.js features.\n\nGuides: Tutorials on specific use cases, choose what's relevant to you.\n\nAPI Reference: Detailed technical reference for every feature.\n\nUse the sidebar to navigate through the sections, or search (Ctrl+K or Cmd+K) to quickly find a page.\n\nApp Router and Pages Router\n\nNext.js has two different routers:\n\nApp Router: The newer router that supports new React features like Server Components.\n\nPages Router: The original router, still supported and being improved.\n\nAt the top of the sidebar, you'll notice a dropdown menu that allows you to switch between the App Router and the Pages Router docs.\n\nThe App Router and Pages Router handle React versions differently:\n\nApp Router: Uses React canary releases built-in, which include all the stable React 19 changes, as well as newer features being validated in frameworks, prior to a new React release.\n\nPages Router: Uses the React version installed in your project's package.json.\n\nThis approach ensures new React features work reliably in the App Router while maintaining backwards compatibility for existing Pages Router applications.\n\nOur documentation assumes some familiarity with web development. Before getting started, it'll help if you're comfortable with:\n\nIf you're new to React or need a refresher, we recommend starting with our React Foundations course, and the Next.js Foundations course that has you building an application as you learn.\n\nFor the best experience when using a screen reader, we recommend using Firefox and NVDA, or Safari and VoiceOver.\n\nIf you have questions about anything related to Next.js, you're always welcome to ask our community on GitHub Discussions, Discord, X (Twitter), and Reddit.\ndevtools",
     "related": [
-      "1924551022330000036",
       "1949005566880000014",
+      "1925662088220000035",
       "1909004466880000050",
-      "1935662088220000026",
-      "1943442266440000019",
-      "1941220044660000021"
+      "1941220044660000021",
+      "1924551022330000036",
+      "1943442266440000019"
     ],
     "crawled_words": 355
   },
@@ -964,7 +964,7 @@
     "media": [],
     "topic_scores": {
       "devtools": 1,
-      "ui-design": 0.1
+      "ui-design": 0.091
     },
     "links": [
       {
@@ -990,7 +990,7 @@
       "1949005566880000014",
       "1924551022330000036",
       "1951220099660000012",
-      "1933440066440000028"
+      "1926771144110000034"
     ],
     "crawled_words": 776
   },
@@ -1096,7 +1096,7 @@
       "1937882200990000024",
       "1920118822770000040",
       "1959402277440000004",
-      "1950118833770000013",
+      "1943442266440000019",
       "1941220044660000021"
     ],
     "crawled_words": 658
@@ -1119,9 +1119,9 @@
     "media": [],
     "topic_scores": {
       "devtools": 1,
-      "ui-design": 0.176,
-      "infra": 0.044,
-      "reading": 0.044
+      "ui-design": 0.16,
+      "infra": 0.04,
+      "reading": 0.04
     },
     "links": [
       {
@@ -1145,7 +1145,7 @@
       "1940118822770000022",
       "1951220099660000012",
       "1945661188220000017",
-      "1950118833770000013",
+      "1927882200990000033",
       "1939004466880000023",
       "1941220044660000021"
     ],
@@ -1169,7 +1169,7 @@
     "media": [],
     "topic_scores": {
       "devtools": 1,
-      "ui-design": 0.044
+      "ui-design": 0.042
     },
     "links": [
       {
@@ -1193,8 +1193,8 @@
       "1944550022330000018",
       "1947881122990000015",
       "1927882200990000033",
-      "1913440066440000046",
-      "1952661177550000011"
+      "1952661177550000011",
+      "1913440066440000046"
     ],
     "crawled_words": 831
   },
@@ -1239,11 +1239,11 @@
     "search_text": "Islands architecture explained without the marketing. Good reminder that most content sites ship far too much JavaScript.\n@shipless_js Liam Doyle\ndocs.astro.build\nGetting started\nGuides, resources, and API references to help you build with Astro — the web framework for content-driven websites.\nGuides, resources, and API references to help you build with Astro.\n\nPowered by Astro and our open-source contributors. Join us!\n\nWhat will you build with Astro?\n\nExplore Astro starter themes for blogs, portfolios, docs, landing pages, SaaS, marketing, ecommerce sites, and more!\n\nComplete our introductory Build a Blog Tutorial to learn the basics and create your first Astro site.\n\n# create a new project with npmnpm create astro@latest\n\nOur installation guide has step-by-step instructions for installing Astro using our CLI wizard, creating a new project from an existing Astro GitHub repository, and for installing Astro manually.\n\nThe Astro template syntax\n\nAdd integrations like React and Partytown\n\nCreate type safe content collections\n\nEnhance navigation with view transitions\n\nConnect a headless CMS to your project\n\nHave a question or want to get involved?\ndevtools",
     "related": [
       "1940118822770000022",
-      "1942331100550000020",
-      "1924551022330000036",
-      "1929004466880000032",
       "1927882200990000033",
-      "1956544778990000007"
+      "1924551022330000036",
+      "1942331100550000020",
+      "1929004466880000032",
+      "1920118822770000040"
     ],
     "crawled_words": 131
   },
@@ -1286,12 +1286,12 @@
     "summary": "Serverless vector database with a REST API and a free tier. Exactly the amount of infrastructure a side project should own.",
     "search_text": "Serverless vector database with a REST API and a free tier. Exactly the amount of infrastructure a side project should own.\n@smallstack Nadia Rossi\nupstash.com\nGetting Started - Upstash Documentation\nPrerequisite You need an Upstash account before creating a vector, create one here. Create an Index Once you logged in, you can create a Vector Index\nYou need an Upstash account before creating a vector, create one here.\n\nOnce you logged in, you can create a Vector Index by clicking on the Create Index button in the Vector tab.\n\nName: Type a name for your index.\n\nRegion: Choose the region for your index. For optimal performance, select the region closest to your applications. We plan to support additional regions and cloud providers. Feel free to send your requests to support@upstash.com\n\nType: The type of index: Dense, Sparse or Hybrid. For semantic search, you can prefer dense. For full text (or keyword) search, you can prefer sparse. If you need a combination, you can choose hybrid.\n\nIf you choose Dense or Hybrid as index type, you will also be presented with options to select the dimensions and distance metric of your index.\n\nFor the purpose of using the code samples on this page, you can create a dense index with dimension: 2. Distance metric can be any of the options.\n\nOnce you pick these options, you will choose a plan:\n\nFree: The free plan is suitable for small projects. It has a limit of 10,000 queries and 10,000 updates daily.\n\nPay as You Go: Pay as you go plan is a flexible plan with per-request-pricing. It is suitable for projects with unpredictable traffic.\n\nFixed: Fixed plan is suitable for projects with predictable traffic. It has a fixed monthly price with 1M query and 1M updates daily.\n\nPro: Pro plan is suitable for projects with high traffic and storage needs. It has a fixed monthly price with extra security and isolation features.\n\nEnterprise: If you plan to have over a billion vectors then Enterprise plan is for you. It has a fixed monthly price with extra security and isolation features. Contact us at sales@upstash.com for more information.\n\nYou can access data in your index using REST API or our SDKs. You can copy the sample code from the Connect section in the console.\n\nfrom upstash_vector import Indexindex = Index(url=\"UPSTASH_VECTOR_REST_URL\", token=\"UPSTASH_VECTOR_REST_TOKEN\")index.upsert( vectors=[ (\"1\", [0.6, 0.8], {\"field\": \"value\"}), ])\n\nimport { Index } from \"@upstash/vector\";const index = new Index({ url: \"UPSTASH_VECTOR_REST_URL\", token: \"UPSTASH_VECTOR_REST_TOKEN\",})await index.upsert({ id: \"1\", vector: [0.6, 0.8], metadata: {field: \"value\"} })\n\nimport \"github.com/upstash/vector-go\"func main() { index := vector.NewIndex(\"UPSTASH_VECTOR_REST_URL\", \"UPSTASH_VECTOR_REST_TOKEN\") index.Upsert(vector.Upsert{ Id: \"1\", Vector: []float32{0.6, 0.8}, Metadata: map[string]any{\"field\": \"value\"}, })}\n\nuse Upstash\\Vector\\Index;use Upstash\\Vector\\VectorUpsert;$index = new Index( url: 'UPSTASH_VECTOR_REST_URL', token: 'UPSTASH_VECTOR_REST_TOKEN', );$index->upsert(new VectorUpsert( id: '1', vector: [0.6, 0.8], metadata: ['field' => 'value'],));\n\ncurl $UPSTASH_VECTOR_REST_URL/upsert \\ -X POST \\ -H \"Authorization: Bearer $UPSTASH_VECTOR_REST_TOKEN\" \\ -d '{\"id\": \"1\", \"vector\": [0.6, 0.8], \"metadata\": {\"field\": \"value\"}}'\n\nYou can perform a similarity search by providing a query vector as a parameter. The dimension of the query vector must match the dimension of your index. Also, you can query by metadata filtering.\n\nUpstash is eventually consistent, so there may be a delay before the newly inserted or updated vectors are ready for querying.\n\nfrom upstash_vector import Indexindex = Index(url=\"UPSTASH_VECTOR_REST_URL\", token=\"UPSTASH_VECTOR_REST_TOKEN\")index.query( vector=[0.6, 0.8], top_k=3, include_metadata=True,)\n\nimport { Index } from \"@upstash/vector\";const index = new Index({ url: \"UPSTASH_VECTOR_REST_URL\", token: \"UPSTASH_VECTOR_REST_TOKEN\",})await index.query({ vector: [0.6, 0.8], topK: 3, includeMetadata: true })\n\nimport \"github.com/upstash/vector-go\"func main() { index := vector.NewIndex(\"UPSTASH_VECTOR_REST_URL\", \"UPSTASH_VECTOR_REST_TOKEN\") index.Query(vector.Query{ Vector: []float32{0.6, 0.8}, TopK: 3, IncludeMetadata: true, })}\n\nuse Upstash\\Vector\\Index;use Upstash\\Vector\\VectorQuery;$index = new Index( url: '<UPSTASH_VECTOR_REST_URL>', token: '<UPSTASH_VECTOR_REST_TOKEN>',);$index->query(new VectorQuery( vector: [0.6, 0.8], topK: 3, includeMetadata: true,));\n\ncurl $UPSTASH_VECTOR_REST_URL/query \\ -H \"Authorization: Bearer $UPSTASH_VECTOR_REST_TOKEN\" \\ -d '{\"vector\": [0.6, 0.8], \"topK\": 3, \"includeMetadata\": \"true\"}'\n\nIn Upstash console, you can see the charts of your index:\n\nThere are following charts:\n\nDaily Requests: The number of queries and updates to your index in the last 5 days.\n\nThroughput: The number of queries and updates to your index in the selected time period.\n\nLatency: The mean and P99 latency of queries and updates to your index in the selected time period.\n\nVector Count: The number of vectors in your index in the selected time period.\n\nData Size: The size of your index in the selected time period.\n\nYou can also query your index with a simple UI:\ninfra",
     "related": [
-      "1932331100550000029",
       "1909004466880000050",
+      "1932331100550000029",
       "1915662088220000044",
       "1924551022330000036",
-      "1920118822770000040",
-      "1942331100550000020"
+      "1942331100550000020",
+      "1920118822770000040"
     ],
     "crawled_words": 662
   },
@@ -1336,10 +1336,10 @@
     "related": [
       "1926771144110000034",
       "1939004466880000023",
-      "1932331100550000029",
       "1934551022330000027",
-      "1941220044660000021",
-      "1945661188220000017"
+      "1932331100550000029",
+      "1962011044880000001",
+      "1924551022330000036"
     ],
     "crawled_words": 743
   },
@@ -1361,7 +1361,7 @@
     "media": [],
     "topic_scores": {
       "infra": 1,
-      "ai-ml": 0.252
+      "ai-ml": 0.275
     },
     "links": [
       {
@@ -1382,11 +1382,11 @@
     "summary": "Container fundamentals refresher. Layer caching is the single highest-leverage thing to understand about your build times.",
     "search_text": "Container fundamentals refresher. Layer caching is the single highest-leverage thing to understand about your build times.\n@layercache Zoe Ashford\ndocs.docker.com\nGet started\nChoose a tutorial to build and run an application, work with an AI agent safely, or set up Docker for your organization.\nGet Docker Desktop or Docker Engine for your operating system.\n\nInstall Docker Sandboxes\n\nInstall the sbx command to run coding agents in isolated environments.\n\nBuild and share a containerized application\n\nRun a container and an application stack, build an image, and share it through Docker Hub.\n\nRun your coding agent in a sandbox\n\nMove your existing full-autonomy coding-agent workflow into a disposable Docker Sandbox.\n\nRoll out Docker to a pilot group\n\nInvite a pilot user, apply a Docker Desktop policy, and verify the managed experience.\ninfra",
     "related": [
+      "1929004466880000032",
       "1934551022330000027",
       "1961205511220000002",
-      "1929004466880000032",
-      "1913440066440000046",
       "1927882200990000033",
+      "1913440066440000046",
       "1910118822770000049"
     ],
     "crawled_words": 85
@@ -1431,10 +1431,10 @@
     "search_text": "Error budgets are the only on-call idea that survived contact with every team I've been on. The whole book is free online.\n@errorbudget Ruth Nakamura\nsre.google\nGoogle SRE - Site reliability engineering book Google index\nGo through the complete table of contents of sre Google book, outlined are the key topics and insights covered in this essential resource for SRE professionals.\n2. The Production Environment at Google, from the Viewpoint of an SRE\n\n4. Service Level Objectives\n\n6. Monitoring Distributed Systems\n\n7. The Evolution of Automation at Google\n\n12. Effective Troubleshooting\n\n15. Postmortem Culture: Learning from Failure\n\n17. Testing for Reliability\n\n18. Software Engineering in SRE\n\n19. Load Balancing at the Frontend\n\n20. Load Balancing in the Datacenter\n\n22. Addressing Cascading Failures\n\n23. Managing Critical State: Distributed Consensus for Reliability\n\n24. Distributed Periodic Scheduling with Cron\n\n25. Data Processing Pipelines\n\n26. Data Integrity: What You Read Is What You Wrote\n\n27. Reliable Product Launches at Scale\n\n28. Accelerating SREs to On-Call and Beyond\n\n29. Dealing with Interrupts\n\n30. Embedding an SRE to Recover from Operational Overload\n\n31. Communication and Collaboration in SRE\n\n32. The Evolving SRE Engagement Model\n\n33. Lessons Learned from Other Industries\n\nAppendix A. Availability Table\n\nAppendix B. A Collection of Best Practices for Production Services\n\nAppendix C. Example Incident State Document\n\nAppendix D. Example Postmortem\n\nAppendix E. Launch Coordination Checklist\n\nAppendix F. Example Production Meeting Minutes\n\nChapter 1 - Introduction\n\nChapter 2 - The Production Environment at Google, from the Viewpoint of an SRE\n\nChapter 3 - Embracing Risk\n\nChapter 4 - Service Level Objectives\n\nChapter 5 - Eliminating Toil\n\nChapter 6 - Monitoring Distributed Systems\n\nChapter 7 - The Evolution of Automation at Google\n\nChapter 8 - Release Engineering\n\nChapter 10 - Practical Alerting\n\nChapter 11 - Being On-Call\n\nChapter 12 - Effective Troubleshooting\n\nChapter 13 - Emergency Response\n\nChapter 14 - Managing Incidents\n\nChapter 15 - Postmortem Culture: Learning from Failure\n\nChapter 16 - Tracking Outages\n\nChapter 17 - Testing for Reliability\n\nChapter 18 - Software Engineering in SRE\n\nChapter 19 - Load Balancing at the Frontend\n\nChapter 20 - Load Balancing in the Datacenter\n\nChapter 21 - Handling Overload\n\nChapter 22 - Addressing Cascading Failures\n\nChapter 23 - Managing Critical State: Distributed Consensus for Reliability\n\nChapter 24 - Distributed Periodic Scheduling with Cron\n\nChapter 25 - Data Processing Pipelines\n\nChapter 26 - Data Integrity: What You Read Is What You Wrote\n\nChapter 27 - Reliable Product Launches at Scale\n\nChapter 28 - Accelerating SREs to On-Call and Beyond\n\nChapter 29 - Dealing with Interrupts\n\nChapter 30 - Embedding an SRE to Recover from Operational Overload\n\nChapter 31 - Communication and Collaboration in SRE\n\nChapter 32 - The Evolving SRE Engagement Model\n\nChapter 33 - Lessons Learned from Other Industries\n\nAppendix A - Availability Table\n\nAppendix B - A Collection of Best Practices for Production Services\n\nAppendix C - Example Incident State Document\n\nAppendix D - Example Postmortem\n\nAppendix E - Launch Coordination Checklist\n\nAppendix F - Example Production Meeting Minutes\n\nCopyright © 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0\ninfra",
     "related": [
       "1961205511220000002",
+      "1947881122990000015",
       "1959402277440000004",
       "1962011044880000001",
       "1942331100550000020",
-      "1947881122990000015",
       "1934551022330000027"
     ],
     "crawled_words": 450
@@ -1473,12 +1473,12 @@
     "summary": "Clearest plain-English explanation of what a CDN actually does. I send this instead of explaining edge caching for the tenth time.",
     "search_text": "Clearest plain-English explanation of what a CDN actually does. I send this instead of explaining edge caching for the tenth time.\n@edgecached Ben Arocha\ncloudflare.com\ninfra",
     "related": [
-      "1947881122990000015",
-      "1917882200990000042",
-      "1913440066440000046",
-      "1955330112220000008",
       "1962011044880000001",
-      "1941220044660000021"
+      "1947881122990000015",
+      "1955330112220000008",
+      "1933440066440000028",
+      "1917882200990000042",
+      "1913440066440000046"
     ],
     "crawled_words": 0
   },
@@ -1502,8 +1502,8 @@
     "media": [],
     "topic_scores": {
       "infra": 1,
-      "ai-ml": 0.662,
-      "devtools": 0.34
+      "ai-ml": 0.75,
+      "devtools": 0.352
     },
     "links": [
       {
@@ -1524,12 +1524,12 @@
     "summary": "Custom domains, preview deploys, and edge functions in one place. Reference for when I inevitably forget the DNS steps.",
     "search_text": "Custom domains, preview deploys, and edge functions in one place. Reference for when I inevitably forget the DNS steps.\n@shipfriday Ines Duarte\nvercel.com\nVercel Documentation\nFind guides and reference documentation for building, deploying, and managing applications with Vercel, including the CLI, SDKs, and APIs.\nShip anything with Vercel\n\nnpm i -g vercel vercel login vercel\n\n# Plugin for Claude Code, Codex, Grok Build, Cursor, Copilot, Kimi Code npx plugins add vercel/vercel-plugin # Skills for any other agent npx skills add vercel-labs/agent-skills # Let your agent manage projects, deployments, and logs npx -y add-mcp https://mcp.vercel.com -g # Route your agent's model calls through AI Gateway vercel ai-gateway coding-agents setup\n\n# Create an API key and export the key it prints vercel ai-gateway api-keys create export AI_GATEWAY_API_KEY=\"your-ai-gateway-api-key\" # Call any model through one endpoint curl https://ai-gateway.vercel.sh/v1/chat/completions \\ -H \"Authorization: Bearer $AI_GATEWAY_API_KEY\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"model\": \"anthropic/claude-opus-5\", \"messages\": [{ \"role\": \"user\", \"content\": \"Why is the sky blue?\" }] }'\n\nSet up your coding agent\n\nSet up the agent you code with, and the platform for the agents you ship. This prompt installs the Vercel Plugin or Agent Skills, connects the Vercel MCP server, and deploys your project:\n\nHelp me set up this project on Vercel. Read https://vercel.com/docs/getting-started-with-vercel first. Then: 1. Install the Vercel CLI globally (`npm i -g vercel`) and log in with `vercel login`. 2. If you are Claude Code, OpenAI Codex, Grok Build, Cursor, GitHub Copilot, or Kimi Code, install the Vercel Plugin with `npx plugins add vercel/vercel-plugin`. Otherwise, install Vercel Skills with `npx skills add vercel-labs/agent-skills`. 3. Connect the Vercel MCP server with `npx -y add-mcp https://mcp.vercel.com -g`. 4. Deploy with `vercel` and share the preview URL. 5. Suggest next steps based on my project, such as adding a custom domain, setting environment variables, or configuring Vercel Functions.\n\nGive your coding agent deployment skills, framework best practices, and slash commands. Works with Claude Code, OpenAI Codex, Grok Build, Cursor, GitHub Copilot, and Kimi Code.\n\nInstall skills for any agent that supports them, covering Next.js, the AI SDK, Turborepo, and deploying to Vercel.\n\nLet your agent search the docs, manage projects and deployments, and query Web Analytics through the Vercel MCP server.\n\nGive your agent short-lived tokens to call Slack, GitHub, Microsoft, Snowflake, or any OAuth or API-key service, and act on behalf of users, without storing provider secrets.\n\nLet your agent deploy apps for users, then transfer ownership with a claim URL so each deployment lands in the user's own Vercel account.\n\nRun your agent's runtime and tools from a Docker image on Vercel Functions, or give Sandbox a custom image for the code your agent executes.\n\nThe latest changes across the Vercel platform. Browse the full changelog for everything that shipped.\n\nSep 4, 2026Ling 3.0 Flash Sante is now available on AI Gateway for freeLing 3.0 Flash Sante from Inclusion AI is free on Vercel AI Gateway through October 4 through a -free model ID or regular ID.\n\nSep 4, 2026GPT 6 Astra now available on Vercel AI GatewayGPT 6 Astra from OpenAI is now available on Vercel AI Gateway for coding, computer use, research, and multi-step professional workflows.\n\nSep 3, 2026Cursor Cloud Agents can now run in Vercel SandboxRun Cursor Cloud Agents on infrastructure you control with Vercel Sandbox, using scale-to-zero workers, isolated microVMs, and durable orchestration.\n\nSep 3, 2026Basic build machines are now available on Pro and EnterprisePro and Enterprise teams can now select Basic build machines, 2 vCPU and 8 GB, a lower-cost option for smaller apps. New projects still default to Elastic.\n\nCall hundreds of models through one endpoint with the AI SDK, any OpenAI-compatible SDK, or cURL, with budgets, fallbacks, and usage monitoring.\n\nBuild chat, agents, and structured output in TypeScript with streaming and tool calling across React, Next.js, Vue, Svelte, and Node.js.\n\nDeploy and run durable backend AI agents built with eve, an open-source, filesystem-first agent framework.\n\nRun untrusted or agent-generated code in isolated, ephemeral execution environments.\n\nBuild durable, observable applications and AI agents with the Workflow SDK on a fully managed platform.\n\nBuild and deploy Model Context Protocol servers so agents can call your APIs and systems as tools.\n\nDeploy Next.js with zero configuration, or bring one of 40+ supported frameworks.\n\nRun server-side code on demand with Fluid compute, which scales concurrency for AI and I/O-heavy workloads.\n\nRun code before a request completes to rewrite, redirect, or personalize responses.\n\nIncremental Static Regeneration\n\nRegenerate static pages on a schedule or on demand without rebuilding your whole site.\n\nResize and convert images on demand and serve them from the CDN in modern formats.\n\nManage local, preview, production, and custom environments and the variables each one uses.\n\nWeb Application Firewall\n\nBlock attacks, scrapers, and unwanted traffic with custom rules, IP blocking, and managed rulesets.\n\nDetect automated traf\ninfra ai ml devtools",
     "related": [
+      "1932331100550000029",
       "1961205511220000002",
       "1958771199550000005",
-      "1932331100550000029",
       "1962011044880000001",
       "1935662088220000026",
-      "1959402277440000004"
+      "1927882200990000033"
     ],
     "crawled_words": 752
   },
@@ -1552,7 +1552,8 @@
     "media": [],
     "topic_scores": {
       "infra": 1,
-      "ai-ml": 0.426
+      "ai-ml": 0.465,
+      "devtools": 0.034
     },
     "links": [
       {
@@ -1573,12 +1574,12 @@
     "summary": "Postgres with branching, so preview environments get their own database. Changes how you think about migrations in PRs.",
     "search_text": "Postgres with branching, so preview environments get their own database. Changes how you think about migrations in PRs.\n@branchmydb Omar Tahir\nneon.com\nNeon documentation - Neon Docs\nGetting started. Start with a quick setup prompt, or follow a guided tutorial to build the full Neon stack step by step. Products. Build backends for web apps and agents with Lakebase Postgres, Auth, ...\nNeon is the backend for apps and agents.\n\nStart with a quick setup prompt, or follow a guided tutorial to build the full Neon stack step by step.\n\nAI-guided setup. Creates a project, applies your schema, and writes a .env in one step. Copy the prompt below and get started.\n\nNext.js on the full Neon backend: Lakebase Postgres, Auth, Object Storage, and AI Gateway, from create-next-app to deployed.\n\nLearn how Lakebase Postgres, Managed Better Auth, Object Storage, Functions, and the AI Gateway connect across a real project, and where each one lives in your codebase.\n\nBuild backends for web apps and agents with Lakebase Postgres, Auth, Object Storage, and AI Gateway. Every service is agent-ready: instant, branchable, and serverless.\n\nLakebase PostgresServerless Postgres with branching, autoscaling, scale to zero, and instant restore.\n\nServerless Postgres with branching, autoscaling, scale to zero, and instant restore.\n\nAuthManaged Better Auth with sign-up, OAuth, and sessions. Users live in your Postgres and branch with it.\n\nManaged Better Auth with sign-up, OAuth, and sessions. Users live in your Postgres and branch with it.\n\nData APIHTTPS queries with no backend code. Drop-in compatible with Supabase.\n\nHTTPS queries with no backend code. Drop-in compatible with Supabase.\n\nBetaObject StorageS3-compatible object storage that branches with your database.\n\nS3-compatible object storage that branches with your database.\n\nBetaFunctionsLong-running serverless functions on Node.js, deployed alongside your database.\n\nLong-running serverless functions on Node.js, deployed alongside your database.\n\nBetaAI GatewayOne API for frontier and open-source models, built into your Neon project.\n\nOne API for frontier and open-source models, built into your Neon project.\n\nNew to Object Storage, Functions, or AI Gateway? Start with the Neon backend beta guide.\n\nBrowse our framework, language, and ORM guides for full connection details.\n\nAdd vector, keyword, and hybrid search directly to your database, so agent retrieval and RAG need no separate vector store. Explore Lakebase Search →\n\nNeon integrates with AI coding tools and agents through MCP. Pick your editor for setup and integration details.\n\nCursorConnect Neon to Cursor\n\nClaude CodeConnect Neon to Claude Code\n\nCodexConnect Neon to OpenAI Codex\n\nGitHub CopilotConnect Neon to GitHub Copilot\n\nQuestions about Neon or Postgres? Join our Discord\ninfra ai ml",
     "related": [
+      "1935662088220000026",
       "1932331100550000029",
       "1940118822770000022",
-      "1935662088220000026",
-      "1961205511220000002",
+      "1929004466880000032",
       "1947881122990000015",
-      "1958771199550000005"
+      "1942331100550000020"
     ],
     "crawled_words": 354
   },
@@ -1625,8 +1626,8 @@
       "1933440066440000028",
       "1942331100550000020",
       "1923440066440000037",
-      "1941220044660000021",
-      "1925662088220000035"
+      "1951220099660000012",
+      "1941220044660000021"
     ],
     "crawled_words": 86
   },
@@ -1666,12 +1667,12 @@
     "summary": "Nine pages that started all of it. Re-reading the double-spend section is a good antidote to most timeline discourse.",
     "search_text": "Nine pages that started all of it. Re-reading the double-spend section is a good antidote to most timeline discourse.\n@ninepages Yusuf Kaya\nbitcoin.org\nbitcoin.pdf\ncrypto",
     "related": [
-      "1943442266440000019",
-      "1924551022330000036",
       "1942331100550000020",
-      "1926771144110000034",
-      "1935662088220000026",
-      "1922331100550000038"
+      "1924551022330000036",
+      "1940118822770000022",
+      "1943442266440000019",
+      "1941220044660000021",
+      "1915662088220000044"
     ],
     "crawled_words": 0
   },
@@ -1693,9 +1694,9 @@
     "media": [],
     "topic_scores": {
       "crypto": 1,
-      "devtools": 0.14,
-      "ui-design": 0.105,
-      "reading": 0.07
+      "devtools": 0.126,
+      "ui-design": 0.095,
+      "reading": 0.063
     },
     "links": [
       {
@@ -1718,9 +1719,9 @@
     "related": [
       "1926771144110000034",
       "1923440066440000037",
+      "1935662088220000026",
       "1942331100550000020",
       "1920118822770000040",
-      "1935662088220000026",
       "1934551022330000027"
     ],
     "crawled_words": 680
@@ -1765,10 +1766,10 @@
     "related": [
       "1924551022330000036",
       "1962011044880000001",
-      "1926771144110000034",
+      "1953004411440000010",
       "1932331100550000029",
-      "1922331100550000038",
-      "1935662088220000026"
+      "1926771144110000034",
+      "1956544778990000007"
     ],
     "crawled_words": 841
   },
@@ -1809,11 +1810,11 @@
     "search_text": "Concentrated liquidity explained by the people who shipped it. The math notation is worth the effort exactly once.\n@ammreader Paulo Ferrari\nuniswap.org\nwhitepaper-v3.pdf\ncrypto",
     "related": [
       "1924551022330000036",
-      "1934551022330000027",
-      "1923440066440000037",
-      "1959402277440000004",
       "1955330112220000008",
-      "1925662088220000035"
+      "1934551022330000027",
+      "1959402277440000004",
+      "1923440066440000037",
+      "1916771144110000043"
     ],
     "crawled_words": 0
   },
@@ -1855,12 +1856,12 @@
     "summary": "Dashboard I actually trust for L2 activity and risk assumptions. The \"stage\" framing did more for the discourse than any thread.",
     "search_text": "Dashboard I actually trust for L2 activity and risk assumptions. The \"stage\" framing did more for the discourse than any thread.\n@l2watcher Hugo Meier\nl2beat.com\nL2BEAT - The state of the layer two ecosystem\nL2BEAT is an analytics and research website about Ethereum layer 2 scaling. Here you will find in depth comparison of major protocols live on Ethereum today.\nSearch for projects by name or address\n\nRollups are L2s that periodically post state commitments to Ethereum. These commitments are validated by either Validity Proofs or are accepted optimistically and can be challenged via Fraud Proof mechanism within a certain fraud proof window. Additionally L2 data is also posted to Ethereum, hence there are no additional trust assumptions introduced.\n\n$14.58 B2.07%33.6% with additional trust assumptions\n\nArbitrum OneArbitrum One\n\n$12.64 B5.81%33.3% with additional trust assumptions\n\n$1.74 B6.36%17.4% with additional trust assumptions\n\n$1.47 B1.97%43.5% with additional trust assumptions\n\nLighterExchangeLighterExchange\n\n$1.37 B15.3%0.00% with additional trust assumptions\n\n$403.45 M5.80%22.8% with additional trust assumptions\n\n$361.18 M12.2%63.5% with additional trust assumptions\n\n$336.00 M2.39%86.3% with additional trust assumptions\n\n$239.84 M8.30%5.06% with additional trust assumptions\n\n$154.05 M1.34%89.7% with additional trust assumptions\n\n$84.24 M8.88%53.9% with additional trust assumptions\n\n$77.21 M1.17%55.2% with additional trust assumptions\n\n$75.49 M0.83%73.9% with additional trust assumptions\n\n$52.19 M3.75%52.3% with additional trust assumptions\n\n$46.39 M1.78%6.43% with additional trust assumptions\n\nTaiko AlethiaTaiko Alethia\n\nValiditySP1 Hypercube / RISC Zero\n\n$12.81 M10.7%1.67% with additional trust assumptions\n\n$11.26 M6.65%52.0% with additional trust assumptions\n\n$663 K0.73%99.9% with additional trust assumptions\n\nINTMAXPaymentsINTMAXPayments\n\n$136 K0.94%0.00% with additional trust assumptions\n\nHoneypot v2Bug bountyHoneypot v2Bug bounty\n\n$1 K2.84%0.00% with additional trust assumptions\n\n<$1K13.2%0.00% with additional trust assumptions\n\nEthscriptionsNFTEthscriptionsNFT\ncrypto",
     "related": [
-      "1957889001660000006",
       "1954118844330000009",
       "1924551022330000036",
       "1909004466880000050",
+      "1956544778990000007",
       "1910118822770000049",
-      "1956544778990000007"
+      "1957889001660000006"
     ],
     "crawled_words": 203
   },
@@ -1904,9 +1905,9 @@
       "1919004466880000041",
       "1915662088220000044",
       "1924551022330000036",
-      "1956544778990000007",
       "1917882200990000042",
-      "1949005566880000014"
+      "1956544778990000007",
+      "1934551022330000027"
     ],
     "crawled_words": 892
   },
@@ -1951,10 +1952,10 @@
     "related": [
       "1920118822770000040",
       "1962011044880000001",
-      "1959402277440000004",
       "1917882200990000042",
+      "1959402277440000004",
       "1913440066440000046",
-      "1943442266440000019"
+      "1961205511220000002"
     ],
     "crawled_words": 827
   },
@@ -1996,12 +1997,12 @@
     "summary": "Mental models list to skim when a decision feels stuck. Inversion and second-order thinking earn their keep every time.",
     "search_text": "Mental models list to skim when a decision feels stuck. Inversion and second-order thinking earn their keep every time.\n@modelsofthought Nina Costa\nfs.blog\nMental Models: The Best Way to Make Intelligent Decisions (~100 Models Explained)\nThe smartest people in the world use mental models to make intelligent decisions, avoid stupidity, and increase productivity. Let's take a look at how ...\nMental Models: The Best Way to Make Intelligent Decisions (~100 Models Explained)\n\nA mental model is a simplified explanation of how something works.\n\nAny idea, belief, or concept can be boiled down to its essence. Like a map, mental models highlight key information while ignoring irrelevant details. They’re tools for compressing complexity into manageable chunks.\n\nMental models help us understand the world. For example, velocity shows that both speed and direction matter. Reciprocity reveals how being positive and taking initiative gets the world to do most of the work for you. Margin of Safety reminds us that things don’t always go as planned. Relativity exposes our blind spots and shows how a different perspective can reveal new information. These are just a few examples.\n\nIf you want to be a good thinker, you must develop a mind that can jump the jurisdictional boundaries. You don’t have to know it all. Just take in the best big ideas from all these disciplines. And it’s not that hard to do.Charlie Munger\n\nIf you want to be a good thinker, you must develop a mind that can jump the jurisdictional boundaries. You don’t have to know it all. Just take in the best big ideas from all these disciplines. And it’s not that hard to do.\n\nThe Big Ideas From The Big Disciplines\n\nThis page summarizes the big ideas to help you make better decisions, avoid problems, and spot opportunities others miss.\n\nPhysics, Chemistry, and Biology\n\nHuman Nature and Judgment\n\nThe Map is Not the Territory\n\nThe map is not the territory reminds us that our mental models of the world are not the same as the world itself. It cautions against confusing our abstractions and representations with the complex, ever-­shifting reality they aim to describe.\n\nIt is dangerous to mistake the map for the territory. Consider the person with an outstanding résumé who checks all the boxes on paper but can’t do the job.\n\nUpdating our maps is a difficult process of reconciling what we want to be true with what is true.\n\nIn many areas of life, we are offered maps by other people. We are reliant on the maps provided by experts, pundits, and teachers. In these cases, the best we can do is to choose our mapmakers wisely and to seek out those who are rigorous, transparent, and open to revision.\n\nUltimately, the map/territory distinction invites us to engage with the world as it is, not just as we imagine it. And remember, when you don’t make the map, choose your cartographer wisely.\n\nThe first rule of competition is that you are more likely to win if you play where you have an advantage. Playing to your advantage requires a firm understanding of what you know and don’t know.\n\nYour circle of competence is your personal sphere of expertise, where your knowledge and skills are concentrated. It’s the domain where you have a deep understanding, where your judgments are reliable, and your decisions are sound.\n\nThe size of your circle isn’t as important as knowing the boundaries. The wise person knows the limits of their knowledge and can confidently say, “This falls within my circle,” or “This is outside my area of expertise.”\n\nWhile operating within your circle of competence is a recipe for confidence and effectiveness, venturing outside your circle of competence is a recipe for trouble. You’re like a sailor navigating unfamiliar waters without a map, at the mercy of currents and storms you don’t fully understand. This isn’t to say that you should never venture outside your circle. Learning new things, gaining new skills, and mastering new domains is one of the most beautiful things about life.\n\nCelebrate your expertise, but also acknowledge your limitations.\n\nFirst Principles Thinking\n\nFirst principles thinking is the art of breaking down complex problems into their fundamental truths. It’s a way of thinking that goes beyond the surface and allows us to see things from a new perspective.\n\nThinking in first principles allows us to identify the root causes, strip away the layers of complexity, and focus on the most effective solutions. Reasoning from first principles allows us to step outside the way things have always been done and instead see what is possible.\n\nFirst principles thinking is not easy. It requires a willingness to challenge the status quo. This is why it’s often the domain of rebels and disrupters who believe there must be a better way. It’s the thinking of those willing to start from scratch and build from the ground up.\n\nIn a world focused on incremental improvement, first principles thinking offers a competitive advantage because almost no one does it.\n\nThought experiments are the sandbox of the mind, the place where we can play with ideas without constraints. They’re a way of exploring the implications of our theories, of testing the boundaries of our understanding. They offer a powerful tool for clarifying our thinking, revealing hidden assumptions, and showing us unintended consequences.\n\nThe power of thought experiments lies in their ability t\nreading",
     "related": [
-      "1962011044880000001",
       "1913440066440000046",
+      "1962011044880000001",
       "1956544778990000007",
       "1961205511220000002",
-      "1960118822330000003",
-      "1953004411440000010"
+      "1953004411440000010",
+      "1960118822330000003"
     ],
     "crawled_words": 835
   },
@@ -2045,9 +2046,9 @@
     "related": [
       "1922331100550000038",
       "1926771144110000034",
-      "1933440066440000028",
-      "1955330112220000008",
+      "1961205511220000002",
       "1931220044660000030",
+      "1933440066440000028",
       "1920118822770000040"
     ],
     "crawled_words": 862
@@ -2090,8 +2091,8 @@
     "summary": "Disagree with a third of it and still re-read it yearly. The compounding section is the durable part.",
     "search_text": "Disagree with a third of it and still re-read it yearly. The compounding section is the durable part.\n@compounders Kai Lindberg\nblog.samaltman.com\nHow To Be Successful\nI’ve observed thousands of founders and thought a lot about what it takes to make a huge amount of money or to create something important. Usually, people start off wanting the former and end up...\nI’ve observed thousands of founders and thought a lot about what it takes to make a huge amount of money or to create something important. Usually, people start off wanting the former and end up wanting the latter.\n\nHere are 13 thoughts about how to achieve such outlier success. Everything here is easier to do once you’ve already reached a baseline degree of success (through privilege or effort) and want to put in the work to turn that into outlier success. [1] But much of it applies to anyone.\n\nCompounding is magic. Look for it everywhere. Exponential curves are the key to wealth generation.\n\nA medium-sized business that grows 50% in value every year becomes huge in a very short amount of time. Few businesses in the world have true network effects and extreme scalability. But with technology, more and more will. It’s worth a lot of effort to find them and create them.\n\nYou also want to be an exponential curve yourself—you should aim for your life to follow an ever-increasing up-and-to-the-right trajectory. It’s important to move towards a career that has a compounding effect—most careers progress fairly linearly.\n\nYou don't want to be in a career where people who have been doing it for two years can be as effective as people who have been doing it for twenty—your rate of learning should always be high. As your career progresses, each unit of work you do should generate more and more results. There are many ways to get this leverage, such as capital, technology, brand, network effects, and managing people.\n\nIt’s useful to focus on adding another zero to whatever you define as your success metric—money, status, impact on the world, or whatever. I am willing to take as much time as needed between projects to find my next thing. But I always want it to be a project that, if successful, will make the rest of my career look like a footnote.\n\nMost people get bogged down in linear opportunities. Be willing to let small opportunities go to focus on potential step changes.\n\nI think the biggest competitive advantage in business—either for a company or for an individual’s career—is long-term thinking with a broad view of how different systems in the world are going to come together. One of the notable aspects of compound growth is that the furthest out years are the most important. In a world where almost no one takes a truly long-term view, the market richly rewards those who do.\n\nTrust the exponential, be patient, and be pleasantly surprised.\n\n2. Have almost too much self-belief\n\nSelf-belief is immensely powerful. The most successful people I know believe in themselves almost to the point of delusion.\n\nCultivate this early. As you get more data points that your judgment is good and you can consistently deliver results, trust yourself more.\n\nIf you don’t believe in yourself, it’s hard to let yourself have contrarian ideas about the future. But this is where most value gets created.\n\nI remember when Elon Musk took me on a tour of the SpaceX factory many years ago. He talked in detail about manufacturing every part of the rocket, but the thing that sticks in memory was the look of absolute certainty on his face when he talked about sending large rockets to Mars. I left thinking “huh, so that’s the benchmark for what conviction looks like.”\n\nManaging your own morale—and your team’s morale—is one of the greatest challenges of most endeavors. It’s almost impossible without a lot of self-belief. And unfortunately, the more ambitious you are, the more the world will try to tear you down.\n\nMost highly successful people have been really right about the future at least once at a time when people thought they were wrong. If not, they would have faced much more competition.\n\nSelf-belief must be balanced with self-awareness. I used to hate criticism of any sort and actively avoided it. Now I try to always listen to it with the assumption that it’s true, and then decide if I want to act on it or not. Truth-seeking is hard and often painful, but it is what separates self-belief from self-delusion.\n\nThis balance also helps you avoid coming across as entitled and out of touch.\n\n3. Learn to think independently\n\nEntrepreneurship is very difficult to teach because original thinking is very difficult to teach. School is not set up to teach this—in fact, it generally rewards the opposite. So you have to cultivate it on your own.\n\nThinking from first principles and trying to generate new ideas is fun, and finding people to exchange them with is a great way to get better at this. The next step is to find easy, fast ways to test these ideas in the real world.\n\n“I will fail many times, and I will be really right once” is the entrepreneurs’ way. You have to give yourself a lot of chances to get lucky.\n\nOne of the most powerful lessons to learn is that you can figure out what to do in situations that seem to have no solution. The more times you do this, the more you will believe it. Grit comes from learning you can get back up after you get kno\nreading",
     "related": [
-      "1934551022330000027",
       "1920118822770000040",
+      "1934551022330000027",
       "1924551022330000036",
       "1913440066440000046",
       "1951220099660000012",
@@ -2136,11 +2137,11 @@
     "summary": "Evergreen notes should be concept-oriented. This is the idea that finally made my note-taking survive more than a month.",
     "search_text": "Evergreen notes should be concept-oriented. This is the idea that finally made my note-taking survive more than a month.\n@notesthatlast Wren Baptiste\nnotes.andymatuschak.org\nEvergreen notes\nEvergreen notes are written and organized to evolve, contribute, and accumulate over time, across projects. This is an unusual way to think about writing notes: Most people take only transient notes. That’s because these practices aren’t about writing notes; they’re about effectively developing insight: “Better note-taking” misses the point; what matters is “better thinking”. When done well, these notes can be quite valuable: Evergreen note-writing as fundamental unit of knowledge work.\n\nIt’s hard to write notes that are worth developing over time. These principles help:\n\nEvergreen notes should be atomic\n\nEvergreen notes should be concept-oriented\n\nEvergreen notes should be densely linked\n\nPrefer associative ontologies to hierarchical taxonomies\n\nWrite notes for yourself by default, disregarding audience\n\nThis concept is of course enormously indebted to the notion of a Zettelkasten. See Similarities and differences between evergreen note-writing and Zettelkasten.\n\nImplementing an evergreen note practice\n\nWrite about what you read to internalize texts deeply\n\nA reading inbox to capture possibly-useful references\n\nA writing inbox for transient and incomplete notes\n\nExecutable strategy for writing\n\nAhrens, S. (2017). How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking – for Students, Academics and Nonfiction Book Writers.\n\nMany students and academic writers think like the early ship owners when it comes to note-taking. They handle their ideas and findings in the way it makes immediate sense: If they read an interesting sentence, they underline it. If they have a comment to make, they write it into the margins. If they have an idea, they write it into their notebook, and if an article seems important enough, they make the effort and write an excerpt. Working like this will leave you with a lot of different notes in many different places. Writing, then, means to rely heavily on your brain to remember where and when these notes were written down.\n\nLuhmann, N. (1992). Communicating with Slip Boxes. In A. Kieserling (Ed.), & M. Kuehn (Trans.), Universität als Milieu: Kleine Schriften (pp. 53–61). Retrieved from http://luhmann.surge.sh/communicating-with-slip-boxes\nreading",
     "related": [
-      "1917882200990000042",
-      "1956544778990000007",
       "1953004411440000010",
+      "1917882200990000042",
       "1911220044660000048",
-      "1913440066440000046",
+      "1956544778990000007",
+      "1955330112220000008",
       "1945661188220000017"
     ],
     "crawled_words": 332
@@ -2184,8 +2185,8 @@
       "1932331100550000029",
       "1962011044880000001",
       "1915662088220000044",
-      "1914551022330000045",
-      "1956544778990000007"
+      "1956544778990000007",
+      "1924551022330000036"
     ],
     "crawled_words": 28
   },
@@ -2226,10 +2227,10 @@
     "related": [
       "1950118833770000013",
       "1955330112220000008",
-      "1951220099660000012",
-      "1932331100550000029",
+      "1947881122990000015",
       "1939004466880000023",
-      "1947881122990000015"
+      "1932331100550000029",
+      "1934551022330000027"
     ],
     "crawled_words": 860
   },
@@ -2297,7 +2298,7 @@
       "1932331100550000029",
       "1934551022330000027",
       "1921220044660000039",
-      "1935662088220000026"
+      "1957889001660000006"
     ],
     "crawled_words": 0
   },
@@ -2343,8 +2344,8 @@
       "1942331100550000020",
       "1952661177550000011",
       "1910118822770000049",
-      "1961205511220000002",
-      "1957889001660000006"
+      "1957889001660000006",
+      "1917882200990000042"
     ],
     "crawled_words": 757
   }
