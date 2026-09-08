@@ -1,5 +1,5 @@
 import { BookmarkSchema, type Bookmark } from "./types";
-import { normalizeUrl } from "./text";
+import { isShortenerUrl, normalizeUrl } from "./text";
 
 /**
  * Adapter between "whatever the X export produced" and our canonical Bookmark.
@@ -68,20 +68,6 @@ function extractAuthor(record: Loose): { name: string; handle: string; avatar_ur
   };
 }
 
-/** Shorteners whose URLs carry no content of their own, only a redirect. */
-const SHORTENER_HOSTS = new Set([
-  "t.co", "bit.ly", "buff.ly", "lnkd.in", "ow.ly", "tinyurl.com", "dlvr.it",
-  "trib.al", "goo.gl", "ift.tt", "j.mp", "rebrand.ly", "shorturl.at",
-]);
-
-function isShortener(url: string): boolean {
-  try {
-    return SHORTENER_HOSTS.has(new URL(url).hostname.replace(/^www\./, ""));
-  } catch {
-    return false;
-  }
-}
-
 function isSelfLink(url: string): boolean {
   return /^https?:\/\/(x|twitter)\.com\//.test(url);
 }
@@ -109,7 +95,7 @@ function extractUrls(record: Loose, text: string): string[] {
     if (normalized) found.add(normalized);
   }
 
-  return [...found].filter((url) => !isShortener(url) && !isSelfLink(url));
+  return [...found].filter((url) => !isShortenerUrl(url) && !isSelfLink(url));
 }
 
 /** Shortener links found in the post, for the opt-in resolver in the crawler. */
@@ -118,12 +104,12 @@ function extractShortUrls(record: Loose, text: string): string[] {
 
   for (const match of text.matchAll(/https?:\/\/[^\s<>"')]+/g)) {
     const normalized = normalizeUrl(match[0]);
-    if (normalized && isShortener(normalized)) found.add(normalized);
+    if (normalized && isShortenerUrl(normalized)) found.add(normalized);
   }
   for (const value of asArray((record.entities as Loose)?.urls)) {
     const url = str((value as Loose).url);
     const normalized = url ? normalizeUrl(url) : null;
-    if (normalized && isShortener(normalized)) found.add(normalized);
+    if (normalized && isShortenerUrl(normalized)) found.add(normalized);
   }
 
   return [...found];

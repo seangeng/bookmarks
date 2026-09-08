@@ -10,7 +10,7 @@ import { extractArticle } from "../scripts/lib/extract";
 import { readSeed } from "../scripts/lib/seed";
 import { cosineSimilarity, localEmbed } from "../src/lib/embeddings";
 import { normalizeBookmark, normalizeExport } from "../src/lib/normalize";
-import { normalizeUrl, snippetFor, terms } from "../src/lib/text";
+import { normalizeUrl, postBody, snippetFor, stripShortenerUrls, terms } from "../src/lib/text";
 import { pickTopics, scoreTopics, toTopicSlug } from "../src/lib/topics";
 
 /* ------------------------------------------------------- export adapter */
@@ -408,6 +408,34 @@ test("tokenizer keeps compounds whole and split, and drops stop words", () => {
 test("light stemming folds plurals so index and query agree", () => {
   assert.deepEqual(terms("embeddings"), terms("embedding"));
   assert.deepEqual(terms("budgets"), terms("budget"));
+});
+
+test("stripShortenerUrls removes shorteners but keeps real links", () => {
+  assert.equal(
+    stripShortenerUrls("This is crazyyy https://t.co/3pbQ9Le18j"),
+    "This is crazyyy",
+  );
+  assert.equal(
+    stripShortenerUrls("read https://example.com/post and https://bit.ly/x"),
+    "read https://example.com/post and",
+  );
+  assert.equal(stripShortenerUrls("no links here"), "no links here");
+});
+
+test("postBody falls back to the summary, then flags link-only posts", () => {
+  assert.deepEqual(postBody("This is crazyyy https://t.co/abc", "ignored"), {
+    body: "This is crazyyy",
+    linkOnly: false,
+  });
+
+  // Nothing but a shortener: fall back to what the crawl learned.
+  assert.deepEqual(postBody("https://t.co/abc", "Taste-Skill — gives your AI good taste"), {
+    body: "Taste-Skill — gives your AI good taste",
+    linkOnly: false,
+  });
+
+  // Nothing but a shortener and nothing crawled: the card must say so.
+  assert.equal(postBody("https://t.co/abc", "").linkOnly, true);
 });
 
 test("snippetFor centres on the query terms", () => {

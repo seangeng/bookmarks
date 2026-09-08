@@ -67,6 +67,43 @@ export function terms(input: string): string[] {
   return tokenize(input).map(stem);
 }
 
+/** Shorteners whose URLs carry no content of their own, only a redirect. */
+export const SHORTENER_HOSTS = new Set([
+  "t.co", "bit.ly", "buff.ly", "lnkd.in", "ow.ly", "tinyurl.com", "dlvr.it",
+  "trib.al", "goo.gl", "ift.tt", "j.mp", "rebrand.ly", "shorturl.at",
+]);
+
+export function isShortenerUrl(url: string): boolean {
+  try {
+    return SHORTENER_HOSTS.has(new URL(url).hostname.replace(/^www\./, ""));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Removes shortener URLs from text meant for display. An unexpanded t.co link
+ * is unreadable and unclickable-to-anywhere-useful, and X puts one in almost
+ * every post — 96% of this library's posts contain at least one. The raw text
+ * is preserved in the seed and the index; this only affects rendering.
+ */
+export function stripShortenerUrls(text: string): string {
+  return collapseWhitespace(
+    text.replace(/https?:\/\/\S+/g, (match) => (isShortenerUrl(match) ? " " : match)),
+  );
+}
+
+/** What to render as a post's body, and whether it turned out to have none. */
+export function postBody(text: string, summary = ""): { body: string; linkOnly: boolean } {
+  const stripped = stripShortenerUrls(text);
+  if (stripped.length >= 12) return { body: stripped, linkOnly: false };
+
+  const fallback = collapseWhitespace(summary);
+  if (fallback.length >= 12) return { body: fallback, linkOnly: false };
+
+  return { body: stripped || fallback, linkOnly: true };
+}
+
 export function domainOf(url: string): string {
   try {
     return new URL(url).hostname.replace(/^www\./, "");

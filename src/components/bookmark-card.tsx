@@ -4,7 +4,7 @@ import { cn } from "cn";
 
 import { Highlight } from "@/components/highlight";
 import { TopicChip } from "@/components/topic-chip";
-import { formatDate, relativeDate, truncate } from "@/lib/text";
+import { formatDate, postBody, relativeDate, truncate } from "@/lib/text";
 import type { BookmarkLink, IndexedBookmark } from "@/lib/types";
 
 function LinkRow({ link }: { link: BookmarkLink }) {
@@ -64,7 +64,7 @@ export function BookmarkCard({
   className,
   compact = false,
 }: BookmarkCardProps) {
-  const body = bookmark.text || bookmark.summary;
+  const { body, linkOnly } = postBody(bookmark.text, bookmark.summary);
   const links = compact ? bookmark.links.slice(0, 1) : bookmark.links.slice(0, 2);
 
   return (
@@ -89,14 +89,20 @@ export function BookmarkCard({
       </div>
 
       <Link href={`/b/${bookmark.id}`} className="mt-2 block">
-        <p
-          className={cn(
-            "font-heading leading-snug text-foreground/95",
-            compact ? "text-[0.95rem]" : "text-[1.05rem]",
-          )}
-        >
-          <Highlight text={compact ? truncate(body, 180) : truncate(body, 420)} query={query} />
-        </p>
+        {linkOnly ? (
+          <p className="text-sm text-muted-foreground italic">
+            Link-only post — the export didn’t include the destination.
+          </p>
+        ) : (
+          <p
+            className={cn(
+              "font-heading leading-snug text-foreground/95",
+              compact ? "text-[0.95rem]" : "text-[1.05rem]",
+            )}
+          >
+            <Highlight text={compact ? truncate(body, 180) : truncate(body, 420)} query={query} />
+          </p>
+        )}
       </Link>
 
       {evidence && (

@@ -8,7 +8,7 @@ import { PostText } from "@/components/post-text";
 import { TopicChip } from "@/components/topic-chip";
 import { XEmbed } from "@/components/x-embed";
 import { getBookmark, getRelatedBookmarks, getAllBookmarks } from "@/lib/library";
-import { formatDate, truncate } from "@/lib/text";
+import { formatDate, postBody, truncate } from "@/lib/text";
 import type { BookmarkLink } from "@/lib/types";
 
 type Params = Promise<{ id: string }>;
@@ -118,6 +118,7 @@ export default async function BookmarkPage({ params }: { params: Params }) {
   if (!bookmark) notFound();
 
   const related = getRelatedBookmarks(bookmark, 4);
+  const body = postBody(bookmark.text, bookmark.summary);
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-10">
@@ -155,9 +156,16 @@ export default async function BookmarkPage({ params }: { params: Params }) {
           </time>
         </div>
 
-        <p className="mt-4 font-heading text-2xl leading-snug tracking-tight whitespace-pre-wrap">
-          <PostText text={bookmark.text || bookmark.summary} />
-        </p>
+        {body.linkOnly ? (
+          <p className="mt-4 text-base text-muted-foreground italic">
+            Link-only post — the export didn’t include the destination, so there is nothing
+            archived for it.
+          </p>
+        ) : (
+          <p className="mt-4 font-heading text-2xl leading-snug tracking-tight whitespace-pre-wrap">
+            <PostText text={body.body} />
+          </p>
+        )}
 
         <div className="mt-4 flex flex-wrap items-center gap-1.5">
           {bookmark.topics.map((topic) => (
