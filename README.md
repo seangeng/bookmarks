@@ -359,6 +359,17 @@ src/
 Generated data is committed on purpose: it makes the deploy hermetic, keeps the site working
 without any backing service, and makes every pipeline change reviewable as a diff.
 
+### Where this design stops working
+
+Worth stating plainly, since the shortcuts are deliberate rather than accidental. The read model
+is imported as a module, so it is loaded whole into each server bundle: fine for the hundreds-to
+low-thousands of bookmarks a person actually saves (the sample index is ~290 KB), uncomfortable
+somewhere past ~10k. The exit ramps, in the order they would be needed: move vectors to Upstash
+(already supported by a config change), then switch the read model from a static import to a
+traced `fs` read plus pagination, then move the enriched records into Postgres or SQLite and keep
+the JSON only as a build cache. Exact in-process cosine search is likewise linear in the corpus;
+it is imperceptible here and the `VectorStore` interface is where an ANN index would slot in.
+
 ## Stack
 
 Next.js 16 (App Router) · TypeScript · Tailwind CSS 4 · shadcn/ui · zod · cheerio · tsx ·
